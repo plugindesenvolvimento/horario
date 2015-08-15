@@ -13,11 +13,11 @@
 	<h:form id="mainForm">
 		<p:panel>
 
-			<p:outputLabel value="Matriz Curricular: " for="matriz" />
-			<p:outputLabel id="matriz" value="" />
+			<h:outputText value="Matriz Curricular: " for="nomeMatriz" />
+			<h:outputText id="nomeMatriz" value="#{cadastroMatriz.matriz.nome}" />
 			<br></br>
-			<p:outputLabel value="Curso: " for="curso" />
-			<p:outputLabel id="curso" value="" />
+			<h:outputText value="Curso: " for="nomeCurso" />
+			<h:outputText id="nomeCurso" value="#{cadastroMatriz.matriz.idcurso.nome}" />
 
 			<br></br>
 			<br></br>
@@ -47,8 +47,8 @@
 				</p:selectOneMenu>
 
 				<p:outputLabel for="grupoCurricular" value=" Grupo Curricular: " />
-				<p:selectOneMenu id="grupoCurricular" value="">
-					<f:selectItems value="" />
+				<p:selectOneMenu id="grupoCurricular" value="#{cadastroMatriz.grupoCurricular}">
+					<f:selectItems value="#{cadastroMatriz.listaGrupoCurricular}" />
 				</p:selectOneMenu>
 			</p:panel>
 

@@ -5,7 +5,7 @@ public enum RegimeLetivo {
 	
 	SEMESTRAL(0,"SEMESTRAL"), ANUAL(1,"ANUAL");
 
-	private final String nome;
+	private String nome;
 	private Integer id;
 	
 	private RegimeLetivo(Integer id, String nome) {

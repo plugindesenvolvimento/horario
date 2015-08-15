@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
-import javax.faces.event.AjaxBehaviorEvent;
+import javax.faces.bean.SessionScoped;
 
 import br.edu.ifba.plugin.horario.controle.ControleMatriz;
+import br.edu.ifba.plugin.horario.enumeradores.GrupoCurricular;
 import br.edu.ifba.plugin.horario.modelo.bd.beans.Curso;
 import br.edu.ifba.plugin.horario.modelo.bd.beans.Matriz;
 import br.edu.ifba.plugin.horario.modelo.bd.beans.ModalidadeCurso;
@@ -16,16 +16,20 @@ import br.edu.ifba.plugin.horario.modelo.bd.dao.ModalidadeCursoDAO;
 import br.edu.ifba.plugin.horario.visao.ICadastroMatriz;
 
 @ManagedBean(name = "cadastroMatriz")
-@ViewScoped
+@SessionScoped
 public class CadastroMatriz implements ICadastroMatriz {
 
 	private List<Matriz> matrizes = new ArrayList<Matriz>();
 	private Matriz matriz;
 	private ModalidadeCursoDAO listaModalidades = new ModalidadeCursoDAO(null);
-	private CursoDAO listaCursos = new CursoDAO(null);
-	private Curso selectedCurso = new Curso();
-	private ModalidadeCurso selectedModalidade = new ModalidadeCurso();
+	private CursoDAO listaCursoDAO = new CursoDAO(null);
 	private ModalidadeCurso modalidade;
+	private List<Curso> listaCursos = new ArrayList<Curso>(); 
+	//private ControleCurso controleCurso = new ControleCurso(null);
+	private GrupoCurricular grupoCurricular;
+	public GrupoCurricular listaGrupoCurricular;
+
+	
 	
 	public ModalidadeCurso getModalidade() {
 		return modalidade;
@@ -105,33 +109,24 @@ public class CadastroMatriz implements ICadastroMatriz {
 		System.out.println("Falhou!");
 	}
 	
+	
+	
 	public List<ModalidadeCurso> getListaModalidadeCurso(){
 		return listaModalidades.getModalidades();
 	}
 	
-	
-	public CursoDAO getListaCursos() {
+	public List<Curso> getListaCursos() {
 		return listaCursos;
 	}
 
-	public void setListaCursos(CursoDAO listaCursos) {
+	public void setListaCursos(List<Curso> listaCursos) {
 		this.listaCursos = listaCursos;
 	}
 
-	public Curso getSelectedCurso() {
-		return selectedCurso;
+	public void atualizarCursos(){
+		listaCursos = listaCursoDAO.getByModalidade(modalidade.getId());
 	}
-
-	public void setSelectedCurso(Curso selectedCurso) {
-		this.selectedCurso = selectedCurso;
-	}
-
 	
-	
-	public void atualizarCursos(AjaxBehaviorEvent event){
-		  listaCursos.getByModalidade(selectedModalidade.getId());
-	}
-
 	public ModalidadeCursoDAO getListaModalidades() {
 		return listaModalidades;
 	}
@@ -139,20 +134,19 @@ public class CadastroMatriz implements ICadastroMatriz {
 	public void setListaModalidades(ModalidadeCursoDAO listaModalidades) {
 		this.listaModalidades = listaModalidades;
 	}
-
-	@Override
-	public ModalidadeCurso getSelectedModalidade() {
-		return selectedModalidade;
+		
+	
+	public GrupoCurricular getGrupoCurricular() {
+		return grupoCurricular;
 	}
 
-	public void setSelectedModalidade(ModalidadeCurso selectedModalidade) {
-		this.selectedModalidade = selectedModalidade;
+	public void setGrupoCurricular(GrupoCurricular grupoCurricular) {
+		this.grupoCurricular = grupoCurricular;
 	}
 	
-	
-	public void getHabilitado()
+	public GrupoCurricular[] getListaGrupoCurricular()
 	{
-		controle.getHabilitado();
+		return GrupoCurricular.values();
 	}
 	
 }

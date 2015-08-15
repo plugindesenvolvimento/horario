@@ -78,11 +78,11 @@
 							<h:outputText value="Componente Curricular" />
 						</f:facet>
 
-						<p:commandLink process="@this"
-							action="#{cadastroMatriz.prepararEdicao(matriz)}">
+						<p:commandLink process="@this" 
+							action="open">
 							<p:graphicImage value="/img/grade.png" id="imagemComponente" />
 							<p:tooltip id="toolTipComponente" for="imagemComponente"
-								value="Componente Curricular" />
+								value="Componente Curricular"  />
 							<f:setPropertyActionListener target="#{cadastroMatriz.matriz}"
 								value="#{matriz}" for="grupoCurricular" />
 						</p:commandLink>
@@ -133,21 +133,21 @@
 
 
 				<p:outputLabel for="modalidade" value="Modalidade: " />
-				<p:selectOneMenu id="modalidade"
+				<p:selectOneMenu id="modalidade" 
 					value="#{cadastroMatriz.modalidade}"
+					converter="conversorModalidadeCurso"
 					 style="width:150px">
 					<p:ajax listener="#{cadastroMatriz.atualizarCursos}" update="curso" />
-					<f:selectItem itemLabel="" itemValue="" noSelectionOption="true" />
-					<f:selectItems value="#{cadastroMatriz.listaModalidadeCurso}"
-						var="modalid" itemValue="#{modalid}" itemLabel="#{modalid.nome}" />
+					<f:selectItem itemLabel=""  noSelectionOption="true" />
+					<f:selectItems value="#{cadastroMatriz.listaModalidadeCurso}"/>
 				</p:selectOneMenu>
 
 				<p:outputLabel for="curso" value="Curso: " />
 				<p:selectOneMenu id="curso" style="width:150px"
-					 value="#{cadastroMatriz.selectedCurso}">
-					<f:selectItem itemLabel="" itemValue="" noSelectionOption="true" />
-					<f:selectItems value="#{cadastroMatriz.listaCursos}" var="curs"
-						itemValue="#{curs}" itemLabel="#{curs.nome}" />
+					 value="#{cadastroMatriz.matriz.idcurso}"
+					 converter="conversorCurso">
+<!-- 					<f:selectItem itemLabel=""  noSelectionOption="true" /> -->
+					<f:selectItems value="#{cadastroMatriz.listaCursos}" />
 				</p:selectOneMenu>
 
 				<p:outputLabel for="data" value="Data da Matriz:" />

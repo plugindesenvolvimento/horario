@@ -10,7 +10,7 @@ import javax.persistence.TypedQuery;
 import br.edu.ifba.plugin.horario.modelo.bd.beans.Curso;
 import br.edu.ifba.plugin.horario.visao.ICadastroCurso;
 
-public class CursoDAO extends DAO {
+public class CursoDAO extends DAO  {
 
 	private ICadastroCurso cadastro;
 
@@ -96,7 +96,8 @@ public class CursoDAO extends DAO {
 		return encontrados;
 	}
 
-	
+
+		
 	@SuppressWarnings("unchecked")
 	public List<Curso> getByModalidade(Integer idModalidade) {
 
@@ -120,8 +121,8 @@ public class CursoDAO extends DAO {
 
 		commitTransacao();
 
-		return modalidades;
-		*/
+		return modalidades;*/
+		
 		
 		iniciarTransacao(); 
 		 em.flush();
@@ -154,8 +155,20 @@ public class CursoDAO extends DAO {
 		}
 
 		return modalidades;
-		*/
 		
+		
+		
+		List<Curso> encontrados = new ArrayList<Curso>();
+
+		TypedQuery<Curso> query = em.createQuery(
+				"SELECT u FROM Curso u where u.idmodalidadecurso.id=:idmodalidadecurso", Curso.class);
+		try {
+			encontrados = query.getResultList();
+		} catch (NoResultException e) {
+			e.printStackTrace();
+		}
+
+		return encontrados;*/
 	}
-		    
+		   
 }

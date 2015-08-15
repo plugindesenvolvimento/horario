@@ -1,0 +1,85 @@
+<html class="no-js" lang="pt-br" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:head>
+	<title>Cadastro de Componente Curricular</title>
+</h:head>
+
+<h:body>
+	<h:form id="mainForm">
+		<p:panel>
+
+			<p:outputLabel value="Matriz Curricular: " for="matriz" />
+			<p:outputLabel id="matriz" value="" />
+			<br></br>
+			<p:outputLabel value="Curso: " for="curso" />
+			<p:outputLabel id="curso" value="" />
+
+			<br></br>
+			<br></br>
+
+			<p:panel>
+				<p:outputLabel value="Disciplina: " for="disciplina" />
+				<p:autoComplete id="disciplina" value="">
+					<p:ajax event="itemSelect" />
+				</p:autoComplete>
+
+				<br></br>
+				<br></br>
+
+				<p:outputLabel for="periodo" value="Período: " />
+				<p:selectOneMenu id="periodo" value="">
+					<f:selectItem itemLabel="" itemValue="" />
+					<f:selectItem itemLabel="1" itemValue="1" />
+					<f:selectItem itemLabel="2" itemValue="2" />
+					<f:selectItem itemLabel="3" itemValue="3" />
+					<f:selectItem itemLabel="4" itemValue="4" />
+					<f:selectItem itemLabel="5" itemValue="5" />
+					<f:selectItem itemLabel="6" itemValue="6" />
+					<f:selectItem itemLabel="7" itemValue="7" />
+					<f:selectItem itemLabel="8" itemValue="8" />
+					<f:selectItem itemLabel="9" itemValue="9" />
+					<f:selectItem itemLabel="10" itemValue="10" />
+				</p:selectOneMenu>
+
+				<p:outputLabel for="grupoCurricular" value=" Grupo Curricular: " />
+				<p:selectOneMenu id="grupoCurricular" value="">
+					<f:selectItems value="" />
+				</p:selectOneMenu>
+			</p:panel>
+
+			<br></br>
+
+			<p:commandButton id="novoButton" value="Incluir" process="@this"
+				style="margin-left:1215px" />
+
+			<br></br>
+			<br></br>
+
+
+			<p:fieldset legend="Componentes Curriculares"
+				style="margin-bottom:20px">
+
+				<p:dataTable var="componenteCurricular" value="">
+					<p:column headerText="1º SEMESRTE">
+						<h:outputText value="" />
+					</p:column>
+
+					<p:column headerText="CH">
+						<h:outputText value="" />
+					</p:column>
+
+					<p:column headerText="Ação">
+						<h:outputText value="" />
+					</p:column>
+				</p:dataTable>
+
+			</p:fieldset>
+		</p:panel>
+	</h:form>
+</h:body>
+</html>

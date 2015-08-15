@@ -1,0 +1,158 @@
+<html class="no-js" lang="pt-br" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:head>
+	<title>Cadastro de Disciplina</title>
+</h:head>
+
+<h:body onload="#{cadastroDisciplina.listarDisciplinas()}">
+	<h:form id="mainForm">
+
+		<p:panel id="custom" header="Disciplinas" style="margin-bottom:20px">
+			<h:panelGrid columns="2">
+				<p:commandButton id="novoButton" value="Novo"
+					update=":mainForm:modalNovo" process="@this" icon="ui-icon-plus"
+					action="#{cadastroDisciplina.prepararAdicao()}" />
+			</h:panelGrid>
+
+			<br></br>
+			<p:outputPanel id="list-container" layout="block" process="@this">
+				<p:dataTable id="disciplinaTable" rows="10" var="disciplina"
+					value="#{cadastroDisciplina.disciplinas}" paginator="true"
+					paginatorPosition="bottom"
+					emptyMessage="Nenhuma disciplina cadastrada." process="@this">
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Nome da Disciplina" />
+						</f:facet>
+						<h:outputText value="#{disciplina.nome}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Código" />
+						</f:facet>
+						<h:outputText value="#{disciplina.codigo}" />
+					</p:column>
+							
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Carga Horária" />
+						</f:facet>
+						<h:outputText value="#{disciplina.cargahoraria}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Área" />
+						</f:facet>
+						<h:outputText value="#{disciplina.idarea.nome}" />
+					</p:column>
+					
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Créditos" />
+						</f:facet>
+						<h:outputText value="#{disciplina.creditos}" />
+					</p:column>
+					
+					
+					<p:column style="width:60px">
+						<f:facet name="header">
+							<h:outputText value="Ações" />
+						</f:facet>
+
+
+						<p:commandLink process="@this" update=":mainForm:modalNovo"
+							action="#{cadastroDisciplina.prepararEdicao(disciplina)}">
+							<p:graphicImage value="/img/editar.png" id="imagemAlterar" />
+							<p:tooltip id="toolTipAlterar" for="imagemAlterar" value="Editar" />
+							<f:setPropertyActionListener
+								target="#{cadastroDisciplina.disciplina}" value="#{disciplina}" />
+						</p:commandLink>
+
+						<h:outputText value="&#160;&#160;&#160;&#160;" escape="false" />
+
+						<p:commandLink process="@this"
+							onclick="PF('confirmDeleteDialog').show();">
+							<p:graphicImage value="/img/apagar.png" id="imagemExcluir" />
+							<p:tooltip id="toolTipExcluir" for="imagemExcluir"
+								value="Excluir" />
+							<f:setPropertyActionListener
+								target="#{cadastroDisciplina.disciplina}" value="#{disciplina}" />
+						</p:commandLink>
+
+					</p:column>
+
+				</p:dataTable>
+			</p:outputPanel>
+		</p:panel>
+
+
+		<p:dialog id="modalNovo" header="Cadastro de Disciplina"
+			widgetVar="novaDisciplina" resizable="false" closeOnEscape="true"
+			draggable="false" visible="#{cadastroDisciplina.exibirEditor()}"
+			modal="true">
+			<h:panelGrid columns="2">
+				<p:outputLabel value="* Nome da Disciplina: " for="descricao" />
+				<p:inputText id="descricao"
+					value="#{cadastroDisciplina.disciplina.nome}" />
+
+				<p:outputLabel value="* Código: " for="codigo" />
+				<p:inputText id="codigo"
+					value="#{cadastroDisciplina.disciplina.codigo}" />
+
+				<p:outputLabel value="* Carga Horária: " for="carga" />
+				<p:inputText id="carga"
+					value="#{cadastroDisciplina.disciplina.cargahoraria}" />
+
+				<p:outputLabel for="area" value="* Área: " />
+				<p:selectOneMenu id="area" value="#{cadastroDisciplina.disciplina.idarea}" converter="conversorArea">
+					<f:selectItems value="#{cadastroDisciplina.listaArea}" />
+				</p:selectOneMenu>
+
+				<p:outputLabel value="* Créditos: " for="creditos" />
+				<p:inputText id="creditos"
+					value="#{cadastroDisciplina.disciplina.creditos}" />
+
+				<h:outputText value="* Campos Obrigatórios"
+					style="margin-left: 100px;" />
+				<br></br>
+				<br></br>
+				<p:commandButton value="Salvar" process=":mainForm:modalNovo"
+					actionListener="#{cadastroDisciplina.gravarDisciplina()}"
+					update=":mainForm:list-container"
+					onclick="PF('novaDisciplina').hide()" icon="ui-icon-disk"
+					style="margin-left: 150px;" />
+				<p:commandButton value="Cancelar" process="@this"
+					icon="ui-icon-cancel"
+					action="#{cadastroDisciplina.cancelarEdicao()}"
+					onclick="PF('novaDisciplina').hide()" />
+			</h:panelGrid>
+		</p:dialog>
+
+		<p:dialog id="modalExclusao" header="Exclusão de Disciplina"
+			widgetVar="confirmDeleteDialog" modal="true">
+			<p:hotkey bind="esc" handler="confirmDeleteDialog.hide();" />
+			<p:outputLabel
+				value="Tem certeza de que deseja excluir esta disciplina?" />
+			<br></br>
+			<br></br>
+			<br></br>
+			<p:commandButton value="Sim"
+				action="#{cadastroDisciplina.excluirDisciplina()}"
+				onclick="PF('confirmDeleteDialog').hide();" process="@this"
+				update=":mainForm:list-container" style="margin-left: 275px;" />
+			<p:commandButton value="Não" process="@this"
+				action="#{cadastroDisciplina.cancelarEdicao()}"
+				onclick="PF('confirmDeleteDialog').hide();" />
+		</p:dialog>
+
+	</h:form>
+</h:body>
+</html>

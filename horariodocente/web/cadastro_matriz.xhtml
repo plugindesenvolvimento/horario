@@ -1,0 +1,206 @@
+<html class="no-js" lang="pt-br" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:head>
+	<title>Cadastro de Matriz</title>
+</h:head>
+
+<h:body onload="#{cadastroMatriz.listarMatrizes()}">
+	<h:form id="mainForm">
+
+		<p:panel id="custom" header="Matrizes" style="margin-bottom:20px">
+			<h:panelGrid columns="2">
+				<p:commandButton id="novoButton" value="Novo"
+					update=":mainForm:modalNovo" process="@this" icon="ui-icon-plus"
+					action="#{cadastroMatriz.prepararAdicao()}" />
+			</h:panelGrid>
+
+			<br></br>
+			<p:outputPanel id="list-container" layout="block" process="@this">
+				<p:dataTable id="matrizTable" rows="10" var="matriz"
+					value="#{cadastroMatriz.matrizes}" paginator="true"
+					paginatorPosition="bottom"
+					emptyMessage="Nenhuma matriz cadastrada." process="@this">
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Nome da Matriz" />
+						</f:facet>
+						<h:outputText value="#{matriz.nome}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Curso" />
+						</f:facet>
+						<h:outputText value="#{matriz.idcurso.nome}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Modalidade" />
+						</f:facet>
+						<h:outputText value="#{matriz.idcurso.idmodalidadecurso.nome}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Data Início" />
+						</f:facet>
+						<h:outputText value="#{matriz.data}">
+							<f:convertDateTime pattern="dd/MM/yyyy" />
+						</h:outputText>
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Ativa" />
+						</f:facet>
+						<h:outputText value="Sim" rendered="#{matriz.ativa == true}"/>
+						<h:outputText value="Não" rendered="#{matriz.ativa == false}"/>	
+						
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Quantidade de Períodos" />
+						</f:facet>
+						<h:outputText value="#{matriz.quantidadeperiodos}" />
+					</p:column>
+
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Componente Curricular" />
+						</f:facet>
+
+						<p:commandLink process="@this"
+							action="#{cadastroMatriz.prepararEdicao(matriz)}">
+							<p:graphicImage value="/img/grade.png" id="imagemComponente" />
+							<p:tooltip id="toolTipComponente" for="imagemComponente"
+								value="Componente Curricular" />
+							<f:setPropertyActionListener target="#{cadastroMatriz.matriz}"
+								value="#{matriz}" for="grupoCurricular" />
+						</p:commandLink>
+					</p:column>
+
+
+					<p:column style="width:60px">
+						<f:facet name="header">
+							<h:outputText value="Ações" />
+						</f:facet>
+
+
+						<p:commandLink process="@this" update=":mainForm:modalNovo"
+							action="#{cadastroMatriz.prepararEdicao(matriz)}">
+							<p:graphicImage value="/img/editar.png" id="imagemAlterar" />
+							<p:tooltip id="toolTipAlterar" for="imagemAlterar" value="Editar" />
+							<f:setPropertyActionListener target="#{cadastroMatriz.matriz}"
+								value="#{matriz}" />
+						</p:commandLink>
+
+						<h:outputText value="&#160;&#160;&#160;&#160;" escape="false" />
+
+						<p:commandLink process="@this"
+							onclick="PF('confirmDeleteDialog').show();">
+							<p:graphicImage value="/img/apagar.png" id="imagemExcluir" />
+							<p:tooltip id="toolTipExcluir" for="imagemExcluir"
+								value="Excluir" />
+							<f:setPropertyActionListener target="#{cadastroMatriz.matriz}"
+								value="#{matriz}" />
+						</p:commandLink>
+
+					</p:column>
+
+
+				</p:dataTable>
+			</p:outputPanel>
+		</p:panel>
+
+
+		<p:dialog id="modalNovo" header="Cadastro de Matriz"
+			widgetVar="novaMatriz" resizable="false" closeOnEscape="true"
+			draggable="false" visible="#{cadastroMatriz.exibirEditor()}"
+			modal="true">
+			<h:panelGrid columns="2">
+				<p:outputLabel value="* Nome da Matriz: " for="descricao" />
+				<p:inputText id="descricao" value="#{cadastroMatriz.matriz.nome}" />
+
+
+
+				<p:outputLabel for="modalidade" value="Modalidade: " />
+				<p:selectOneMenu id="modalidade"
+					value="#{cadastroMatriz.modalidade}"
+					 style="width:150px">
+					<p:ajax listener="#{cadastroMatriz.atualizarCursos}" update="curso" />
+					<f:selectItem itemLabel="" itemValue="" noSelectionOption="true" />
+					<f:selectItems value="#{cadastroMatriz.listaModalidadeCurso}"
+						var="modalid" itemValue="#{modalid}" itemLabel="#{modalid.nome}" />
+				</p:selectOneMenu>
+
+				<p:outputLabel for="curso" value="Curso: " />
+				<p:selectOneMenu id="curso" style="width:150px"
+					 value="#{cadastroMatriz.selectedCurso}">
+					<f:selectItem itemLabel="" itemValue="" noSelectionOption="true" />
+					<f:selectItems value="#{cadastroMatriz.listaCursos}" var="curs"
+						itemValue="#{curs}" itemLabel="#{curs.nome}" />
+				</p:selectOneMenu>
+
+				<p:outputLabel for="data" value="Data da Matriz:" />
+				<p:calendar id="data" value="#{cadastroMatriz.matriz.data}"
+					pattern="dd-MM-yyyy" mask="true" />
+
+				<h:outputText value="Ativa: " />
+				<p:selectBooleanCheckbox value="#{cadastroMatriz.matriz.ativa}" />
+
+				<p:outputLabel for="periodo" value="Quantidade de Períodos" />
+				<p:selectOneMenu id="periodo"
+					value="#{cadastroMatriz.matriz.quantidadeperiodos}">
+					<f:selectItem itemLabel="1" itemValue="1" />
+					<f:selectItem itemLabel="2" itemValue="2" />
+					<f:selectItem itemLabel="3" itemValue="3" />
+					<f:selectItem itemLabel="4" itemValue="4" />
+					<f:selectItem itemLabel="5" itemValue="5" />
+					<f:selectItem itemLabel="6" itemValue="6" />
+					<f:selectItem itemLabel="7" itemValue="7" />
+					<f:selectItem itemLabel="8" itemValue="8" />
+					<f:selectItem itemLabel="9" itemValue="9" />
+					<f:selectItem itemLabel="10" itemValue="10" />
+				</p:selectOneMenu>
+
+				<h:outputText value=" " style="margin-left: 100px;" />
+
+				<p:commandButton value="Salvar" process=":mainForm:modalNovo"
+					action="#{cadastroMatriz.gravarMatriz()}"
+					update=":mainForm:list-container" onclick="PF('novaMatriz').hide()"
+					icon="ui-icon-disk" style="margin-left: 150px;" />
+				<p:commandButton value="Cancelar" process="@this"
+					icon="ui-icon-cancel" action="#{cadastroMatriz.cancelarEdicao()}"
+					onclick="PF('novaMatriz').hide()" />
+			</h:panelGrid>
+		</p:dialog>
+
+		<p:dialog id="modalExclusao" header="Exclusão de Matriz"
+			widgetVar="confirmDeleteDialog" modal="true">
+			<p:hotkey bind="esc" handler="confirmDeleteDialog.hide();" />
+			<p:outputLabel value="Tem certeza de que deseja excluir esta matriz?" />
+			<br></br>
+			<br></br>
+			<br></br>
+			<p:commandButton value="Sim"
+				action="#{cadastroMatriz.excluirMatriz()}"
+				onclick="PF('confirmDeleteDialog').hide();" process="@this"
+				update=":mainForm:list-container" style="margin-left: 275px;" />
+			<p:commandButton value="Não" process="@this"
+				action="#{cadastroMatriz.cancelarEdicao()}"
+				onclick="PF('confirmDeleteDialog').hide();" />
+		</p:dialog>
+
+	</h:form>
+
+</h:body>
+</html>

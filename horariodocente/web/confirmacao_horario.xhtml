@@ -1,0 +1,265 @@
+<html class="no-js" lang="pt-br" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:head>
+	<title>Confirmação de Horário Docente</title>
+</h:head>
+
+<h:body onload="#{agendamento.listarDisciplinas()}">
+	<h:form id="mainForm">
+
+		<p:panel id="agendamentoo" header="Agendamento"
+			style="margin-bottom:20px">
+			<br></br>
+			<p:panel id="dados" header="Dados - Servidor"
+				style="margin-bottom:20px">
+				<h:panelGrid columns="2" cellpadding="5">
+					<p:outputLabel value="Servidor: " for="nome" />
+					<p:inputText id="nome" />
+					<p:outputLabel value="Cargo: " for="cargo" />
+					<p:inputText id="cargo" />
+					<p:outputLabel value="Lotação: " for="lot" />
+					<p:inputText id="lot" />
+					<p:outputLabel value="Carga Horária: " for="cargah" />
+					<p:inputText id="cargah" />
+				</h:panelGrid>
+			</p:panel>
+
+			<br></br>
+
+			<!-- 				<p:scrollPanel> -->
+			<p:panel id="confirmarAgendamentoDisciplina"
+				header="Matéria(s)/Disciplina(s)" style="margin-bottom:20px">
+				<h:panelGrid columns="2">
+					<p:outputPanel id="listaDisciplinas" layout="block" process="@this">
+						<p:dataTable id="disciplinaTable" var="disciplina"
+						    value="#{agendamento.disciplinas}"
+							paginator="true" paginatorPosition="bottom"
+							emptyMessage="Nenhuma disciplina disponível." process="@this">
+
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="Código" />
+								</f:facet>
+								<h:outputText value="#{disciplina.codigo}"/>
+							</p:column>
+
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="Nome da Disciplina" />
+								</f:facet>
+								<h:outputText value="#{disciplina.nome}" />
+							</p:column>
+
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="Curso" />
+								</f:facet>
+								<h:outputText value="#{disciplina.curso}"/>
+							</p:column>
+
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="Turma" />
+								</f:facet>
+								<h:outputText value="#{disciplina.turma}"/>
+							</p:column>
+
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="Carga Horária" />
+								</f:facet>
+								<h:outputText value="#{disciplina.carga_horaria}"/>
+							</p:column>
+
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="Ação" />
+								</f:facet>
+<!-- 								<p:commandLink> -->
+<!-- 									<p:graphicImage value="/img/apagar.png" id="imagemExcluir" /> -->
+<!-- 									<p:tooltip id="toolTipExcluir" for="imagemExcluir" -->
+<!-- 										value="Excluir" /> -->
+<!-- 																	<f:setPropertyActionListener></f:setPropertyActionListener> -->
+<!-- 								</p:commandLink> -->
+
+<!-- 								<h:outputText value="&#160;&#160;&#160;&#160;" escape="false" /> -->
+
+								<p:commandLink>
+									<p:graphicImage value="/img/editar.png" id="imagemAlterar" />
+									<p:tooltip id="toolTipAlterar" for="imagemAlterar"
+										value="Editar" />
+									<!-- 							    <f:setPropertyActionListener></f:setPropertyActionListener> -->
+								</p:commandLink>
+
+								<h:outputText />
+							</p:column>
+
+						</p:dataTable>
+					</p:outputPanel>
+				</h:panelGrid>
+			</p:panel>
+			<!--              </p:scrollPanel> -->
+			<br></br>
+
+			<p:panel id="confirmarAgendamentoAtividade" header="Atividades"
+				style="margin-bottom:20px">
+				<p:commandButton id="novaAtividade" process="@this"
+					icon="ui-icon-plus" style="margin-left: 1200px;" />
+				<h:panelGrid columns="2">
+					<p:outputPanel id="listaAtividades" layout="block" process="@this">
+						<p:dataTable id="atividadeTable" var="atividade" paginator="true"
+							paginatorPosition="bottom"
+							emptyMessage="Nenhuma atividade disponível." process="@this">
+
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="Nome da Atividade" />
+								</f:facet>
+								<h:outputText />
+							</p:column>
+
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="Carga Horária" />
+								</f:facet>
+								<h:outputText />
+							</p:column>
+
+							<p:column style="width:60px">
+								<f:facet name="header">
+									<h:outputText value="" />
+								</f:facet>
+								<h:outputText />
+							</p:column>
+
+
+						</p:dataTable>
+					</p:outputPanel>
+				</h:panelGrid>
+			</p:panel>
+			<br></br>
+
+			<p:panel id="matutino" header="Turno Matutino"
+				style="margin-bottom:20px">
+				<p:outputPanel id="horarioMatutino" layout="block" process="@this">
+					<p:dataTable id="matutinoTable" var="matut"
+						emptyMessage="Sem horário definido." process="@this">
+
+						<p:column headerText="HORÁRIO">
+							<h:outputText />
+						</p:column>
+
+						<p:column headerText="SEGUNDA">
+							<h:outputText />
+						</p:column>
+
+						<p:column headerText="TERÇA">
+							<h:outputText />
+						</p:column>
+
+						<p:column headerText="QUARTA">
+							<h:outputText />
+						</p:column>
+
+						<p:column headerText="QUINTA">
+							<h:outputText />
+						</p:column>
+
+						<p:column headerText="SEXTA">
+							<h:outputText />
+						</p:column>
+
+					</p:dataTable>
+				</p:outputPanel>
+			</p:panel>
+			<br></br>
+
+			<p:panel id="vespertino" header="Turno Vespertino"
+				style="margin-bottom:20px">
+				<p:outputPanel id="horarioVespertino" layout="block" process="@this">
+					<p:dataTable id="vespertinoTable" var="verpert"
+						emptyMessage="Sem horário definido." process="@this">
+
+						<p:column headerText="HORÁRIO">
+							<h:outputText />
+						</p:column>
+
+						<p:column headerText="SEGUNDA">
+							<h:outputText />
+						</p:column>
+
+						<p:column headerText="TERÇA">
+							<h:outputText />
+						</p:column>
+
+						<p:column headerText="QUARTA">
+							<h:outputText />
+						</p:column>
+
+						<p:column headerText="QUINTA">
+							<h:outputText />
+						</p:column>
+
+						<p:column headerText="SEXTA">
+							<h:outputText />
+						</p:column>
+
+					</p:dataTable>
+				</p:outputPanel>
+			</p:panel>
+
+
+
+			<p:panel id="noturno" header="Turno Noturno"
+				style="margin-bottom:20px">
+				<p:outputPanel id="horarioNoturno" layout="block" process="@this">
+					<p:dataTable id="noturnoTable" var="noturn"
+						emptyMessage="Sem horário definido." process="@this">
+
+						<p:column headerText="HORÁRIO">
+							<h:outputText />
+						</p:column>
+
+						<p:column headerText="SEGUNDA">
+							<h:outputText />
+						</p:column>
+
+						<p:column headerText="TERÇA">
+							<h:outputText />
+						</p:column>
+
+						<p:column headerText="QUARTA">
+							<h:outputText />
+						</p:column>
+
+						<p:column headerText="QUINTA">
+							<h:outputText />
+						</p:column>
+
+						<p:column headerText="SEXTA">
+							<h:outputText />
+						</p:column>
+
+						<p:column headerText="HORÁRIO">
+							<h:outputText />
+						</p:column>
+
+						<p:column headerText="SÁBADO">
+							<h:outputText />
+						</p:column>
+					</p:dataTable>
+				</p:outputPanel>
+			</p:panel>
+			
+			<p:commandButton id="salvarHorario" value="SALVAR" process="@this"
+				style="margin-left: 1185px;" />
+
+		</p:panel>
+	</h:form>
+</h:body>
+</html>

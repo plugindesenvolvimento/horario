@@ -85,4 +85,11 @@ public class CadastroAtividade implements ICadastroAtividade {
 	public void notificarFalha() {
 		System.out.println("Falhou!");
 	}
+	
+	public List<String> completeText(String query) {
+        List<String> results = new ArrayList<String>();
+         
+        return results;
+    }
+	
 }

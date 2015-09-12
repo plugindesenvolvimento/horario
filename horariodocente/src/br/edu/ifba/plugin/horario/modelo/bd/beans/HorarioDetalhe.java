@@ -36,12 +36,9 @@ public class HorarioDetalhe {
 	private Horario idhorario;
 
 	@ManyToOne
-	@Column(name = "idhorarioturma", nullable = false)
-	private HorarioTurma idhorarioturma;
+	@Column(name = "iddisciplinashorario", nullable = false)
+	private DisciplinasHorario iddisciplinashorario;
 
-	@ManyToOne
-	@Column(name = "iddisciplina", nullable = false)
-	private Disciplina iddisciplina;
 
 	public Integer getId() {
 		return id;
@@ -66,28 +63,20 @@ public class HorarioDetalhe {
 	public void setIdhorario(Horario idhorario) {
 		this.idhorario = idhorario;
 	}
-
-	public HorarioTurma getIdhorarioturma() {
-		return idhorarioturma;
+	
+	public DisciplinasHorario getIddisciplinashorario() {
+		return iddisciplinashorario;
 	}
 
-	public void setIdhorarioturma(HorarioTurma idhorarioturma) {
-		this.idhorarioturma = idhorarioturma;
+	public void setIddisciplinashorario(DisciplinasHorario iddisciplinashorario) {
+		this.iddisciplinashorario = iddisciplinashorario;
 	}
-
-	public Disciplina getIddisciplina() {
-		return iddisciplina;
-	}
-
-	public void setIddisciplina(Disciplina iddisciplina) {
-		this.iddisciplina = iddisciplina;
-	}
-
+	
 	@Override
 	public String toString() {
-		return "HorarioDetalhe [idDiaSemana=" + iddiasemana + ", idHorario="
-				+ idhorario + ", idHorarioTurma=" + idhorarioturma
-				+ ", idDisciplina=" + iddisciplina + "]";
+		return "HorarioDetalhe [id=" + id + ", iddiasemana=" + iddiasemana
+				+ ", idhorario=" + idhorario + ", iddisciplinashorario="
+				+ iddisciplinashorario + "]";
 	}
 
 	@Override
@@ -97,12 +86,12 @@ public class HorarioDetalhe {
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result
 				+ ((iddiasemana == null) ? 0 : iddiasemana.hashCode());
-		result = prime * result
-				+ ((iddisciplina == null) ? 0 : iddisciplina.hashCode());
+		result = prime
+				* result
+				+ ((iddisciplinashorario == null) ? 0 : iddisciplinashorario
+						.hashCode());
 		result = prime * result
 				+ ((idhorario == null) ? 0 : idhorario.hashCode());
-		result = prime * result
-				+ ((idhorarioturma == null) ? 0 : idhorarioturma.hashCode());
 		return result;
 	}
 
@@ -122,18 +111,14 @@ public class HorarioDetalhe {
 			return false;
 		if (iddiasemana != other.iddiasemana)
 			return false;
-		if (iddisciplina == null) {
-			if (other.iddisciplina != null)
+		if (iddisciplinashorario == null) {
+			if (other.iddisciplinashorario != null)
 				return false;
-		} else if (!iddisciplina.equals(other.iddisciplina))
+		} else if (!iddisciplinashorario.equals(other.iddisciplinashorario))
 			return false;
 		if (idhorario != other.idhorario)
 			return false;
-		if (idhorarioturma == null) {
-			if (other.idhorarioturma != null)
-				return false;
-		} else if (!idhorarioturma.equals(other.idhorarioturma))
-			return false;
 		return true;
 	}
+	
 }

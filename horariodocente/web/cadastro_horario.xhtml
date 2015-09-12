@@ -1,0 +1,131 @@
+<ui:composition template="/template_base.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+
+	<ui:define name="body.content.center">
+
+		<br></br>
+
+		<h:head>
+			<title>Cadastro de Horário de Turmas</title>
+		</h:head>
+
+
+		<h:body
+			onload="#{cadastroHorarioTurmaPeriodo.listarHorariosTurmasPeriodos()}">
+			<h:form id="mainForm">
+
+				<p:panel id="custom" header="Cadastro de Turmas e Horários"
+					style="margin-bottom:20px">
+					<h:panelGrid columns="2">
+						<p:commandButton id="novoButton" value="Novo" process="@this"
+							icon="ui-icon-plus" action="openElaboracaoHorario" />
+					</h:panelGrid>
+
+					<br></br>
+					<p:outputPanel id="list-container" layout="block" process="@this">
+						<p:dataTable id="horarioTurmaPeriodoTable" rows="10" var="horario"
+							value="#{cadastroHorarioTurmaPeriodo.horariosTurmasPeriodos}"
+							paginator="true" paginatorPosition="bottom"
+							emptyMessage="Nenhum horário de turma cadastrado."
+							process="@this">
+
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="Período Letivo" />
+								</f:facet>
+								<h:outputText value="#{horario.idhorarioturma.idperiodoletivo.nome}" />
+							</p:column>
+
+
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="Curso" />
+								</f:facet>
+								<h:outputText value="#{horario.idhorarioturma.idcurso.nome}" />
+							</p:column>
+
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="Turma" />
+								</f:facet>
+								<h:outputText value="#{horario.idperiodo.nrperiodo}" />
+							</p:column>
+
+							<p:column style="width:60px">
+								<f:facet name="header">
+									<h:outputText value="Ações" />
+								</f:facet>
+
+
+								<p:commandLink process="@this" update=":mainForm:modalNovo"
+									action="#{cadastroArea.prepararEdicao(area)}">
+									<p:graphicImage value="/img/editar.png" id="imagemAlterar" />
+									<p:tooltip id="toolTipAlterar" for="imagemAlterar"
+										value="Editar" />
+									<f:setPropertyActionListener target="#{cadastroArea.area}"
+										value="#{area}" />
+								</p:commandLink>
+
+								<h:outputText value="&#160;&#160;&#160;&#160;" escape="false" />
+
+								<p:commandLink process="@this"
+									onclick="PF('confirmDeleteDialog').show();">
+									<p:graphicImage value="/img/apagar.png" id="imagemExcluir" />
+									<p:tooltip id="toolTipExcluir" for="imagemExcluir"
+										value="Excluir" />
+									<f:setPropertyActionListener target="#{cadastroArea.area}"
+										value="#{area}" />
+								</p:commandLink>
+
+							</p:column>
+
+						</p:dataTable>
+					</p:outputPanel>
+				</p:panel>
+
+
+				<p:dialog id="modalNovo" header="Cadastro de Área"
+					widgetVar="novaArea" resizable="false" closeOnEscape="true"
+					draggable="false" visible="#{cadastroArea.exibirEditor()}"
+					modal="true">
+					<p:outputLabel value="* Nome da Área: " for="descricao" />
+					<p:inputText id="descricao" value="#{cadastroArea.area.nome}" />
+					<br></br>
+					<br></br>
+					<h:outputText value="* Campo Obrigatório"
+						style="margin-left: 100px;" />
+					<br></br>
+					<br></br>
+					<p:commandButton value="Salvar" process=":mainForm:modalNovo"
+						action="#{cadastroArea.gravarArea()}"
+						update=":mainForm:list-container" onclick="PF('novaArea').hide()"
+						icon="ui-icon-disk" style="margin-left: 150px;" />
+					<p:commandButton value="Cancelar" process="@this"
+						icon="ui-icon-cancel" action="#{cadastroArea.cancelarEdicao()}"
+						onclick="PF('novaArea').hide()" />
+				</p:dialog>
+
+				<p:dialog id="modalExclusao" header="Exclusão de Área"
+					widgetVar="confirmDeleteDialog" modal="true">
+					<p:hotkey bind="esc" handler="confirmDeleteDialog.hide();" />
+					<p:outputLabel value="Tem certeza de que deseja excluir esta área?" />
+					<br></br>
+					<br></br>
+					<br></br>
+					<p:commandButton value="Sim" action="#{cadastroArea.excluirArea()}"
+						onclick="PF('confirmDeleteDialog').hide();" process="@this"
+						update=":mainForm:list-container" style="margin-left: 275px;" />
+					<p:commandButton value="Não" process="@this"
+						action="#{cadastroArea.cancelarEdicao()}"
+						onclick="PF('confirmDeleteDialog').hide();" />
+				</p:dialog>
+
+			</h:form>
+		</h:body>
+	</ui:define>
+</ui:composition>

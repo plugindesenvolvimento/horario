@@ -51,27 +51,14 @@ public class AreaDAO extends DAO {
 
 	public void gravar() {
 		Area area = cadastro.getArea();
-
-		System.out.println(area);
-		System.out.println("... ... ...");
-
 		try {
 			iniciarTransacao();
-			// if(area.getId() == -1)
-			// {
 			em.persist(area);
-			System.out.println("Iseriu na tabela...");
-			// }else{
-			// em.merge(area);
-			// System.out.println("Atualizou: ");
-			// System.out.println(area);
-			// }
+			System.out.println("Inseriu na tabela...");
 			commitTransacao();
-
 			cadastro.notificarSucesso();
 		} catch (Exception e) {
 			rollbackTransacao();
-
 			cadastro.notificarFalha();
 		}
 

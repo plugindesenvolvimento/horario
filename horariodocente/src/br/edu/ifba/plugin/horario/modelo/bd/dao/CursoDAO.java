@@ -10,7 +10,7 @@ import javax.persistence.TypedQuery;
 import br.edu.ifba.plugin.horario.modelo.bd.beans.Curso;
 import br.edu.ifba.plugin.horario.visao.ICadastroCurso;
 
-public class CursoDAO extends DAO  {
+public class CursoDAO extends DAO {
 
 	private ICadastroCurso cadastro;
 
@@ -56,26 +56,14 @@ public class CursoDAO extends DAO  {
 	public void gravar() {
 		Curso curso = cadastro.getCurso();
 
-		System.out.println(curso);
-		System.out.println("... ... ...");
-
 		try {
 			iniciarTransacao();
-			// if(curso.getId() == -1)
-			// {
 			em.persist(curso);
-			System.out.println("Iseriu na tabela...");
-			// }else{
-			// em.merge(curso);
-			// System.out.println("Atualizou: ");
-			// System.out.println(curso);
-			// }
+			System.out.println("Inseriu na tabela...");
 			commitTransacao();
-
 			cadastro.notificarSucesso();
 		} catch (Exception e) {
 			rollbackTransacao();
-
 			cadastro.notificarFalha();
 		}
 
@@ -96,79 +84,18 @@ public class CursoDAO extends DAO  {
 		return encontrados;
 	}
 
-
-		
 	@SuppressWarnings("unchecked")
 	public List<Curso> getByModalidade(Integer idModalidade) {
 
-		System.out.println("ENTREI NO LOCAL CERTO !");
-
-		System.out.println(idModalidade);
-		
-		/*iniciarTransacao();
-
-		List<Curso> modalidades = new ArrayList<Curso>();
-
-		TypedQuery<Curso> query = em.createQuery(
-				"select u from Curso u where u.id = :idmodalidadecurso", Curso.class);
-		
-		try {
-			modalidades = query.getResultList();
-		} catch (NoResultException e) {
-			e.printStackTrace();
-		}	
-		
-
+		iniciarTransacao();
+		em.flush();
+		Query query = em.createNamedQuery("findByModalidadeCurso");
+		query.setParameter("idmodalidadecurso", idModalidade);
+		List<Curso> modalidades = (List<Curso>) query.getResultList();
+		em.clear();
 		commitTransacao();
 
-		return modalidades;*/
-		
-		
-		iniciarTransacao(); 
-		 em.flush();
-
-		    Query query = em.createNamedQuery("findByModalidadeCurso");
-
-		    query.setParameter("idmodalidadecurso", idModalidade);
-
-		    List<Curso> modalidades = (List<Curso>) query.getResultList();
-
-		    em.clear();
-		   commitTransacao(); 
-
-		    return modalidades;
-		
-		/*
-		List<Curso> modalidades = new ArrayList<Curso>();
-
-		TypedQuery<Curso> query = em.createQuery(
-				"select u from Curso u where u.idmodalidadecurso = :id", Curso.class);
-		
-		//"SELECT e FROM Estado e WHERE e.pais.id=:idPais"
-		
-		//query.setParameter("id", idModalidade);
-		
-		try {
-			modalidades = query.getResultList();
-		} catch (NoResultException e) {
-			e.printStackTrace();
-		}
-
 		return modalidades;
-		
-		
-		
-		List<Curso> encontrados = new ArrayList<Curso>();
-
-		TypedQuery<Curso> query = em.createQuery(
-				"SELECT u FROM Curso u where u.idmodalidadecurso.id=:idmodalidadecurso", Curso.class);
-		try {
-			encontrados = query.getResultList();
-		} catch (NoResultException e) {
-			e.printStackTrace();
-		}
-
-		return encontrados;*/
 	}
-		   
+
 }

@@ -39,6 +39,10 @@ public class HorarioTurma {
 	@Column(name = "idturno", nullable = false)
 	private Turno idturno;
 
+	@Column(name = "nrperiodo", nullable = false)
+	private Integer nrperiodo;
+
+	
 	public Integer getId() {
 		return id;
 	}
@@ -63,8 +67,6 @@ public class HorarioTurma {
 		this.idperiodoletivo = idperiodoletivo;
 	}
 
-	
-
 	public Turno getIdturno() {
 		return idturno;
 	}
@@ -72,11 +74,20 @@ public class HorarioTurma {
 	public void setIdturno(Turno idturno) {
 		this.idturno = idturno;
 	}
+	
+	public Integer getNrperiodo() {
+		return nrperiodo;
+	}
+
+	public void setNrperiodo(Integer nrperiodo) {
+		this.nrperiodo = nrperiodo;
+	}
 
 	@Override
 	public String toString() {
-		return "HorarioTurma [idCurso=" + idcurso + ", idPeriodoLetivo="
-				+ idperiodoletivo + ", idTurno=" + idturno + "]";
+		return "HorarioTurma [id=" + id + ", idcurso=" + idcurso
+				+ ", idperiodoletivo=" + idperiodoletivo + ", idturno="
+				+ idturno + ", nrperiodo=" + nrperiodo + "]";
 	}
 
 	@Override
@@ -88,6 +99,8 @@ public class HorarioTurma {
 		result = prime * result
 				+ ((idperiodoletivo == null) ? 0 : idperiodoletivo.hashCode());
 		result = prime * result + ((idturno == null) ? 0 : idturno.hashCode());
+		result = prime * result
+				+ ((nrperiodo == null) ? 0 : nrperiodo.hashCode());
 		return result;
 	}
 
@@ -117,6 +130,12 @@ public class HorarioTurma {
 			return false;
 		if (idturno != other.idturno)
 			return false;
+		if (nrperiodo == null) {
+			if (other.nrperiodo != null)
+				return false;
+		} else if (!nrperiodo.equals(other.nrperiodo))
+			return false;
 		return true;
-	}
+	}	
+	
 }

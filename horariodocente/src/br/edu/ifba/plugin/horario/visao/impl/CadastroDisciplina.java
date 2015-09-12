@@ -101,5 +101,5 @@ public class CadastroDisciplina implements ICadastroDisciplina {
 	public List<Area> getListaArea() {
 		return listaAreas.getAreas();
 	}
-
+	
 }

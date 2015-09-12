@@ -57,24 +57,14 @@ public class ModalidadeCursoDAO extends DAO{
 		
 		try {
 			iniciarTransacao();
-			//if(area.getId() == -1)
-		//	{
-				em.persist(modalidadeCurso);
-				System.out.println("Inseriu na tabela...");
-			//}else{
-				//em.merge(area);
-				//System.out.println("Atualizou: ");
-				//System.out.println(area);
-		//	}
-			commitTransacao();
-			
+			em.persist(modalidadeCurso);
+			System.out.println("Inseriu na tabela...");
+			commitTransacao();		
 			cadastro.notificarSucesso();
 		} catch (Exception e) {
 			rollbackTransacao();
-
 			cadastro.notificarFalha();
 		}
-
 	}
 		
 	public List<ModalidadeCurso> getModalidades() {
@@ -90,12 +80,5 @@ public class ModalidadeCursoDAO extends DAO{
 		}
 
 		return encontrados;
-	}
-
-	
-//	public List<RegimeLetivo> getRegimesLetivos(){
-//    	
-//		return null;
-//    }
-	
+	}	
 }

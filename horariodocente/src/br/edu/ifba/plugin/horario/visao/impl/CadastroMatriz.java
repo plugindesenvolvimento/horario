@@ -6,9 +6,11 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import br.edu.ifba.plugin.horario.controle.ControleDisciplinasMatriz;
 import br.edu.ifba.plugin.horario.controle.ControleMatriz;
-import br.edu.ifba.plugin.horario.enumeradores.GrupoCurricular;
 import br.edu.ifba.plugin.horario.modelo.bd.beans.Curso;
+import br.edu.ifba.plugin.horario.modelo.bd.beans.Disciplina;
+import br.edu.ifba.plugin.horario.modelo.bd.beans.DisciplinasMatriz;
 import br.edu.ifba.plugin.horario.modelo.bd.beans.Matriz;
 import br.edu.ifba.plugin.horario.modelo.bd.beans.ModalidadeCurso;
 import br.edu.ifba.plugin.horario.modelo.bd.dao.CursoDAO;
@@ -25,11 +27,12 @@ public class CadastroMatriz implements ICadastroMatriz {
 	private CursoDAO listaCursoDAO = new CursoDAO(null);
 	private ModalidadeCurso modalidade;
 	private List<Curso> listaCursos = new ArrayList<Curso>(); 
-	//private ControleCurso controleCurso = new ControleCurso(null);
-	private GrupoCurricular grupoCurricular;
-	public GrupoCurricular listaGrupoCurricular;
+	private DisciplinasMatriz disciplinasMatriz = new DisciplinasMatriz();
+	private Disciplina disciplina = new Disciplina();
 
-	
+	private Integer periodo;
+	private List<DisciplinasMatriz> listaDisciplinasMatriz = new ArrayList<DisciplinasMatriz>();
+	//private ControleCurso controleCurso = new ControleCurso(null);	
 	
 	public ModalidadeCurso getModalidade() {
 		return modalidade;
@@ -43,9 +46,12 @@ public class CadastroMatriz implements ICadastroMatriz {
 	boolean edicao = false;
 
 	private ControleMatriz controle;
-
+	private ControleDisciplinasMatriz controleDisciplinasMatriz;
+	
+	
 	public CadastroMatriz() {
 		controle = new ControleMatriz(this);
+		 
 	}
 
 	public boolean exibirEditor() {
@@ -57,6 +63,11 @@ public class CadastroMatriz implements ICadastroMatriz {
 
 		edicao = true;
 	
+	}
+	
+	public void prepararAdicaoComponente()
+	{
+		this.disciplinasMatriz  = new DisciplinasMatriz();
 	}
 
 	public void prepararEdicao(Matriz matriz) {
@@ -88,6 +99,24 @@ public class CadastroMatriz implements ICadastroMatriz {
 
 	public void gravarMatriz() {
 		controle.gravar();
+	}
+
+	public void gravarDisciplinasMatriz() {
+			disciplinasMatriz.setIddisciplina(disciplina);
+			disciplinasMatriz.setIdmatriz(matriz);
+			disciplinasMatriz.setNrperiodo(periodo);
+			//disciplinasMatriz.setIdgrupocurricular(idgrupocurricular);
+			listaDisciplinasMatriz.add(disciplinasMatriz);
+			controle.gravarDisciplinasMatriz();
+	
+	}
+	
+	public Disciplina getDisciplina() {
+		return disciplina;
+	}
+
+	public void setDisciplina(Disciplina disciplina) {
+		this.disciplina = disciplina;
 	}
 
 	@Override
@@ -134,19 +163,32 @@ public class CadastroMatriz implements ICadastroMatriz {
 	public void setListaModalidades(ModalidadeCursoDAO listaModalidades) {
 		this.listaModalidades = listaModalidades;
 	}
-		
-	
-	public GrupoCurricular getGrupoCurricular() {
-		return grupoCurricular;
+
+	public DisciplinasMatriz getDisciplinasMatriz() {
+		return disciplinasMatriz;
 	}
 
-	public void setGrupoCurricular(GrupoCurricular grupoCurricular) {
-		this.grupoCurricular = grupoCurricular;
+	public void setDisciplinasMatriz(DisciplinasMatriz disciplinasMatriz) {
+		this.disciplinasMatriz = disciplinasMatriz;
+	}
+
+	public Integer getPeriodo() {
+		return periodo;
+	}
+
+	public void setPeriodo(Integer periodo) {
+		this.periodo = periodo;
+	}
+
+	public List<DisciplinasMatriz> getListaDisciplinasMatriz() {
+		return listaDisciplinasMatriz;
+	}
+
+	public void setListaDisciplinasMatriz(
+			List<DisciplinasMatriz> listaDisciplinasMatriz) {
+		this.listaDisciplinasMatriz = listaDisciplinasMatriz;
 	}
 	
-	public GrupoCurricular[] getListaGrupoCurricular()
-	{
-		return GrupoCurricular.values();
-	}
+	
 	
 }

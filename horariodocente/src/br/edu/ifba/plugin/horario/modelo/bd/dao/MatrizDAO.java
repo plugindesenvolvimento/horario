@@ -6,13 +6,16 @@ import java.util.List;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 
+import br.edu.ifba.plugin.horario.modelo.bd.beans.DisciplinasMatriz;
 import br.edu.ifba.plugin.horario.modelo.bd.beans.Matriz;
+import br.edu.ifba.plugin.horario.visao.ICadastroDisciplinasMatriz;
 import br.edu.ifba.plugin.horario.visao.ICadastroMatriz;
 
 public class MatrizDAO extends DAO{
 
 	private ICadastroMatriz cadastro;
-
+	private ICadastroDisciplinasMatriz cadastroDisciplinasMatriz;
+	
 	public MatrizDAO(ICadastroMatriz matriz) {
 		super();
 		this.cadastro = matriz;
@@ -76,16 +79,31 @@ public class MatrizDAO extends DAO{
 		}
 
 	}
-
-	public String getHabilitado(){
-		if(cadastro.getMatriz().getAtiva())
-		{
-			return "Sim";
-		}else
-		{
-			return "Não";
-		}
-	}
+	
+	
+//	public void gravarDisciplinasMatriz() {
+//		DisciplinasMatriz disciplinasMatriz = cadastroDisciplinasMatriz.getDisciplinasMatriz();
+//		
+//		System.out.println(disciplinasMatriz);
+//		System.out.println("... ... ...");
+//		
+//		try {
+//			iniciarTransacao();
+//				em.persist(disciplinasMatriz);
+//				//em.merge(disciplinasMatriz);
+//				//System.out.println("Atualizou: ");
+//				//System.out.println(disciplinasMatriz);
+//			//}
+//			commitTransacao();
+//			
+//			cadastro.notificarSucesso();
+//		} catch (Exception e) {
+//			rollbackTransacao();
+//
+//			cadastro.notificarFalha();
+//		}
+//
+//	}
 	
 	
 }

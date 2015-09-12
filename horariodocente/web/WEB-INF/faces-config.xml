@@ -9,11 +9,19 @@
 	<navigation-rule>
 	<from-view-id>/cadastro_matriz.xhtml</from-view-id>
 		<navigation-case>
-			<from-outcome>open</from-outcome>
+			<from-outcome>openComponenteCurricular</from-outcome>
 			<to-view-id>cadastro_componente_curricular.xhtml</to-view-id>
 			<redirect/>
 		</navigation-case>
 	</navigation-rule>
 		
+	<navigation-rule>
+	<from-view-id>/cadastro_horario.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>openElaboracaoHorario</from-outcome>
+			<to-view-id>elaboracao_horario.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>	
 		
 </faces-config>

@@ -6,7 +6,6 @@ import java.util.List;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 
-import br.edu.ifba.plugin.horario.modelo.bd.beans.Area;
 import br.edu.ifba.plugin.horario.modelo.bd.beans.Disciplina;
 import br.edu.ifba.plugin.horario.visao.ICadastroDisciplina;
 
@@ -78,13 +77,13 @@ public class DisciplinaDAO extends DAO{
 
 	}
 
-	public List<Area> getAreas(){
+	public List<Disciplina> getDisciplinas(){
     	
 		
-		List<Area> encontrados = new ArrayList<Area>();
+		List<Disciplina> encontrados = new ArrayList<Disciplina>();
 
-		TypedQuery<Area> query = em.createQuery(
-				"select u from Area u order by u.id", Area.class);
+		TypedQuery<Disciplina> query = em.createQuery(
+				"select u from Disciplina u order by u.id", Disciplina.class);
 		try {
 			encontrados = query.getResultList();
 		} catch (NoResultException e) {

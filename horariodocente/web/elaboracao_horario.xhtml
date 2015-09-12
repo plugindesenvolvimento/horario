@@ -1,0 +1,63 @@
+<ui:composition template="/template_base.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="body.content.center">
+
+		<br></br>
+
+		<h:head>
+			<title>Elaboração do Horário</title>
+		</h:head>
+
+		<h:body>
+			<h:form id="mainForm">
+
+				<p:panel id="custom" style="margin-bottom:20px">
+
+					<h:outputText value="Período Letivo: " for="periodoL" />
+					<h:outputText id="periodoL"
+						value="" />
+					<br></br>
+					<h:outputText value="Curso: " for="nomeCurso" />
+					<h:outputText id="nomeCurso"
+						value="" />
+					<h:outputText value="Turno: " for="turno" />
+					<h:outputText id="turno"
+						value="" />
+					<h:outputText value="Período: " for="periodo" />
+					<h:outputText id="periodo"
+						value="" />
+
+					<br></br>
+					<br></br>
+
+					<p:commandButton id="saveButton" value="Salvar" process="@this" />
+
+				</p:panel>
+
+				<p:panel>
+					<p:tabView>
+						<p:tab title="Disciplinas">
+							<h:panelGrid columns="2" cellpadding="10">
+								<p:commandButton id="includeButton" value="Incluir"
+									process="@this" />
+							</h:panelGrid>
+						</p:tab>
+						<p:tab title="Horários">
+							<h:panelGrid columns="2" cellpadding="10">
+								<p:commandButton id="saveButton2" value="Salvar"
+									process="@this" />
+							</h:panelGrid>
+						</p:tab>
+					</p:tabView>
+
+				</p:panel>
+
+			</h:form>
+		</h:body>
+	</ui:define>
+</ui:composition>

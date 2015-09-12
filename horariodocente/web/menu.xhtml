@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:head>
+		<title>MENU</title>
+	</h:head>
+
+
+	<ui:insert name="body.content.header">
+		<h:form>
+			<style>
+.ui-menu .ui-menu-parent .ui-menu-child {
+	width: 235px; /* soh funciona se for definido aqui. :( !! */
+}
+</style>
+			<p:menubar autoDisplay="false">
+				<p:menuitem value="Início" action="inicio.xhtml?faces-redirect=true"
+					icon="ui-icon-home" ajax="false" />
+
+				<p:submenu label="Cadastros" icon="ui-icon-contact">
+					<p:menuitem value="Área"
+						action="cadastro_area.xhtml?faces-redirect=true"
+						icon="ui-icon-document" ajax="false" />
+					<p:menuitem value="Curso"
+						action="cadastro_curso.xhtml?faces-redirect=true"
+						icon="ui-icon-document" ajax="false" />
+					<p:menuitem value="Disciplina"
+						action="cadastro_disciplina.xhtml?faces-redirect=true"
+						icon="ui-icon-document" ajax="false" />
+					<p:menuitem value="Modalidade de Curso"
+						action="cadastro_modalidade_curso.xhtml?faces-redirect=true"
+						icon="ui-icon-document" ajax="false" />
+					<p:menuitem value="Período Letivo"
+						action="cadastro_periodo_letivo.xhtml?faces-redirect=true"
+						icon="ui-icon-document" ajax="false" />
+				</p:submenu>
+
+				<p:submenu label="Ensino" icon="ui-icon-contact">
+					<p:menuitem value="Matrizes"
+						action="cadastro_matriz.xhtml?faces-redirect=true"
+						icon="ui-icon-document" ajax="false" />
+					<p:menuitem value="Horários"
+						action="cadastro_horario.xhtml?faces-redirect=true"
+						icon="ui-icon-document" ajax="false" />
+				</p:submenu>
+
+				<p:menuitem value="Sobre" action="sobre.xhtml?faces-redirect=true"
+					icon="ui-icon-document" ajax="false" />
+
+				<p:menuitem value="Sair" action="login.xhtml?faces-redirect=true"
+					icon="ui-icon-close" ajax="false" />
+			</p:menubar>
+		</h:form>
+	</ui:insert>
+
+</ui:composition>

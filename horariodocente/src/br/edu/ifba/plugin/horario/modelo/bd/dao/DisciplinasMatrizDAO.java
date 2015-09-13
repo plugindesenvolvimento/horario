@@ -37,6 +37,7 @@ public class DisciplinasMatrizDAO extends DAO{
 	public void gravar() {
 	
 		DisciplinasMatriz disciplinasMatriz = cadastro.getDisciplinasMatriz();
+		disciplinasMatriz.setIdgrupocurricular(cadastro.getGrupoCurricular());
 		try {
 			iniciarTransacao();
 			em.persist(disciplinasMatriz);

@@ -12,36 +12,36 @@ import br.edu.ifba.plugin.horario.modelo.bd.beans.Disciplina;
 import br.edu.ifba.plugin.horario.modelo.bd.beans.DisciplinasMatriz;
 import br.edu.ifba.plugin.horario.visao.ICadastroDisciplinasMatriz;
 
-@ManagedBean(name = "cadastroDisciplinasMatriz")
+@ManagedBean(name = "cadastroDisciplinasMatriz", eager = true)
 @ViewScoped
 public class CadastroDisciplinasMatriz implements ICadastroDisciplinasMatriz {
 
 	private DisciplinasMatriz disciplinasMatriz;
-	
+
 	private List<DisciplinasMatriz> disciplinasMatrizes = new ArrayList<DisciplinasMatriz>();
 	private GrupoCurricular grupoCurricular;
-	private GrupoCurricular listaGrupoCurricular;
+	//public GrupoCurricular listaGrupoCurricular;
 	private Disciplina disciplina = new Disciplina();
 	private Integer periodo;
 	private List<DisciplinasMatriz> listaDisciplinasMatriz = new ArrayList<DisciplinasMatriz>();
-	
+
 	private ControleDisciplinasMatriz controle;
 
-	
-//	@PostConstruct
-//	public void init() {
-//	    disciplinasMatriz = new DisciplinasMatriz();
-//	}
-//	
+	// @PostConstruct
+	// public void init() {
+	// disciplinasMatriz = new DisciplinasMatriz();
+	// }
+
 	public CadastroDisciplinasMatriz() {
 		controle = new ControleDisciplinasMatriz(this);
+		this.disciplinasMatriz = new DisciplinasMatriz();
 	}
-	
-//	public void prepararAdicao() {
-//		System.out.println("PREPARANDO ADIÇÃO");
-//		this.disciplinasMatriz = new DisciplinasMatriz();
-//	}
-	
+
+	// public void prepararAdicao() {
+	// System.out.println("PREPARANDO ADIÇÃO");
+	// this.disciplinasMatriz = new DisciplinasMatriz();
+	// }
+
 	@Override
 	public DisciplinasMatriz getDisciplinasMatriz() {
 		return disciplinasMatriz;
@@ -53,21 +53,22 @@ public class CadastroDisciplinasMatriz implements ICadastroDisciplinasMatriz {
 		this.disciplinasMatrizes = disciplinasMatrizes;
 	}
 
-	/*@Override
-	public void notificarSucesso() {
-		
-	}
-
-	@Override
-	public void notificarFalha() {
-
-	}*/
+	/*
+	 * @Override public void notificarSucesso() {
+	 * 
+	 * }
+	 * 
+	 * @Override public void notificarFalha() {
+	 * 
+	 * }
+	 */
 
 	public List<DisciplinasMatriz> getDisciplinasMatrizes() {
 		return disciplinasMatrizes;
 	}
 
-	public void setDisciplinasMatrizes(List<DisciplinasMatriz> disciplinasMatrizes) {
+	public void setDisciplinasMatrizes(
+			List<DisciplinasMatriz> disciplinasMatrizes) {
 		this.disciplinasMatrizes = disciplinasMatrizes;
 	}
 
@@ -75,27 +76,15 @@ public class CadastroDisciplinasMatriz implements ICadastroDisciplinasMatriz {
 		this.disciplinasMatriz = disciplinasMatriz;
 	}
 
-	public GrupoCurricular getGrupoCurricular() {
-		return grupoCurricular;
-	}
-
-	public void setGrupoCurricular(GrupoCurricular grupoCurricular) {
-		this.grupoCurricular = grupoCurricular;
-	}
-	
-	public GrupoCurricular[] getListaGrupoCurricular()
-	{
-		return GrupoCurricular.values();
-	}
-	
-	public List<Disciplina> completarDisciplina(String nome)
-	{		
-		return controle.completarDisciplina(nome);	
+	public List<Disciplina> completarDisciplina(String nome) {
+		return controle.completarDisciplina(nome);
 	}
 
 	public void gravarDisciplinasMatriz() {
 
-		this.disciplinasMatriz = new DisciplinasMatriz();
+		// this.disciplinasMatriz = new DisciplinasMatriz();
+
+		System.out.println(disciplinasMatriz.getIddisciplina());
 		
 		controle.gravar();
 	}
@@ -125,8 +114,16 @@ public class CadastroDisciplinasMatriz implements ICadastroDisciplinasMatriz {
 		this.listaDisciplinasMatriz = listaDisciplinasMatriz;
 	}
 
-	public void setListaGrupoCurricular(GrupoCurricular listaGrupoCurricular) {
-		this.listaGrupoCurricular = listaGrupoCurricular;
+	@Override
+	public GrupoCurricular getGrupoCurricular() {
+		return grupoCurricular;
 	}
 	
+	public void setGrupoCurricular(GrupoCurricular grupoCurricular) {
+		this.grupoCurricular = grupoCurricular;
+	}
+	
+	public GrupoCurricular[] getListaGrupoCurricular() {
+		return GrupoCurricular.values();
+	}
 }

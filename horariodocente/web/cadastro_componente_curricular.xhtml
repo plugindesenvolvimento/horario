@@ -29,13 +29,14 @@
 
 					<p:panel id="PanelDisciplinasMatriz">
 
+
 						<h:panelGroup>
 							<p:outputLabel value="Disciplina: " for="disciplina" />
 							<p:autoComplete id="disciplina" converter="conversorDisciplina"
 								value="#{cadastroDisciplinasMatriz.disciplinasMatriz.iddisciplina}"
 								completeMethod="#{cadastroDisciplinasMatriz.completarDisciplina}"
-								forceSelection="true" />
-							<p:watermark value="Pesquise por disciplinas " for="disciplina" />
+								forceSelection="true" process="@this"/> 
+ 							<p:watermark value="Pesquise por disciplinas " for="disciplina" />
 						</h:panelGroup>
 						<br></br>
 						<br></br>
@@ -69,7 +70,8 @@
 
 					<br></br>
 
-					<p:commandButton id="novoButton" value="Incluir" process=":mainForm:teste"
+					<p:commandButton id="novoButton" value="Incluir" update="@(:input)"
+						process="@(:input)"
 						action="#{cadastroDisciplinasMatriz.gravarDisciplinasMatriz()}"
 						style="margin-left:1215px" />
 

@@ -19,7 +19,7 @@ public class CadastroModalidadeCurso implements ICadastroModalidadeCurso {
 	//private List<RegimeLetivo> regimesLetivos = new ArrayList<RegimeLetivo>();
 	private ModalidadeCurso modalidadeCurso;
 	private RegimeLetivo regimeLetivo;
-	public RegimeLetivo listaRegimeLetivo;
+	//public RegimeLetivo listaRegimeLetivo;
 	
 	boolean edicao = false;
 

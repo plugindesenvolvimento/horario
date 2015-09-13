@@ -10,9 +10,9 @@ public class ControleDisciplinasMatriz {
 
 private DisciplinasMatrizDAO dao;
 	
-	public ControleDisciplinasMatriz(ICadastroDisciplinasMatriz cadastroDisciplinasMatriz)
+	public ControleDisciplinasMatriz(ICadastroDisciplinasMatriz disciplinasMatriz)
 	{
-		dao = new DisciplinasMatrizDAO(cadastroDisciplinasMatriz);
+		dao = new DisciplinasMatrizDAO(disciplinasMatriz);
 	}
 	
 	public List<Disciplina> completarDisciplina(String nome)

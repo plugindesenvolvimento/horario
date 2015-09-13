@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 
 import br.edu.ifba.plugin.horario.controle.ControleMatriz;
 import br.edu.ifba.plugin.horario.modelo.bd.beans.Curso;
@@ -17,7 +17,7 @@ import br.edu.ifba.plugin.horario.modelo.bd.dao.ModalidadeCursoDAO;
 import br.edu.ifba.plugin.horario.visao.ICadastroMatriz;
 
 @ManagedBean(name = "cadastroMatriz")
-@SessionScoped
+@ViewScoped
 public class CadastroMatriz implements ICadastroMatriz {
 
 	private List<Matriz> matrizes = new ArrayList<Matriz>();
@@ -30,8 +30,10 @@ public class CadastroMatriz implements ICadastroMatriz {
 	private Disciplina disciplina = new Disciplina();
 
 	private Integer periodo;
-	private List<DisciplinasMatriz> listaDisciplinasMatriz = new ArrayList<DisciplinasMatriz>();
-	//private ControleCurso controleCurso = new ControleCurso(null);	
+	private List<DisciplinasMatriz> listaDisciplinasMatriz = new ArrayList<DisciplinasMatriz>();	
+	boolean edicao = false;
+	private ControleMatriz controle;
+	
 	
 	public ModalidadeCurso getModalidade() {
 		return modalidade;
@@ -40,13 +42,6 @@ public class CadastroMatriz implements ICadastroMatriz {
 	public void setModalidade(ModalidadeCurso modalidade) {
 		this.modalidade = modalidade;
 	}
-
-
-	boolean edicao = false;
-
-	private ControleMatriz controle;
-	//private ControleDisciplinasMatriz controleDisciplinasMatriz;
-	
 	
 	public CadastroMatriz() {
 		controle = new ControleMatriz(this);
@@ -187,7 +182,5 @@ public class CadastroMatriz implements ICadastroMatriz {
 			List<DisciplinasMatriz> listaDisciplinasMatriz) {
 		this.listaDisciplinasMatriz = listaDisciplinasMatriz;
 	}
-	
-	
 	
 }

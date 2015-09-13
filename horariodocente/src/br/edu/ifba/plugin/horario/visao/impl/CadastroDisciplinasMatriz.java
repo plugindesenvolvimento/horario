@@ -22,12 +22,10 @@ public class CadastroDisciplinasMatriz implements ICadastroDisciplinasMatriz {
 	private List<DisciplinasMatriz> disciplinasMatrizes = new ArrayList<DisciplinasMatriz>();
 	private GrupoCurricular grupoCurricular;
 	private Disciplina disciplina = new Disciplina();
-	private Integer periodo;
 	private List<DisciplinasMatriz> listaDisciplinasMatriz = new ArrayList<DisciplinasMatriz>();
 	private Matriz matriz;
-	
 	private ControleDisciplinasMatriz controle;
-	
+
 	public CadastroDisciplinasMatriz() {
 		controle = new ControleDisciplinasMatriz(this);
 		this.disciplinasMatriz = new DisciplinasMatriz();
@@ -72,7 +70,7 @@ public class CadastroDisciplinasMatriz implements ICadastroDisciplinasMatriz {
 	}
 
 	public void gravarDisciplinasMatriz() {
-		
+
 		controle.gravar();
 	}
 
@@ -83,14 +81,6 @@ public class CadastroDisciplinasMatriz implements ICadastroDisciplinasMatriz {
 
 	public void setDisciplina(Disciplina disciplina) {
 		this.disciplina = disciplina;
-	}
-
-	public Integer getPeriodo() {
-		return periodo;
-	}
-
-	public void setPeriodo(Integer periodo) {
-		this.periodo = periodo;
 	}
 
 	public List<DisciplinasMatriz> getListaDisciplinasMatriz() {
@@ -106,11 +96,11 @@ public class CadastroDisciplinasMatriz implements ICadastroDisciplinasMatriz {
 	public GrupoCurricular getGrupoCurricular() {
 		return grupoCurricular;
 	}
-	
+
 	public void setGrupoCurricular(GrupoCurricular grupoCurricular) {
 		this.grupoCurricular = grupoCurricular;
 	}
-	
+
 	public GrupoCurricular[] getListaGrupoCurricular() {
 		return GrupoCurricular.values();
 	}
@@ -122,6 +112,6 @@ public class CadastroDisciplinasMatriz implements ICadastroDisciplinasMatriz {
 
 	public void setMatriz(Matriz matriz) {
 		this.matriz = matriz;
-	}	
+	}
 	
 }

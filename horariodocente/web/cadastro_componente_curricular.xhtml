@@ -15,7 +15,7 @@
 
 		<h:body>
 			<h:form id="mainForm">
-				<p:panel>
+				<p:panel id="teste">
 
 					<h:outputText value="Matriz Curricular: " for="nomeMatriz" />
 					<h:outputText id="nomeMatriz" value="#{cadastroMatriz.matriz.nome}" />
@@ -69,7 +69,7 @@
 
 					<br></br>
 
-					<p:commandButton id="novoButton" value="Incluir" process="@this"
+					<p:commandButton id="novoButton" value="Incluir" process=":mainForm:teste"
 						action="#{cadastroDisciplinasMatriz.gravarDisciplinasMatriz()}"
 						style="margin-left:1215px" />
 

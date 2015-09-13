@@ -6,7 +6,6 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
-import br.edu.ifba.plugin.horario.controle.ControleDisciplinasMatriz;
 import br.edu.ifba.plugin.horario.controle.ControleMatriz;
 import br.edu.ifba.plugin.horario.modelo.bd.beans.Curso;
 import br.edu.ifba.plugin.horario.modelo.bd.beans.Disciplina;
@@ -46,7 +45,7 @@ public class CadastroMatriz implements ICadastroMatriz {
 	boolean edicao = false;
 
 	private ControleMatriz controle;
-	private ControleDisciplinasMatriz controleDisciplinasMatriz;
+	//private ControleDisciplinasMatriz controleDisciplinasMatriz;
 	
 	
 	public CadastroMatriz() {
@@ -107,7 +106,7 @@ public class CadastroMatriz implements ICadastroMatriz {
 			disciplinasMatriz.setNrperiodo(periodo);
 			//disciplinasMatriz.setIdgrupocurricular(idgrupocurricular);
 			listaDisciplinasMatriz.add(disciplinasMatriz);
-			controle.gravarDisciplinasMatriz();
+			//controle.gravarDisciplinasMatriz();
 	
 	}
 	

@@ -94,7 +94,7 @@ public class CadastroDisciplinasMatriz implements ICadastroDisciplinasMatriz {
 	}
 
 	public void gravarDisciplinasMatriz() {
-		
+
 		this.disciplinasMatriz = new DisciplinasMatriz();
 		
 		controle.gravar();

@@ -4,43 +4,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
 
 import br.edu.ifba.plugin.horario.controle.ControleDisciplinasMatriz;
 import br.edu.ifba.plugin.horario.enumeradores.GrupoCurricular;
 import br.edu.ifba.plugin.horario.modelo.bd.beans.Disciplina;
 import br.edu.ifba.plugin.horario.modelo.bd.beans.DisciplinasMatriz;
+import br.edu.ifba.plugin.horario.modelo.bd.beans.Matriz;
 import br.edu.ifba.plugin.horario.visao.ICadastroDisciplinasMatriz;
 
 @ManagedBean(name = "cadastroDisciplinasMatriz", eager = true)
-@ViewScoped
+@SessionScoped
 public class CadastroDisciplinasMatriz implements ICadastroDisciplinasMatriz {
 
 	private DisciplinasMatriz disciplinasMatriz;
 
 	private List<DisciplinasMatriz> disciplinasMatrizes = new ArrayList<DisciplinasMatriz>();
 	private GrupoCurricular grupoCurricular;
-	//public GrupoCurricular listaGrupoCurricular;
 	private Disciplina disciplina = new Disciplina();
 	private Integer periodo;
 	private List<DisciplinasMatriz> listaDisciplinasMatriz = new ArrayList<DisciplinasMatriz>();
-
+	private Matriz matriz;
+	
 	private ControleDisciplinasMatriz controle;
-
-	// @PostConstruct
-	// public void init() {
-	// disciplinasMatriz = new DisciplinasMatriz();
-	// }
-
+	
 	public CadastroDisciplinasMatriz() {
 		controle = new ControleDisciplinasMatriz(this);
 		this.disciplinasMatriz = new DisciplinasMatriz();
 	}
-
-	// public void prepararAdicao() {
-	// System.out.println("PREPARANDO ADIÇÃO");
-	// this.disciplinasMatriz = new DisciplinasMatriz();
-	// }
 
 	@Override
 	public DisciplinasMatriz getDisciplinasMatriz() {
@@ -81,14 +72,11 @@ public class CadastroDisciplinasMatriz implements ICadastroDisciplinasMatriz {
 	}
 
 	public void gravarDisciplinasMatriz() {
-
-		// this.disciplinasMatriz = new DisciplinasMatriz();
-
-		System.out.println(disciplinasMatriz.getIddisciplina());
 		
 		controle.gravar();
 	}
 
+	@Override
 	public Disciplina getDisciplina() {
 		return disciplina;
 	}
@@ -126,4 +114,14 @@ public class CadastroDisciplinasMatriz implements ICadastroDisciplinasMatriz {
 	public GrupoCurricular[] getListaGrupoCurricular() {
 		return GrupoCurricular.values();
 	}
+
+	@Override
+	public Matriz getMatriz() {
+		return matriz;
+	}
+
+	public void setMatriz(Matriz matriz) {
+		this.matriz = matriz;
+	}	
+	
 }

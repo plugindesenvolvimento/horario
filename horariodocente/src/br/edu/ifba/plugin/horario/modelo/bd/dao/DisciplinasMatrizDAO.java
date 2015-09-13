@@ -38,6 +38,8 @@ public class DisciplinasMatrizDAO extends DAO{
 	
 		DisciplinasMatriz disciplinasMatriz = cadastro.getDisciplinasMatriz();
 		disciplinasMatriz.setIdgrupocurricular(cadastro.getGrupoCurricular());
+		disciplinasMatriz.setIddisciplina(cadastro.getDisciplina());
+		disciplinasMatriz.setIdmatriz(cadastro.getMatriz());
 		try {
 			iniciarTransacao();
 			em.persist(disciplinasMatriz);

@@ -20,11 +20,19 @@ private DisciplinasMatrizDAO dao;
 		return dao.completarDisciplina(nome);	
 	}	
 	
-	public void gravar() {
-		dao.gravar();
-		//dao.listar();
+	public void listar()
+	{
+		dao.listar();
 	}
 	
+	public void gravar() {
+		dao.gravar();
+		dao.listar();
+	}
 	
+	public void excluir() {
+		dao.excluir();
+		dao.listar();
+	}
 	
 }

@@ -23,11 +23,11 @@ public class Setor {
 	@Column(name = "id", nullable = false)
 	private Integer id;
 
-	@Column(name = "nome", nullable = false)
+	@Column(name = "nome")
 	private String nome;
 
 	@ManyToOne
-	@JoinColumn(name = "idcoordenador", nullable = false)
+	@JoinColumn(name = "idcoordenador")
 	private Servidor idcoordenador;
 
 	public Integer getId() {

@@ -35,9 +35,7 @@ public class CadastroDisciplina implements ICadastroDisciplina {
 
 	public void prepararAdicao() {
 		this.disciplina = new Disciplina();
-
 		edicao = true;
-
 	}
 
 	public void prepararEdicao(Disciplina disciplina) {
@@ -46,7 +44,6 @@ public class CadastroDisciplina implements ICadastroDisciplina {
 	}
 
 	public void cancelarEdicao() {
-
 		edicao = false;
 	}
 

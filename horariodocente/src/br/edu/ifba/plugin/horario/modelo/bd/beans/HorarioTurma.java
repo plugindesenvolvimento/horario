@@ -28,18 +28,18 @@ public class HorarioTurma {
 	private Integer id;
 
 	@ManyToOne
-	@JoinColumn(name = "idcurso", nullable = false)
+	@JoinColumn(name = "idcurso")
 	private Curso idcurso;
 
 	@ManyToOne
-	@JoinColumn(name = "idperiodoletivo", nullable = false)
+	@JoinColumn(name = "idperiodoletivo")
 	private PeriodoLetivo idperiodoletivo;
 
 	@Enumerated
-	@Column(name = "idturno", nullable = false)
+	@Column(name = "idturno")
 	private Turno idturno;
 
-	@Column(name = "nrperiodo", nullable = false)
+	@Column(name = "nrperiodo")
 	private Integer nrperiodo;
 
 	

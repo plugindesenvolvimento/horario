@@ -25,17 +25,17 @@ public class Usuario {
 	@Column(name = "id", nullable = false)
 	private Integer id;
 
-	@Column(name = "login", nullable = false)
+	@Column(name = "login")
 	private String login;
 
-	@Column(name = "senha", nullable = false)
+	@Column(name = "senha")
 	private String senha;
 
-	@Column(name = "ativo", nullable = false)
+	@Column(name = "ativo")
 	private Boolean ativo;
 	
 	@ManyToOne
-	@JoinColumn(name = "idpessoa", nullable = false)
+	@JoinColumn(name = "idpessoa")
 	private Pessoa idpessoa;
 
 	public Integer getId() {

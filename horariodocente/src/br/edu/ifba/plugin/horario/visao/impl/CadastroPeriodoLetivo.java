@@ -29,9 +29,7 @@ public class CadastroPeriodoLetivo implements ICadastroPeriodoLetivo {
 
 	public void prepararAdicao() {
 		this.periodoletivo = new PeriodoLetivo();
-
 		edicao = true;
-
 	}
 
 	public void prepararEdicao(PeriodoLetivo periodoletivo) {
@@ -40,7 +38,6 @@ public class CadastroPeriodoLetivo implements ICadastroPeriodoLetivo {
 	}
 
 	public void cancelarEdicao() {
-
 		edicao = false;
 	}
 
@@ -99,5 +96,4 @@ public class CadastroPeriodoLetivo implements ICadastroPeriodoLetivo {
 	public void setPeriodoletivo(PeriodoLetivo periodoletivo) {
 		this.periodoletivo = periodoletivo;
 	}
-
 }

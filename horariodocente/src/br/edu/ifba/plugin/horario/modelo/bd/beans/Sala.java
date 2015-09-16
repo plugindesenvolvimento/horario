@@ -21,10 +21,10 @@ public class Sala {
 	@Column(name = "id", nullable = false)
 	private Integer id;
 
-	@Column(name = "nome", nullable = false)
+	@Column(name = "nome")
 	private String nome;
 	
-	@Column(name = "bloco", nullable = false)
+	@Column(name = "bloco")
 	private String bloco;
 
 	public Integer getId() {

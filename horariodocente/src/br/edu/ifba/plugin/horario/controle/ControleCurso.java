@@ -6,7 +6,6 @@ import br.edu.ifba.plugin.horario.visao.ICadastroCurso;
 public class ControleCurso {
 
 	private CursoDAO dao;
-	//private ModalidadeCurso modalidade;
 		
 	public ControleCurso(ICadastroCurso curso)
 	{
@@ -30,10 +29,4 @@ public class ControleCurso {
 		dao.excluir();
 		dao.listar();
 	}
-	
-//	public List<Curso> getByModalidade()
-//	{
-//		return dao.getByModalidade(modalidade.getId());
-//	}
-//	
 }

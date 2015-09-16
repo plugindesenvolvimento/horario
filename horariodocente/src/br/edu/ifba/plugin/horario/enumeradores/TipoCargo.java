@@ -2,11 +2,13 @@ package br.edu.ifba.plugin.horario.enumeradores;
 
 public enum TipoCargo {
 
-	PROFESSOR("PROFESSOR"), TECNICO("TÉCNICO");
+	PROFESSOR(0,"PROFESSOR"), TECNICO(1,"TÉCNICO");
 
 	private String nome;
+	private Integer id;
 
-	private TipoCargo(String nome) {
+	private TipoCargo(Integer id, String nome) {
+		this.id = id;
 		this.nome = nome;
 	}
 
@@ -15,5 +17,20 @@ public enum TipoCargo {
 		return nome;
 	}
 
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
 	
 }

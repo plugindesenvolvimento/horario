@@ -16,15 +16,10 @@ import br.edu.ifba.plugin.horario.visao.ICadastroModalidadeCurso;
 public class CadastroModalidadeCurso implements ICadastroModalidadeCurso {
 
 	private List<ModalidadeCurso> modalidadesCurso = new ArrayList<ModalidadeCurso>();
-	//private List<RegimeLetivo> regimesLetivos = new ArrayList<RegimeLetivo>();
 	private ModalidadeCurso modalidadeCurso;
 	private RegimeLetivo regimeLetivo;
-	//public RegimeLetivo listaRegimeLetivo;
-	
 	boolean edicao = false;
-
 	private ControleModalidadeCurso controle;
-
 	
 	public CadastroModalidadeCurso() {
 		controle = new ControleModalidadeCurso(this);
@@ -36,9 +31,7 @@ public class CadastroModalidadeCurso implements ICadastroModalidadeCurso {
 
 	public void prepararAdicao() {
 		this.modalidadeCurso = new ModalidadeCurso();
-
-		edicao = true;
-	
+		edicao = true;	
 	}
 
 	public void prepararEdicao(ModalidadeCurso modalidadeCurso) {
@@ -47,7 +40,6 @@ public class CadastroModalidadeCurso implements ICadastroModalidadeCurso {
 	}
 
 	public void cancelarEdicao() {
-		
 		edicao = false;
 	}
 
@@ -104,5 +96,4 @@ public class CadastroModalidadeCurso implements ICadastroModalidadeCurso {
 	{
 		return RegimeLetivo.values();
 	}
-	
 }

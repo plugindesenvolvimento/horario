@@ -30,7 +30,6 @@ public class CadastroCurso implements ICadastroCurso {
 		controle = new ControleCurso(this);
 	}
 	
-	
 	@Override
 	public Curso getCurso() {
 
@@ -92,7 +91,6 @@ public class CadastroCurso implements ICadastroCurso {
 		controle.excluir();
 	}
 
-	
 	public List<ModalidadeCurso> getModalidades() {
 		return modalidades;
 	}

@@ -24,6 +24,13 @@
 					<h:panelGrid columns="2">
 						<p:commandButton id="novoButton" value="Novo" process="@this"
 							icon="ui-icon-plus" action="openElaboracaoHorario" />
+
+						<h:panelGroup>
+							<p:inputText id="search" required="true" style="margin-left:950px">
+								<f:validateLength minimum="2" />
+							</p:inputText>
+							<p:watermark value="Pesquise por ..." for="search" />
+						</h:panelGroup>
 					</h:panelGrid>
 
 					<br></br>
@@ -38,7 +45,8 @@
 								<f:facet name="header">
 									<h:outputText value="Período Letivo" />
 								</f:facet>
-								<h:outputText value="#{horario.idhorarioturma.idperiodoletivo.nome}" />
+								<h:outputText
+									value="#{horario.idhorarioturma.idperiodoletivo.nome}" />
 							</p:column>
 
 

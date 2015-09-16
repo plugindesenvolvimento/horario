@@ -1,15 +1,12 @@
 package br.edu.ifba.plugin.horario.modelo.bd.beans;
 
-import java.util.Collection;
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -21,26 +18,26 @@ public class DisciplinasHorario {
 	}
 
 	@Id
-	@SequenceGenerator(name="SEQ_DISCIPLINAS_HORARIO", schema = "academico", sequenceName="SEQ_DISCIPLINAS_HORARIO_ID", allocationSize=1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="SEQ_DISCIPLINAS_HORARIO")
+	@SequenceGenerator(name = "SEQ_DISCIPLINAS_HORARIO", schema = "academico", sequenceName = "SEQ_DISCIPLINAS_HORARIO_ID", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_DISCIPLINAS_HORARIO")
 	@Column(name = "id", nullable = false)
 	private Integer id;
 
-	@ManyToMany
-	@JoinColumn(name = "idhorarioturma", nullable = false)
-	private List <HorarioTurma> idhorarioturma;
+	@ManyToOne
+	@JoinColumn(name = "idhorarioturma")
+	private HorarioTurma idhorarioturma;
 
-	@ManyToMany
-	@JoinColumn(name = "iddisciplina", nullable = false)
-	private List <Disciplina> iddisciplina;
+	@ManyToOne
+	@JoinColumn(name = "iddisciplina")
+	private Disciplina iddisciplina;
 
-	@ManyToMany
-	@JoinColumn(name = "idservidor", nullable = false)
-	private List <Servidor> idservidor;
+	@ManyToOne
+	@JoinColumn(name = "idservidor")
+	private Servidor idservidor;
 
-	@ManyToMany
-	@JoinColumn(name = "idsala", nullable = false)
-	private List <Sala> idsala;
+	@ManyToOne
+	@JoinColumn(name = "idsala")
+	private Sala idsala;
 
 	public Integer getId() {
 		return id;
@@ -50,36 +47,35 @@ public class DisciplinasHorario {
 		this.id = id;
 	}
 
-	
-	public Collection<Sala> getIdsala() {
-		return idsala;
-	}
-	
-	public List<HorarioTurma> getIdhorarioturma() {
+	public HorarioTurma getIdhorarioturma() {
 		return idhorarioturma;
 	}
 
-	public void setIdhorarioturma(List<HorarioTurma> idhorarioturma) {
+	public void setIdhorarioturma(HorarioTurma idhorarioturma) {
 		this.idhorarioturma = idhorarioturma;
 	}
 
-	public List<Disciplina> getIddisciplina() {
+	public Disciplina getIddisciplina() {
 		return iddisciplina;
 	}
 
-	public void setIddisciplina(List<Disciplina> iddisciplina) {
+	public void setIddisciplina(Disciplina iddisciplina) {
 		this.iddisciplina = iddisciplina;
 	}
 
-	public List<Servidor> getIdservidor() {
+	public Servidor getIdservidor() {
 		return idservidor;
 	}
 
-	public void setIdservidor(List<Servidor> idservidor) {
+	public void setIdservidor(Servidor idservidor) {
 		this.idservidor = idservidor;
 	}
 
-	public void setIdsala(List<Sala> idsala) {
+	public Sala getIdsala() {
+		return idsala;
+	}
+
+	public void setIdsala(Sala idsala) {
 		this.idsala = idsala;
 	}
 

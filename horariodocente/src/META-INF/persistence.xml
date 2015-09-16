@@ -5,8 +5,6 @@
 
 	<persistence-unit name="plugin">
 
-		<!-- <class>br.edu.ifba.plugin.horario.modelo.bd.beans.Atividade</class> -->
-		<!-- <class>br.edu.ifba.plugin.horario.modelo.bd.beans.Disciplina</class> -->
 		<class>br.edu.ifba.plugin.horario.modelo.bd.beans.Curso</class>
 		<class>br.edu.ifba.plugin.horario.modelo.bd.beans.ModalidadeCurso</class>
 		<class>br.edu.ifba.plugin.horario.modelo.bd.beans.Servidor</class>
@@ -19,7 +17,7 @@
 		<class>br.edu.ifba.plugin.horario.modelo.bd.beans.Matriz</class>
 		<class>br.edu.ifba.plugin.horario.modelo.bd.beans.DisciplinasMatriz</class>
 		<class>br.edu.ifba.plugin.horario.modelo.bd.beans.HorarioTurma</class>
-		<class>br.edu.ifba.plugin.horario.modelo.bd.beans.DisciplinasHorario</class>
+		<class>br.edu.ifba.plugin.horario.modelo.bd.beans.DisciplinasHorario</class>		
 		<class>br.edu.ifba.plugin.horario.modelo.bd.beans.Sala</class>
 		
 

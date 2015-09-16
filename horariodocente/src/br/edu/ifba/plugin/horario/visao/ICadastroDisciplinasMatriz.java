@@ -16,6 +16,8 @@ public interface ICadastroDisciplinasMatriz {
 	public Disciplina getDisciplina();
 	
 	public Matriz getMatriz();
+	
+	public Integer getPeriodo();
 
 	public void setListaDisciplinasMatrizes(List<DisciplinasMatriz> disciplinasMatrizes);
 

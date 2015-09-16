@@ -24,10 +24,4 @@ public class ControleMatriz {
 		dao.excluir();
 		dao.listar();
 	}
-	
-//	public void gravarDisciplinasMatriz() {
-//		dao.gravarDisciplinasMatriz();
-//		//dao.listar();
-//	}
-	
 }

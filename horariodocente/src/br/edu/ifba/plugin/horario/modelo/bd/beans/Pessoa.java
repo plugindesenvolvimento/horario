@@ -28,33 +28,33 @@ public class Pessoa {
 	@Column(name = "id", nullable = false)
 	private Integer id;
 
-	@Column(name = "nome", nullable = false)
+	@Column(name = "nome")
 	private String nome;
 
-	@Column(name = "rg", nullable = false)
+	@Column(name = "rg")
 	private String rg;
 
-	@Column(name = "cpf", nullable = false)
+	@Column(name = "cpf")
 	private String cpf;
 
-	@Column(name = "sexo", nullable = false)
+	@Column(name = "sexo")
 	private Integer sexo;
 
-	@Column(name = "datanascimento", nullable = false)
+	@Column(name = "datanascimento")
 	@Temporal(TemporalType.DATE)
 	private Date datanascimento;
 
-	@Column(name = "endereco", nullable = false)
+	@Column(name = "endereco")
 	private String endereco;
 
-	@Column(name = "telefone", nullable = false)
+	@Column(name = "telefone")
 	private String telefone;
 
-	@Column(name = "email", nullable = false)
+	@Column(name = "email")
 	private String email;
 
 	@Enumerated
-	@Column(name = "idcategoria", nullable = false)
+	@Column(name = "idcategoria")
 	private Categoria idcategoria;
 
 	public Integer getId() {

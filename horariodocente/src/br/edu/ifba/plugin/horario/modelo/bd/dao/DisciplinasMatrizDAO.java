@@ -40,10 +40,10 @@ public class DisciplinasMatrizDAO extends DAO {
 		disciplinasMatriz.setIdgrupocurricular(cadastro.getGrupoCurricular());
 		disciplinasMatriz.setIddisciplina(cadastro.getDisciplina());
 		disciplinasMatriz.setIdmatriz(cadastro.getMatriz());
+		disciplinasMatriz.setNrperiodo(cadastro.getPeriodo());
 		try {
 			iniciarTransacao();
 			em.persist(disciplinasMatriz);
-			System.out.println("Inseriu na tabela...");
 			commitTransacao();
 			// cadastro.notificarSucesso();
 		} catch (Exception e) {
@@ -91,25 +91,17 @@ public class DisciplinasMatrizDAO extends DAO {
 		return filteredDisciplinas;
 	}
 
-	/*
-	 * public List<DisciplinaPeriodo> completarDisciplina(String nome) {
-	 * 
-	 * List<DisciplinaPeriodo> encontrados = new ArrayList<DisciplinaPeriodo>();
-	 * 
-	 * TypedQuery<DisciplinaPeriodo> query = em.createQuery(
-	 * "select u from DisciplinaPeriodo where u.iddisciplina.id=:iddisciplina",
-	 * DisciplinaPeriodo.class); query.setParameter("iddisciplina.nome", nome);
-	 * try { encontrados = query.getResultList(); } catch (NoResultException e)
-	 * { e.printStackTrace(); }
-	 * 
-	 * List<DisciplinaPeriodo> filteredDisciplinas = new
-	 * ArrayList<DisciplinaPeriodo>();
-	 * 
-	 * for (int i = 0; i < encontrados.size(); i++) { DisciplinaPeriodo skin =
-	 * encontrados.get(i);
-	 * if(skin.getIddisciplina().getClass().getName().toLowerCase
-	 * ().startsWith(nome)) { filteredDisciplinas.add(skin); } } return
-	 * filteredDisciplinas; }
-	 */
+	public void excluir() {
+		try {
+			iniciarTransacao();
+			DisciplinasMatriz m = em.merge(cadastro.getDisciplinasMatriz());
+			em.remove(m);
+			commitTransacao();
+		} catch (Exception e) {
+			e.printStackTrace();
+			rollbackTransacao();
+		}
+
+	}
 
 }

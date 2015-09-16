@@ -28,7 +28,7 @@ public class Matriz {
 	@Column(name = "id", nullable = false)
 	private Integer id;
 
-	@Column(name = "data", nullable = false)
+	@Column(name = "data")
 	@Temporal(TemporalType.DATE)
 	private Date data;
 
@@ -42,7 +42,7 @@ public class Matriz {
 	@JoinColumn(name = "idcurso")
 	private Curso idcurso;
 
-	@Column(name = "nome", nullable = false)
+	@Column(name = "nome")
 	private String nome;
 
 	@Column(name = "quantidadeperiodos")

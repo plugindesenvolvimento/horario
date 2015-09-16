@@ -35,14 +35,10 @@ public class AreaDAO extends DAO {
 	public void excluir() {
 		try {
 			iniciarTransacao();
-			System.out.println("Iniciou a transaçao para exlcuir...");
 			Area m = em.merge(cadastro.getArea());
-			System.out.println(m);
 			em.remove(m);
-			System.out.println("Excluiu da lista...");
 			commitTransacao();
 		} catch (Exception e) {
-			System.out.println("Não excluiu da lista...");
 			e.printStackTrace();
 			rollbackTransacao();
 		}
@@ -54,7 +50,6 @@ public class AreaDAO extends DAO {
 		try {
 			iniciarTransacao();
 			em.persist(area);
-			System.out.println("Inseriu na tabela...");
 			commitTransacao();
 			cadastro.notificarSucesso();
 		} catch (Exception e) {

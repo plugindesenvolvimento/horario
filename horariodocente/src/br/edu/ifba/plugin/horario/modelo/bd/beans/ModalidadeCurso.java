@@ -25,11 +25,11 @@ public class ModalidadeCurso {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="SEQ_MODALIDADE_CURSO")
 	private Integer id;
 
-	@Column(name = "nome", nullable = false)
+	@Column(name = "nome")
 	private String nome;
 
 	@Enumerated
-	@Column(name = "idregimeletivo", nullable = false)
+	@Column(name = "idregimeletivo")
 	private RegimeLetivo idregimeletivo;
 
 	public Integer getId() {

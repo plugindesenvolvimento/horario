@@ -13,12 +13,14 @@
 			<title>Cadastro de Componente Curricular</title>
 		</h:head>
 
-		<h:body>
+		<h:body
+			onload="#{cadastroDisciplinasMatriz.listarDisciplinasMatriz()}">
 			<h:form id="mainForm">
 				<p:panel id="teste">
 
 					<h:outputText value="Matriz Curricular: " for="nomeMatriz" />
-					<h:outputText id="nomeMatriz" value="#{cadastroDisciplinasMatriz.matriz.nome}" />
+					<h:outputText id="nomeMatriz"
+						value="#{cadastroDisciplinasMatriz.matriz.nome}" />
 					<br></br>
 					<h:outputText value="Curso: " for="nomeCurso" />
 					<h:outputText id="nomeCurso"
@@ -33,7 +35,8 @@
 						<h:panelGroup>
 							<p:outputLabel value="Disciplina: " for="disciplina" />
 							<p:autoComplete id="disciplina"
-								value="#{cadastroDisciplinasMatriz.disciplina}" converter="conversorDisciplina"
+								value="#{cadastroDisciplinasMatriz.disciplina}"
+								converter="conversorDisciplina"
 								completeMethod="#{cadastroDisciplinasMatriz.completarDisciplina}"
 								var="discip" itemLabel="#{discip.nome}" itemValue="#{discip}"
 								forceSelection="true">
@@ -45,7 +48,7 @@
 
 						<p:outputLabel for="periodo" value="Período: " />
 						<p:selectOneMenu id="periodo"
-							value="#{cadastroDisciplinasMatriz.disciplinasMatriz.nrperiodo}">
+							value="#{cadastroDisciplinasMatriz.periodo}">
 
 							<f:selectItem itemLabel="1" itemValue="1" />
 							<f:selectItem itemLabel="2" itemValue="2" />
@@ -72,19 +75,84 @@
 
 					<br></br>
 
-					<p:commandButton id="novoButton" value="Incluir" update="@(:input)"
-						process="@(:input)"
+					<p:commandButton id="novoButton" value="Incluir"
+						update=":mainForm:fieldDisciplina" process="@(:input)"
 						action="#{cadastroDisciplinasMatriz.gravarDisciplinasMatriz()}"
 						style="margin-left:1215px" />
 
 					<br></br>
 					<br></br>
 
-					<p:fieldset legend="Componentes Curriculares"
-						style="margin-bottom:20px">
+					<p:fieldset id="fieldDisciplina" legend="Componentes Curriculares"
+						style="margin-bottom:20px" process="@this">
+
+						<p:dataTable id="disciplinasMatrizTable" rows="10"
+							var="disciplinasMatriz"
+							value="#{cadastroDisciplinasMatriz.disciplinasMatrizes}"
+							paginator="true" paginatorPosition="bottom"
+							emptyMessage="Nenhuma disciplina cadastrada." process="@this">
+
+							<p:column  sortBy="#{disciplinasMatriz.nrperiodo}">
+								<f:facet name="header">
+									<h:outputText value="Semestre" />
+								</f:facet>
+								<h:outputText value="Semestre - #{disciplinasMatriz.nrperiodo}" />
+							</p:column>
+
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="Disciplina" />
+								</f:facet>
+								<h:outputText value="#{disciplinasMatriz.iddisciplina.nome}" />
+							</p:column>
+
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="Carga Horária" />
+								</f:facet>
+								<h:outputText
+									value="#{disciplinasMatriz.iddisciplina.cargahoraria}" />
+							</p:column>
+
+
+							<p:column style="width:60px">
+								<f:facet name="header">
+									<h:outputText value="Ação" />
+								</f:facet>
+
+								<p:commandLink process="@this"
+									onclick="PF('confirmDeleteDialog').show();">
+									<p:graphicImage value="/img/apagar.png" id="imagemExcluir" />
+									<p:tooltip id="toolTipExcluir" for="imagemExcluir"
+										value="Excluir" />
+									<f:setPropertyActionListener
+										target="#{cadastroDisciplinasMatriz.disciplinasMatriz}"
+										value="#{disciplinasMatriz}" />
+								</p:commandLink>
+
+							</p:column>
+
+						</p:dataTable>
 
 					</p:fieldset>
 				</p:panel>
+
+
+				<p:dialog id="modalExclusao" header="Exclusão de Disciplina da Matriz"
+					widgetVar="confirmDeleteDialog" modal="true">
+					<p:hotkey bind="esc" handler="confirmDeleteDialog.hide();" />
+					<p:outputLabel value="Tem certeza de que deseja excluir esta disciplina?" />
+					<br></br>
+					<br></br>
+					<br></br>
+					<p:commandButton value="Sim" action="#{cadastroDisciplinasMatriz.excluirDisciplinaMatriz()}"
+						onclick="PF('confirmDeleteDialog').hide();" process="@this" 
+						update=":mainForm:fieldDisciplina" style="margin-left: 275px;" />
+					<p:commandButton value="Não" process="@this"
+						
+						onclick="PF('confirmDeleteDialog').hide();" />
+				</p:dialog>
+
 			</h:form>
 		</h:body>
 	</ui:define>

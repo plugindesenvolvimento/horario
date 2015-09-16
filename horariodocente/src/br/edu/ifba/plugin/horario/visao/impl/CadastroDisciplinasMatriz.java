@@ -25,10 +25,10 @@ public class CadastroDisciplinasMatriz implements ICadastroDisciplinasMatriz {
 	private List<DisciplinasMatriz> listaDisciplinasMatriz = new ArrayList<DisciplinasMatriz>();
 	private Matriz matriz;
 	private ControleDisciplinasMatriz controle;
+	private Integer periodo;
 
 	public CadastroDisciplinasMatriz() {
 		controle = new ControleDisciplinasMatriz(this);
-		this.disciplinasMatriz = new DisciplinasMatriz();
 	}
 
 	@Override
@@ -70,7 +70,7 @@ public class CadastroDisciplinasMatriz implements ICadastroDisciplinasMatriz {
 	}
 
 	public void gravarDisciplinasMatriz() {
-
+		this.disciplinasMatriz = new DisciplinasMatriz();
 		controle.gravar();
 	}
 
@@ -113,5 +113,22 @@ public class CadastroDisciplinasMatriz implements ICadastroDisciplinasMatriz {
 	public void setMatriz(Matriz matriz) {
 		this.matriz = matriz;
 	}
-	
+
+	public void listarDisciplinasMatriz() {
+		controle.listar();
+	}
+
+	public void excluirDisciplinaMatriz()
+	{
+		controle.excluir();
+	}
+
+	@Override
+	public Integer getPeriodo() {
+		return periodo;
+	}
+
+	public void setPeriodo(Integer periodo) {
+		this.periodo = periodo;
+	}
 }

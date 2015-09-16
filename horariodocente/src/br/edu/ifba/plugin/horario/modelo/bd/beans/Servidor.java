@@ -32,30 +32,30 @@ public class Servidor {
 		this.id = id;
 	}
 
-	@Column(name = "siape", nullable = false)
+	@Column(name = "siape")
 	private String siape;
 
 	@ManyToOne
-	@JoinColumn(name = "idpessoa", nullable = false)
+	@JoinColumn(name = "idpessoa")
 	private Pessoa idpessoa;
 
 	@ManyToOne
-	@JoinColumn(name = "idcargo", nullable = false)
+	@JoinColumn(name = "idcargo")
 	private Cargo idcargo;
 
-	@Column(name = "cargahoraria", nullable = false)
+	@Column(name = "cargahoraria")
 	private Integer cargahoraria;
 
 	@ManyToOne
-	@JoinColumn(name = "idsetor", nullable = false)
+	@JoinColumn(name = "idsetor")
 	private Setor idsetor;
 
 	@ManyToOne
-	@JoinColumn(name = "idarea", nullable = false)
+	@JoinColumn(name = "idarea")
 	private Area idarea;
 
 	@ManyToOne
-	@JoinColumn(name = "idcargocomissionado", nullable = false)
+	@JoinColumn(name = "idcargocomissionado")
 	private Cargo idcargocomissionado;
 
 	public Cargo getIdcargocomissionado() {

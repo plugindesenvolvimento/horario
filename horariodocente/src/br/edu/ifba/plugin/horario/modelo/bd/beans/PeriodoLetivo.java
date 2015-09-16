@@ -26,14 +26,14 @@ public class PeriodoLetivo {
 	@Column(name = "id", nullable = false)
 	private Integer id;
 	
-	@Column(name = "nome", nullable = false)
+	@Column(name = "nome")
 	private String nome;
 	
-	@Column(name = "datainicio", nullable = false)
+	@Column(name = "datainicio")
 	@Temporal(TemporalType.DATE)
 	private Date datainicio;
 	
-	@Column(name = "datafim", nullable = false)
+	@Column(name = "datafim")
 	@Temporal(TemporalType.DATE)
 	private Date datafim;
 	

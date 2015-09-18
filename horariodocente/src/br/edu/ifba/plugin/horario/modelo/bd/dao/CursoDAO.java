@@ -21,8 +21,6 @@ public class CursoDAO extends DAO {
 
 	public void listar() {
 
-		System.out.println("Está Listando AQUUUUUIIII");
-
 		List<Curso> encontrados = new ArrayList<Curso>();
 
 		TypedQuery<Curso> query = em.createQuery(

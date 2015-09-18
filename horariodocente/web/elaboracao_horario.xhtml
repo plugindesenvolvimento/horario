@@ -16,26 +16,57 @@
 		<h:body>
 			<h:form id="mainForm">
 
-				<p:panel id="custom" style="margin-bottom:20px">
+				<p:panel id="horarioTurmaPanel" style="margin-bottom:20px">
 
-					<h:outputText value="Período Letivo: " for="periodoL" />
-					<h:outputText id="periodoL"
-						value="" />
-					<br></br>
-					<h:outputText value="Curso: " for="nomeCurso" />
-					<h:outputText id="nomeCurso"
-						value="" />
-					<h:outputText value="Turno: " for="turno" />
-					<h:outputText id="turno"
-						value="" />
-					<h:outputText value="Período: " for="periodo" />
-					<h:outputText id="periodo"
-						value="" />
+
+					<p:outputLabel for="periodoLetivo" value="Período Letivo: " />
+					<p:selectOneMenu id="periodoLetivo"
+						value="#{elaboracaoHorarioTurma.periodoLetivo}"
+						converter="conversorPeriodoLetivo">
+						<f:selectItems
+							value="#{elaboracaoHorarioTurma.listaPeriodoLetivo}" />
+					</p:selectOneMenu>
 
 					<br></br>
 					<br></br>
 
-					<p:commandButton id="saveButton" value="Salvar" process="@this" />
+					<p:outputLabel for="curso" value="Curso: " />
+					<p:selectOneMenu id="curso"
+						value="#{elaboracaoHorarioTurma.curso}"
+						converter="conversorCurso">
+						<f:selectItems value="#{elaboracaoHorarioTurma.listaCurso}" />
+					</p:selectOneMenu>
+
+					<h:outputText value="&#160;&#160;&#160;&#160;" escape="false" />
+
+					<p:outputLabel for="turno" value=" Turno: " />
+					<p:selectOneMenu id="turno" value="#{elaboracaoHorarioTurma.turno}">
+						<f:selectItems value="#{elaboracaoHorarioTurma.listaTurno}" />
+					</p:selectOneMenu>
+
+					<h:outputText value="&#160;&#160;&#160;&#160;" escape="false" />
+
+					<p:outputLabel for="periodo" value="Período: " />
+					<p:selectOneMenu id="periodo"
+						value="#{elaboracaoHorarioTurma.periodo}">
+						<f:selectItem itemLabel="1" itemValue="1" />
+						<f:selectItem itemLabel="2" itemValue="2" />
+						<f:selectItem itemLabel="3" itemValue="3" />
+						<f:selectItem itemLabel="4" itemValue="4" />
+						<f:selectItem itemLabel="5" itemValue="5" />
+						<f:selectItem itemLabel="6" itemValue="6" />
+						<f:selectItem itemLabel="7" itemValue="7" />
+						<f:selectItem itemLabel="8" itemValue="8" />
+						<f:selectItem itemLabel="9" itemValue="9" />
+						<f:selectItem itemLabel="10" itemValue="10" />
+					</p:selectOneMenu>
+
+					<br></br>
+					<br></br>
+
+					<p:commandButton id="saveButton" value="Salvar"
+						action="#{elaboracaoHorarioTurma.gravarHorarioTurma()}"
+						style="margin-left:1215px" />
 
 				</p:panel>
 
@@ -49,8 +80,7 @@
 						</p:tab>
 						<p:tab title="Horários">
 							<h:panelGrid columns="2" cellpadding="10">
-								<p:commandButton id="saveButton2" value="Salvar"
-									process="@this" />
+								<p:commandButton id="saveButton2" value="Salvar" process="@this" />
 							</h:panelGrid>
 						</p:tab>
 					</p:tabView>

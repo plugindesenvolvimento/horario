@@ -16,9 +16,7 @@ public class CadastroArea implements ICadastroArea {
 
 	private List<Area> areas = new ArrayList<Area>();
 	private Area area;
-
 	boolean edicao = false;
-
 	private ControleArea controle;
 	
 	public CadastroArea() {
@@ -31,9 +29,7 @@ public class CadastroArea implements ICadastroArea {
 
 	public void prepararAdicao() {
 		this.area = new Area();
-
-		edicao = true;
-	
+		edicao = true;	
 	}
 
 	public void prepararEdicao(Area area) {
@@ -41,10 +37,7 @@ public class CadastroArea implements ICadastroArea {
 		edicao = true;
 	}
 
-
-	
 	public void cancelarEdicao() {
-		
 		edicao = false;
 	}
 

@@ -60,4 +60,19 @@ public class PeriodoLetivoDAO extends DAO {
 			cadastro.notificarFalha();
 		}
 	}
+	
+	public List<PeriodoLetivo> getPeriodosLetivos() {
+
+		List<PeriodoLetivo> encontrados = new ArrayList<PeriodoLetivo>();
+
+		TypedQuery<PeriodoLetivo> query = em.createQuery(
+				"select u from PeriodoLetivo u order by u.id", PeriodoLetivo.class);
+		try {
+			encontrados = query.getResultList();
+		} catch (NoResultException e) {
+			e.printStackTrace();
+		}
+		return encontrados;
+	}
+
 }

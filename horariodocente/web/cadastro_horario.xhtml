@@ -15,8 +15,7 @@
 		</h:head>
 
 
-		<h:body
-			onload="#{cadastroHorarioTurmaPeriodo.listarHorariosTurmasPeriodos()}">
+		<h:body onload="#{elaboracaoHorarioTurma.listarHorariosTurmas()}">
 			<h:form id="mainForm">
 
 				<p:panel id="custom" header="Cadastro de Turmas e Horários"
@@ -26,7 +25,8 @@
 							icon="ui-icon-plus" action="openElaboracaoHorario" />
 
 						<h:panelGroup>
-							<p:inputText id="search" required="true" style="margin-left:950px">
+							<p:inputText id="search" required="true"
+								style="margin-left:950px">
 								<f:validateLength minimum="2" />
 							</p:inputText>
 							<p:watermark value="Pesquise por ..." for="search" />
@@ -35,9 +35,9 @@
 
 					<br></br>
 					<p:outputPanel id="list-container" layout="block" process="@this">
-						<p:dataTable id="horarioTurmaPeriodoTable" rows="10" var="horario"
-							value="#{cadastroHorarioTurmaPeriodo.horariosTurmasPeriodos}"
-							paginator="true" paginatorPosition="bottom"
+						<p:dataTable id="horarioTurmaTable" rows="10" var="horario"
+							value="#{elaboracaoHorarioTurma.horariosTurmas}" paginator="true"
+							paginatorPosition="bottom"
 							emptyMessage="Nenhum horário de turma cadastrado."
 							process="@this">
 
@@ -45,8 +45,7 @@
 								<f:facet name="header">
 									<h:outputText value="Período Letivo" />
 								</f:facet>
-								<h:outputText
-									value="#{horario.idhorarioturma.idperiodoletivo.nome}" />
+								<h:outputText value="#{horario.idperiodoletivo.nome}" />
 							</p:column>
 
 
@@ -54,14 +53,14 @@
 								<f:facet name="header">
 									<h:outputText value="Curso" />
 								</f:facet>
-								<h:outputText value="#{horario.idhorarioturma.idcurso.nome}" />
+								<h:outputText value="#{horario.idcurso.nome}" />
 							</p:column>
 
 							<p:column>
 								<f:facet name="header">
 									<h:outputText value="Turma" />
 								</f:facet>
-								<h:outputText value="#{horario.idperiodo.nrperiodo}" />
+								<h:outputText value="Semestre - #{horario.nrperiodo}" />
 							</p:column>
 
 							<p:column style="width:60px">
@@ -71,12 +70,13 @@
 
 
 								<p:commandLink process="@this" update=":mainForm:modalNovo"
-									action="#{cadastroArea.prepararEdicao(area)}">
+									action="#{elaboracaoHorarioTurma.prepararEdicao(horario)}">
 									<p:graphicImage value="/img/editar.png" id="imagemAlterar" />
 									<p:tooltip id="toolTipAlterar" for="imagemAlterar"
 										value="Editar" />
-									<f:setPropertyActionListener target="#{cadastroArea.area}"
-										value="#{area}" />
+									<f:setPropertyActionListener
+										target="#{elaboracaoHorarioTurma.horarioTurma}"
+										value="#{horario}" />
 								</p:commandLink>
 
 								<h:outputText value="&#160;&#160;&#160;&#160;" escape="false" />
@@ -86,8 +86,9 @@
 									<p:graphicImage value="/img/apagar.png" id="imagemExcluir" />
 									<p:tooltip id="toolTipExcluir" for="imagemExcluir"
 										value="Excluir" />
-									<f:setPropertyActionListener target="#{cadastroArea.area}"
-										value="#{area}" />
+									<f:setPropertyActionListener
+										target="#{elaboracaoHorarioTurma.horarioTurma}"
+										value="#{horario}" />
 								</p:commandLink>
 
 							</p:column>
@@ -97,39 +98,72 @@
 				</p:panel>
 
 
-				<p:dialog id="modalNovo" header="Cadastro de Área"
-					widgetVar="novaArea" resizable="false" closeOnEscape="true"
-					draggable="false" visible="#{cadastroArea.exibirEditor()}"
-					modal="true">
-					<p:outputLabel value="* Nome da Área: " for="descricao" />
-					<p:inputText id="descricao" value="#{cadastroArea.area.nome}" />
-					<br></br>
-					<br></br>
-					<h:outputText value="* Campo Obrigatório"
-						style="margin-left: 100px;" />
-					<br></br>
-					<br></br>
+				<p:dialog id="modalNovo" header="Cadastro de Turma"
+					widgetVar="novoHorarioTurma" resizable="false" closeOnEscape="true"
+					draggable="false"
+					visible="#{elaboracaoHorarioTurma.exibirEditor()}" modal="true">
+					<h:panelGrid columns="2">
+					
+					<p:outputLabel for="periodoLetivo" value="Período Letivo: " />
+					<p:selectOneMenu id="periodoLetivo"
+						value="#{elaboracaoHorarioTurma.periodoLetivo}"
+						converter="conversorPeriodoLetivo">
+						<f:selectItems
+							value="#{elaboracaoHorarioTurma.listaPeriodoLetivo}" />
+					</p:selectOneMenu>
+					
+					<p:outputLabel for="curso" value="Curso: " />
+					<p:selectOneMenu id="curso" value="#{elaboracaoHorarioTurma.curso}"
+						converter="conversorCurso">
+						<f:selectItems value="#{elaboracaoHorarioTurma.listaCurso}" />
+					</p:selectOneMenu>
+					
+					<p:outputLabel for="turno" value=" Turno: " />
+					<p:selectOneMenu id="turno" value="#{elaboracaoHorarioTurma.turno}">
+						<f:selectItems value="#{elaboracaoHorarioTurma.listaTurno}" />
+					</p:selectOneMenu>
+					
+					<p:outputLabel for="periodo" value="Período: " />
+					<p:selectOneMenu id="periodo"
+						value="#{elaboracaoHorarioTurma.periodo}">
+						<f:selectItem itemLabel="1" itemValue="1" />
+						<f:selectItem itemLabel="2" itemValue="2" />
+						<f:selectItem itemLabel="3" itemValue="3" />
+						<f:selectItem itemLabel="4" itemValue="4" />
+						<f:selectItem itemLabel="5" itemValue="5" />
+						<f:selectItem itemLabel="6" itemValue="6" />
+						<f:selectItem itemLabel="7" itemValue="7" />
+						<f:selectItem itemLabel="8" itemValue="8" />
+						<f:selectItem itemLabel="9" itemValue="9" />
+						<f:selectItem itemLabel="10" itemValue="10" />
+					</p:selectOneMenu>
+
 					<p:commandButton value="Salvar" process=":mainForm:modalNovo"
-						action="#{cadastroArea.gravarArea()}"
-						update=":mainForm:list-container" onclick="PF('novaArea').hide()"
-						icon="ui-icon-disk" style="margin-left: 150px;" />
+						action="#{elaboracaoHorarioTurma.editarHorarioTurma()}"
+						update=":mainForm:list-container"
+						onclick="PF('novoHorarioTurma').hide()" icon="ui-icon-disk"
+						style="margin-left: 150px;" />
 					<p:commandButton value="Cancelar" process="@this"
-						icon="ui-icon-cancel" action="#{cadastroArea.cancelarEdicao()}"
-						onclick="PF('novaArea').hide()" />
+						icon="ui-icon-cancel"
+						action="#{elaboracaoHorarioTurma.cancelarEdicao()}"
+						onclick="PF('novoHorarioTurma').hide()" />
+				</h:panelGrid>
 				</p:dialog>
 
-				<p:dialog id="modalExclusao" header="Exclusão de Área"
+				<p:dialog id="modalExclusao" header="Exclusão de Turmas"
 					widgetVar="confirmDeleteDialog" modal="true">
 					<p:hotkey bind="esc" handler="confirmDeleteDialog.hide();" />
-					<p:outputLabel value="Tem certeza de que deseja excluir esta área?" />
+					<p:outputLabel
+						value="Tem certeza de que deseja excluir esta turma?" />
 					<br></br>
 					<br></br>
 					<br></br>
-					<p:commandButton value="Sim" action="#{cadastroArea.excluirArea()}"
+					<p:commandButton value="Sim"
+						action="#{elaboracaoHorarioTurma.excluirHorarioTurma()}"
 						onclick="PF('confirmDeleteDialog').hide();" process="@this"
 						update=":mainForm:list-container" style="margin-left: 275px;" />
 					<p:commandButton value="Não" process="@this"
-						action="#{cadastroArea.cancelarEdicao()}"
+						action="#{elaboracaoHorarioTurma.cancelarEdicao()}"
 						onclick="PF('confirmDeleteDialog').hide();" />
 				</p:dialog>
 

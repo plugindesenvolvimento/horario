@@ -101,7 +101,5 @@ public class DisciplinasMatrizDAO extends DAO {
 			e.printStackTrace();
 			rollbackTransacao();
 		}
-
 	}
-
 }

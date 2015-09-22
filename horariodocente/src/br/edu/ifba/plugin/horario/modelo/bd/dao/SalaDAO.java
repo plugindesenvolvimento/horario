@@ -7,13 +7,13 @@ import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 
 import br.edu.ifba.plugin.horario.modelo.bd.beans.Sala;
-import br.edu.ifba.plugin.horario.visao.IElaboracaoHorarioTurma;
+import br.edu.ifba.plugin.horario.visao.ICadastroSala;
 
-public class SalaDAO extends DAO{
+public class SalaDAO extends DAO {
 
-	private IElaboracaoHorarioTurma cadastro;
+	private ICadastroSala cadastro;
 
-	public SalaDAO(IElaboracaoHorarioTurma sala) {
+	public SalaDAO(ICadastroSala sala) {
 		super();
 		this.cadastro = sala;
 	}
@@ -32,7 +32,31 @@ public class SalaDAO extends DAO{
 		cadastro.setListaSalas(encontrados);
 	}
 
-	
+	public void gravar() {
+		Sala sala = cadastro.getSala();
+		try {
+			iniciarTransacao();
+			em.persist(sala);
+			commitTransacao();
+			cadastro.notificarSucesso();
+		} catch (Exception e) {
+			rollbackTransacao();
+			cadastro.notificarFalha();
+		}
+	}
+
+	public void excluir() {
+		try {
+			iniciarTransacao();
+			Sala m = em.merge(cadastro.getSala());
+			em.remove(m);
+			commitTransacao();
+		} catch (Exception e) {
+			e.printStackTrace();
+			rollbackTransacao();
+		}
+	}
+
 	public List<Sala> getSalas() {
 
 		List<Sala> encontrados = new ArrayList<Sala>();
@@ -46,5 +70,5 @@ public class SalaDAO extends DAO{
 		}
 		return encontrados;
 	}
-	
+
 }

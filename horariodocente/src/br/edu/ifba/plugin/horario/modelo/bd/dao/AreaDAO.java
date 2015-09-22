@@ -42,7 +42,6 @@ public class AreaDAO extends DAO {
 			e.printStackTrace();
 			rollbackTransacao();
 		}
-
 	}
 
 	public void gravar() {
@@ -56,7 +55,6 @@ public class AreaDAO extends DAO {
 			rollbackTransacao();
 			cadastro.notificarFalha();
 		}
-
 	}
 
 	public List<Area> getAreas() {

@@ -6,43 +6,42 @@ import java.util.List;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 
-import br.edu.ifba.plugin.horario.modelo.bd.beans.HorarioTurma;
+import br.edu.ifba.plugin.horario.modelo.bd.beans.DisciplinasHorario;
 import br.edu.ifba.plugin.horario.visao.IElaboracaoHorarioTurma;
 
-public class ElaboracaoHorarioTurmaDAO extends DAO{
+public class DisciplinasHorarioDAO extends DAO {
 
 	private IElaboracaoHorarioTurma cadastro;
-	
-	public ElaboracaoHorarioTurmaDAO(IElaboracaoHorarioTurma horarioTurma) {
-		super();
-		this.cadastro = horarioTurma;
-	}
-	
-	public void listar() {
-		List<HorarioTurma> encontrados = new ArrayList<HorarioTurma>();
 
-		TypedQuery<HorarioTurma> query = em.createQuery(
-				"select u from HorarioTurma u order by u.id",
-				HorarioTurma.class);
+	public DisciplinasHorarioDAO(IElaboracaoHorarioTurma disciplinasHorario) {
+		super();
+		this.cadastro = disciplinasHorario;
+	}
+
+	public void listar() {
+		List<DisciplinasHorario> encontrados = new ArrayList<DisciplinasHorario>();
+
+		TypedQuery<DisciplinasHorario> query = em.createQuery(
+				"select u from DisciplinasHorario u order by u.id",
+				DisciplinasHorario.class);
 		try {
 			encontrados = query.getResultList();
 		} catch (NoResultException e) {
 			e.printStackTrace();
 		}
 
-		cadastro.setListaHorariosTurmas(encontrados);
+		cadastro.setListaDisciplinasHorarios(encontrados);
 	}
-	
+
 	public void gravar() {
 
-		HorarioTurma horarioTurma = cadastro.getHorarioTurma();
-		horarioTurma.setIdperiodoletivo(cadastro.getPeriodoLetivo());
-		horarioTurma.setIdcurso(cadastro.getCurso());
-		horarioTurma.setIdturno(cadastro.getTurno());
-		horarioTurma.setNrperiodo(cadastro.getPeriodo());
+		DisciplinasHorario disciplinasHorario = cadastro.getDisciplinasHorario();
+		disciplinasHorario.setIddisciplina(cadastro.getDisciplina());
+		disciplinasHorario.setIdservidor(cadastro.getServidor());
+		disciplinasHorario.setIdsala(cadastro.getSala());
 		try {
 			iniciarTransacao();
-			em.persist(horarioTurma);
+			em.persist(disciplinasHorario);
 			commitTransacao();
 			cadastro.notificarSucesso();
 		} catch (Exception e) {
@@ -54,7 +53,7 @@ public class ElaboracaoHorarioTurmaDAO extends DAO{
 	public void excluir() {
 		try {
 			iniciarTransacao();
-			HorarioTurma m = em.merge(cadastro.getHorarioTurma());
+			DisciplinasHorario m = em.merge(cadastro.getDisciplinasHorario());
 			em.remove(m);
 			commitTransacao();
 			cadastro.notificarSucesso();
@@ -64,4 +63,5 @@ public class ElaboracaoHorarioTurmaDAO extends DAO{
 			cadastro.notificarFalha();
 		}
 	}
+
 }

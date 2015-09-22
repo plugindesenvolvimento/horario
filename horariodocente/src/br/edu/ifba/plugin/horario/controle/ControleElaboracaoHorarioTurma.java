@@ -27,10 +27,4 @@ public class ControleElaboracaoHorarioTurma {
 		dao.excluir();
 		dao.listar();
 	}
-	
-	public void editar()
-	{
-		dao.editar();
-		dao.listar();
-	}
 }

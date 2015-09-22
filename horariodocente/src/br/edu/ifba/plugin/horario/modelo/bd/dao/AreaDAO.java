@@ -70,7 +70,6 @@ public class AreaDAO extends DAO {
 		} catch (NoResultException e) {
 			e.printStackTrace();
 		}
-
 		return encontrados;
 	}
 

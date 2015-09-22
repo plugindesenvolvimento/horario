@@ -40,8 +40,8 @@ public class Servidor {
 	private Pessoa idpessoa;
 
 	@ManyToOne
-	@JoinColumn(name = "idcargo")
-	private Cargo idcargo;
+	@JoinColumn(name = "idcargopermanente")
+	private Cargo idcargopermanente;
 
 	@Column(name = "cargahoraria")
 	private Integer cargahoraria;
@@ -81,13 +81,13 @@ public class Servidor {
 	public void setIdpessoa(Pessoa idpessoa) {
 		this.idpessoa = idpessoa;
 	}
-
-	public Cargo getIdcargo() {
-		return idcargo;
+	
+	public Cargo getIdcargopermanente() {
+		return idcargopermanente;
 	}
 
-	public void setIdcargo(Cargo idcargo) {
-		this.idcargo = idcargo;
+	public void setIdcargopermanente(Cargo idcargopermanente) {
+		this.idcargopermanente = idcargopermanente;
 	}
 
 	public Integer getCargahoraria() {
@@ -127,10 +127,13 @@ public class Servidor {
 				+ ((cargahoraria == null) ? 0 : cargahoraria.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((idarea == null) ? 0 : idarea.hashCode());
-		result = prime * result + ((idcargo == null) ? 0 : idcargo.hashCode());
 		result = prime
 				* result
 				+ ((idcargocomissionado == null) ? 0 : idcargocomissionado
+						.hashCode());
+		result = prime
+				* result
+				+ ((idcargopermanente == null) ? 0 : idcargopermanente
 						.hashCode());
 		result = prime * result
 				+ ((idpessoa == null) ? 0 : idpessoa.hashCode());
@@ -163,15 +166,15 @@ public class Servidor {
 				return false;
 		} else if (!idarea.equals(other.idarea))
 			return false;
-		if (idcargo == null) {
-			if (other.idcargo != null)
-				return false;
-		} else if (!idcargo.equals(other.idcargo))
-			return false;
 		if (idcargocomissionado == null) {
 			if (other.idcargocomissionado != null)
 				return false;
 		} else if (!idcargocomissionado.equals(other.idcargocomissionado))
+			return false;
+		if (idcargopermanente == null) {
+			if (other.idcargopermanente != null)
+				return false;
+		} else if (!idcargopermanente.equals(other.idcargopermanente))
 			return false;
 		if (idpessoa == null) {
 			if (other.idpessoa != null)

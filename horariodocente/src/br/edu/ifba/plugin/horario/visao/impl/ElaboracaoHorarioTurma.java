@@ -48,10 +48,12 @@ public class ElaboracaoHorarioTurma implements IElaboracaoHorarioTurma {
 	private Sala sala;
 	private ControleDisciplinasHorario controleDisciplinasHorario;
 	boolean edicaoDisciplinasHorario = false;
+	boolean desabilitado;
 
 	public ElaboracaoHorarioTurma() {
 		controle = new ControleElaboracaoHorarioTurma(this);
 		controleDisciplinasHorario = new ControleDisciplinasHorario(this);
+		this.desabilitado = false;
 	}
 
 	@Override
@@ -306,4 +308,12 @@ public class ElaboracaoHorarioTurma implements IElaboracaoHorarioTurma {
 		return listaServidores.getServidores();
 	}
 
+	public boolean isDesabilitado() {
+		return desabilitado;
+	}
+
+	public void setDesabilitado(boolean desabilitado) {
+		this.desabilitado = desabilitado;
+	}
+	
 }

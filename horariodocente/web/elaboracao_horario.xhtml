@@ -65,20 +65,29 @@
 
 					<p:commandButton id="saveButton" value="Salvar"
 						action="#{elaboracaoHorarioTurma.gravarHorarioTurma()}"
-						style="margin-left:1215px" />
+						update="@(:input:disabled)"
+						style="margin-left:1215px"
+						disabled="#{elaboracaoHorarioTurma.desabilitado}">
+						<f:setPropertyActionListener value="#{true}"
+							target="#{elaboracaoHorarioTurma.desabilitado}" />
+					</p:commandButton>
 
 				</p:panel>
 
 
 				<p:tabView>
 					<p:tab title="Disciplinas" id="list-container" layout="block"
-						process="@this">
+						>
 
 						<p:commandButton id="includeButton" value="Incluir"
-						    update="@(.ui-datatable)"
+							update="@(.ui-datatable)"
 							action="#{elaboracaoHorarioTurma.prepararAdicaoDisciplinasHorario()}"
 							onclick="PF('novaDisciplinasHorario').show()" process="@this"
-							style="margin-left:1200px" />
+							style="margin-left:1200px"
+							disabled="#{!(elaboracaoHorarioTurma.desabilitado)}">
+							<f:setPropertyActionListener value="#{false}"
+								target="#{elaboracaoHorarioTurma.desabilitado}" />
+						</p:commandButton>
 
 						<br></br>
 						<br></br>

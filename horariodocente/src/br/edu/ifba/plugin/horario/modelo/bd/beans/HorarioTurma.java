@@ -22,8 +22,9 @@ public class HorarioTurma {
 	}
 
 	@Id
-	@SequenceGenerator(name="SEQ_HORARIO_TURMA", schema = "academico", sequenceName="SEQ_HORARIO_TURMA_ID", allocationSize=1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="SEQ_HORARIO_TURMA")
+	@SequenceGenerator(name = "SEQ_HORARIO_TURMA", schema = "academico", 
+					   sequenceName = "SEQ_HORARIO_TURMA_ID", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_HORARIO_TURMA")
 	@Column(name = "id", nullable = false)
 	private Integer id;
 
@@ -42,7 +43,6 @@ public class HorarioTurma {
 	@Column(name = "nrperiodo")
 	private Integer nrperiodo;
 
-	
 	public Integer getId() {
 		return id;
 	}
@@ -74,7 +74,7 @@ public class HorarioTurma {
 	public void setIdturno(Turno idturno) {
 		this.idturno = idturno;
 	}
-	
+
 	public Integer getNrperiodo() {
 		return nrperiodo;
 	}
@@ -136,6 +136,6 @@ public class HorarioTurma {
 		} else if (!nrperiodo.equals(other.nrperiodo))
 			return false;
 		return true;
-	}	
-	
+	}
+
 }

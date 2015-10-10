@@ -8,17 +8,23 @@ import javax.faces.bean.ViewScoped;
 
 import br.edu.ifba.plugin.horario.controle.ControleDisciplinasHorario;
 import br.edu.ifba.plugin.horario.controle.ControleElaboracaoHorarioTurma;
+import br.edu.ifba.plugin.horario.controle.ControleHorarioDetalhe;
+import br.edu.ifba.plugin.horario.enumeradores.DiaSemana;
+import br.edu.ifba.plugin.horario.enumeradores.Horario;
 import br.edu.ifba.plugin.horario.enumeradores.Turno;
 import br.edu.ifba.plugin.horario.modelo.bd.beans.Curso;
 import br.edu.ifba.plugin.horario.modelo.bd.beans.Disciplina;
 import br.edu.ifba.plugin.horario.modelo.bd.beans.DisciplinasHorario;
+import br.edu.ifba.plugin.horario.modelo.bd.beans.HorarioDetalhe;
 import br.edu.ifba.plugin.horario.modelo.bd.beans.HorarioTurma;
 import br.edu.ifba.plugin.horario.modelo.bd.beans.PeriodoLetivo;
+import br.edu.ifba.plugin.horario.modelo.bd.beans.Pessoa;
 import br.edu.ifba.plugin.horario.modelo.bd.beans.Sala;
 import br.edu.ifba.plugin.horario.modelo.bd.beans.Servidor;
 import br.edu.ifba.plugin.horario.modelo.bd.dao.CursoDAO;
 import br.edu.ifba.plugin.horario.modelo.bd.dao.DisciplinaDAO;
 import br.edu.ifba.plugin.horario.modelo.bd.dao.PeriodoLetivoDAO;
+import br.edu.ifba.plugin.horario.modelo.bd.dao.PessoaDAO;
 import br.edu.ifba.plugin.horario.modelo.bd.dao.SalaDAO;
 import br.edu.ifba.plugin.horario.modelo.bd.dao.ServidorDAO;
 import br.edu.ifba.plugin.horario.visao.IElaboracaoHorarioTurma;
@@ -50,10 +56,22 @@ public class ElaboracaoHorarioTurma implements IElaboracaoHorarioTurma {
 	boolean edicaoDisciplinasHorario = false;
 	boolean desabilitado;
 
+	private HorarioDetalhe horarioDetalhe;
+	// private List<Horarios> horarios;
+	private List<HorarioDetalhe> horariosDetalhes;
+	private DiaSemana diaSemana;
+	private Horario horario;
+	private ControleHorarioDetalhe controleHorarioDetalhe;
+	private List<Pessoa> listaPessoas = new ArrayList<Pessoa>();
+	private Pessoa pessoa;
+	private PessoaDAO listaPessoa = new PessoaDAO(null);
+	
 	public ElaboracaoHorarioTurma() {
 		controle = new ControleElaboracaoHorarioTurma(this);
 		controleDisciplinasHorario = new ControleDisciplinasHorario(this);
+		controleHorarioDetalhe = new ControleHorarioDetalhe(this);
 		this.desabilitado = false;
+		// this.horarios = controle.getQuadroHorarios(horarioTurma);
 	}
 
 	@Override
@@ -182,7 +200,7 @@ public class ElaboracaoHorarioTurma implements IElaboracaoHorarioTurma {
 		return edicao;
 	}
 
-	// /////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////
 
 	@Override
 	public DisciplinasHorario getDisciplinasHorario() {
@@ -254,10 +272,9 @@ public class ElaboracaoHorarioTurma implements IElaboracaoHorarioTurma {
 
 	public void prepararAdicaoDisciplinasHorario() {
 		this.disciplinasHorario = new DisciplinasHorario();
-		edicaoDisciplinasHorario = true;	
+		edicaoDisciplinasHorario = true;
 	}
 
-	
 	public void excluirDisciplinasHorario() {
 		controleDisciplinasHorario.excluir();
 	}
@@ -286,11 +303,11 @@ public class ElaboracaoHorarioTurma implements IElaboracaoHorarioTurma {
 	public void setListaSalas(List<Sala> salas) {
 		this.listaSalas.getSalas();
 	}
-	
+
 	public List<Sala> getListaSala() {
 		return listaSalas.getSalas();
 	}
-	
+
 	public ServidorDAO getListaServidores() {
 		return listaServidores;
 	}
@@ -301,9 +318,9 @@ public class ElaboracaoHorarioTurma implements IElaboracaoHorarioTurma {
 
 	@Override
 	public void setListaServidores(List<Servidor> servidores) {
-		this.listaServidores.getServidores();		
+		this.listaServidores.getServidores();
 	}
-	
+
 	public List<Servidor> getListaServidor() {
 		return listaServidores.getServidores();
 	}
@@ -314,6 +331,86 @@ public class ElaboracaoHorarioTurma implements IElaboracaoHorarioTurma {
 
 	public void setDesabilitado(boolean desabilitado) {
 		this.desabilitado = desabilitado;
+	}
+
+	/////////////////////////////////////////////////////////////////////////////////////
+
+	@Override
+	public HorarioDetalhe getHorarioDetalhe() {
+		return horarioDetalhe;
+	}
+
+	public void setHorarioDetalhe(HorarioDetalhe horarioDetalhe) {
+		this.horarioDetalhe = horarioDetalhe;
+	}
+
+	public List<HorarioDetalhe> getHorariosDetalhes() {
+		return horariosDetalhes;
+	}
+
+	public void setHorariosDetalhes(List<HorarioDetalhe> horariosDetalhes) {
+		this.horariosDetalhes = horariosDetalhes;
+	}
+
+	@Override
+	public DiaSemana getDiaSemana() {
+		return diaSemana;
+	}
+
+	public void setDiaSemana(DiaSemana diaSemana) {
+		this.diaSemana = diaSemana;
+	}
+
+	public DiaSemana[] getListaDiaSemana() {
+		return DiaSemana.values();
+	}
+
+	@Override
+	public Horario getHorario() {
+		return horario;
+	}
+
+	public void setHorario(Horario horario) {
+		this.horario = horario;
+	}
+
+	public Horario[] getListaHorario() {
+		return Horario.values();
+	}
+
+	@Override
+	public void setListaHorariosDetalhes(List<HorarioDetalhe> horariosDetalhes) {
+		this.horariosDetalhes = horariosDetalhes;
+	}
+
+	public void gravarHorarioDetalhe() {
+		this.horarioDetalhe = new HorarioDetalhe();
+		controleHorarioDetalhe.gravar();
+	}
+
+	public List<Pessoa> getListaPessoas() {
+		return listaPessoas;
+	}
+
+	public void setListaPessoas(List<Pessoa> listaPessoas) {
+		this.listaPessoas = listaPessoas;
+	}
+
+	@Override
+	public Pessoa getPessoa() {
+		return pessoa;
+	}
+
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
+	}
+
+	public void setListaPessoa(PessoaDAO listaPessoa) {
+		this.listaPessoa = listaPessoa;
+	}
+	
+	public List<Pessoa> getListaPessoa() {
+		return listaPessoa.getPessoas();
 	}
 	
 }

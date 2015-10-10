@@ -19,7 +19,7 @@
 		<class>br.edu.ifba.plugin.horario.modelo.bd.beans.HorarioTurma</class>
 		<class>br.edu.ifba.plugin.horario.modelo.bd.beans.DisciplinasHorario</class>		
 		<class>br.edu.ifba.plugin.horario.modelo.bd.beans.Sala</class>
-		
+		<class>br.edu.ifba.plugin.horario.modelo.bd.beans.HorarioDetalhe</class>
 
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />

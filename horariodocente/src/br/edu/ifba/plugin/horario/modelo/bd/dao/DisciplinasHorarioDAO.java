@@ -36,6 +36,7 @@ public class DisciplinasHorarioDAO extends DAO {
 	public void gravar() {
 
 		DisciplinasHorario disciplinasHorario = cadastro.getDisciplinasHorario();
+		disciplinasHorario.setIdhorarioturma(cadastro.getHorarioTurma());
 		disciplinasHorario.setIddisciplina(cadastro.getDisciplina());
 		disciplinasHorario.setIdservidor(cadastro.getServidor());
 		disciplinasHorario.setIdsala(cadastro.getSala());

@@ -1,10 +1,9 @@
 package br.edu.ifba.plugin.horario.controle;
 
-import br.edu.ifba.plugin.horario.modelo.bd.dao.DAO;
 import br.edu.ifba.plugin.horario.modelo.bd.dao.SalaDAO;
 import br.edu.ifba.plugin.horario.visao.ICadastroSala;
 
-public class ControleSala extends DAO {
+public class ControleSala {
 
 	private SalaDAO dao;
 

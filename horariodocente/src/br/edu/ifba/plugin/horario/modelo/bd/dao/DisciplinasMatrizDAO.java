@@ -45,10 +45,10 @@ public class DisciplinasMatrizDAO extends DAO {
 			iniciarTransacao();
 			em.persist(disciplinasMatriz);
 			commitTransacao();
-			// cadastro.notificarSucesso();
+			cadastro.notificarSucesso();
 		} catch (Exception e) {
 			rollbackTransacao();
-			// cadastro.notificarFalha();
+			cadastro.notificarFalha();
 		}
 	}
 

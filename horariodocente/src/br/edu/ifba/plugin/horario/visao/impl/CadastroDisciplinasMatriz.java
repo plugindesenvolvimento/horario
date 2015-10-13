@@ -42,15 +42,15 @@ public class CadastroDisciplinasMatriz implements ICadastroDisciplinasMatriz {
 		this.disciplinasMatrizes = disciplinasMatrizes;
 	}
 
-	/*
-	 * @Override public void notificarSucesso() {
-	 * 
-	 * }
-	 * 
-	 * @Override public void notificarFalha() {
-	 * 
-	 * }
-	 */
+	@Override
+	public void notificarSucesso() {
+		System.out.println("Operação Realizada com Sucesso!");
+	}
+
+	@Override
+	public void notificarFalha() {
+		System.out.println("Falhou!");
+	}
 
 	public List<DisciplinasMatriz> getDisciplinasMatrizes() {
 		return disciplinasMatrizes;
@@ -118,8 +118,7 @@ public class CadastroDisciplinasMatriz implements ICadastroDisciplinasMatriz {
 		controle.listar();
 	}
 
-	public void excluirDisciplinaMatriz()
-	{
+	public void excluirDisciplinaMatriz() {
 		controle.excluir();
 	}
 

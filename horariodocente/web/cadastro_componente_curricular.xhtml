@@ -29,47 +29,52 @@
 					<br></br>
 					<br></br>
 
-					<p:panel id="PanelDisciplinasMatriz">
+					<p:panel id="PanelDisciplinasMatriz" style="margin-auto:0px">
+						<h:panelGrid columns="2">
+							<h:panelGroup>
+								<p:outputLabel value="Disciplina: " for="disciplina" />
+								<p:autoComplete id="disciplina"
+									value="#{cadastroDisciplinasMatriz.disciplina}"
+									converter="conversorDisciplina"
+									completeMethod="#{cadastroDisciplinasMatriz.completarDisciplina}"
+									var="discip" itemLabel="#{discip.nome}" itemValue="#{discip}"
+									forceSelection="true">
+								</p:autoComplete>
+								<p:watermark value="Pesquise por disciplinas " for="disciplina" />
+							</h:panelGroup>
+							<br></br>
+							<br></br>
+
+						</h:panelGrid>
+
+						<h:panelGrid columns="4">
+
+							<p:outputLabel for="periodo" value="Período: " />
+							<p:selectOneMenu id="periodo"
+								value="#{cadastroDisciplinasMatriz.periodo}">
+
+								<f:selectItem itemLabel="1" itemValue="1" />
+								<f:selectItem itemLabel="2" itemValue="2" />
+								<f:selectItem itemLabel="3" itemValue="3" />
+								<f:selectItem itemLabel="4" itemValue="4" />
+								<f:selectItem itemLabel="5" itemValue="5" />
+								<f:selectItem itemLabel="6" itemValue="6" />
+								<f:selectItem itemLabel="7" itemValue="7" />
+								<f:selectItem itemLabel="8" itemValue="8" />
+								<f:selectItem itemLabel="9" itemValue="9" />
+								<f:selectItem itemLabel="10" itemValue="10" />
+							</p:selectOneMenu>
 
 
-						<h:panelGroup>
-							<p:outputLabel value="Disciplina: " for="disciplina" />
-							<p:autoComplete id="disciplina"
-								value="#{cadastroDisciplinasMatriz.disciplina}"
-								converter="conversorDisciplina"
-								completeMethod="#{cadastroDisciplinasMatriz.completarDisciplina}"
-								var="discip" itemLabel="#{discip.nome}" itemValue="#{discip}"
-								forceSelection="true">
-							</p:autoComplete>
-							<p:watermark value="Pesquise por disciplinas " for="disciplina" />
-						</h:panelGroup>
-						<br></br>
-						<br></br>
+							<p:outputLabel for="grupoCurricular" value=" Grupo Curricular: "
+								style="margin-left:20px" />
+							<p:selectOneMenu id="grupoCurricular"
+								value="#{cadastroDisciplinasMatriz.grupoCurricular}">
+								<f:selectItems
+									value="#{cadastroDisciplinasMatriz.listaGrupoCurricular}" />
+							</p:selectOneMenu>
 
-						<p:outputLabel for="periodo" value="Período: " />
-						<p:selectOneMenu id="periodo"
-							value="#{cadastroDisciplinasMatriz.periodo}">
-
-							<f:selectItem itemLabel="1" itemValue="1" />
-							<f:selectItem itemLabel="2" itemValue="2" />
-							<f:selectItem itemLabel="3" itemValue="3" />
-							<f:selectItem itemLabel="4" itemValue="4" />
-							<f:selectItem itemLabel="5" itemValue="5" />
-							<f:selectItem itemLabel="6" itemValue="6" />
-							<f:selectItem itemLabel="7" itemValue="7" />
-							<f:selectItem itemLabel="8" itemValue="8" />
-							<f:selectItem itemLabel="9" itemValue="9" />
-							<f:selectItem itemLabel="10" itemValue="10" />
-						</p:selectOneMenu>
-
-
-						<p:outputLabel for="grupoCurricular" value=" Grupo Curricular: " />
-						<p:selectOneMenu id="grupoCurricular"
-							value="#{cadastroDisciplinasMatriz.grupoCurricular}">
-							<f:selectItems
-								value="#{cadastroDisciplinasMatriz.listaGrupoCurricular}" />
-						</p:selectOneMenu>
-
+						</h:panelGrid>
 
 					</p:panel>
 
@@ -78,10 +83,10 @@
 					<p:commandButton id="novoButton" value="Incluir"
 						update=":mainForm:fieldDisciplina" process="@(:input)"
 						action="#{cadastroDisciplinasMatriz.gravarDisciplinasMatriz()}"
-						style="margin-left:1215px" />
+						style="margin-left:1193px" />
 
 					<br></br>
-					<br></br>
+
 
 					<p:fieldset id="fieldDisciplina" legend="Componentes Curriculares"
 						style="margin-bottom:20px" process="@this">
@@ -92,7 +97,7 @@
 							paginator="true" paginatorPosition="bottom"
 							emptyMessage="Nenhuma disciplina cadastrada." process="@this">
 
-							<p:column  sortBy="#{disciplinasMatriz.nrperiodo}">
+							<p:column sortBy="#{disciplinasMatriz.nrperiodo}">
 								<f:facet name="header">
 									<h:outputText value="Semestre" />
 								</f:facet>
@@ -120,6 +125,8 @@
 									<h:outputText value="Ação" />
 								</f:facet>
 
+								<h:outputText value="&#160;&#160;&#160;&#160;" escape="false" />
+
 								<p:commandLink process="@this"
 									onclick="PF('confirmDeleteDialog').show();">
 									<p:graphicImage value="/img/apagar.png" id="imagemExcluir" />
@@ -138,18 +145,19 @@
 				</p:panel>
 
 
-				<p:dialog id="modalExclusao" header="Exclusão de Disciplina da Matriz"
+				<p:dialog id="modalExclusao"
+					header="Exclusão de Disciplina da Matriz"
 					widgetVar="confirmDeleteDialog" modal="true">
 					<p:hotkey bind="esc" handler="confirmDeleteDialog.hide();" />
-					<p:outputLabel value="Tem certeza de que deseja excluir esta disciplina?" />
+					<p:outputLabel
+						value="Tem certeza de que deseja excluir esta disciplina?" />
 					<br></br>
 					<br></br>
-					<br></br>
-					<p:commandButton value="Sim" action="#{cadastroDisciplinasMatriz.excluirDisciplinaMatriz()}"
-						onclick="PF('confirmDeleteDialog').hide();" process="@this" 
-						update=":mainForm:fieldDisciplina" style="margin-left: 275px;" />
+					<p:commandButton value="Sim"
+						action="#{cadastroDisciplinasMatriz.excluirDisciplinaMatriz()}"
+						onclick="PF('confirmDeleteDialog').hide();" process="@this"
+						update=":mainForm:fieldDisciplina" style="margin-left: 240px;" />
 					<p:commandButton value="Não" process="@this"
-						
 						onclick="PF('confirmDeleteDialog').hide();" />
 				</p:dialog>
 

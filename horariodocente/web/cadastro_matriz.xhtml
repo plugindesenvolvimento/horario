@@ -44,12 +44,12 @@
 								<h:outputText value="#{matriz.idcurso.nome}" />
 							</p:column>
 
-<!-- 							<p:column> -->
-<!-- 								<f:facet name="header"> -->
-<!-- 									<h:outputText value="Modalidade" /> -->
-<!-- 								</f:facet> -->
-<!-- 								<h:outputText value="#{matriz.idcurso.idmodalidadecurso.nome}" /> -->
-<!-- 							</p:column> -->
+							<!-- 							<p:column> -->
+							<!-- 								<f:facet name="header"> -->
+							<!-- 									<h:outputText value="Modalidade" /> -->
+							<!-- 								</f:facet> -->
+							<!-- 								<h:outputText value="#{matriz.idcurso.idmodalidadecurso.nome}" /> -->
+							<!-- 							</p:column> -->
 
 							<p:column>
 								<f:facet name="header">
@@ -69,12 +69,12 @@
 
 							</p:column>
 
-<!-- 							<p:column> -->
-<!-- 								<f:facet name="header"> -->
-<!-- 									<h:outputText value="Quantidade de Períodos" /> -->
-<!-- 								</f:facet> -->
-<!-- 								<h:outputText value="#{matriz.quantidadeperiodos}" /> -->
-<!-- 							</p:column> -->
+							<!-- 							<p:column> -->
+							<!-- 								<f:facet name="header"> -->
+							<!-- 									<h:outputText value="Quantidade de Períodos" /> -->
+							<!-- 								</f:facet> -->
+							<!-- 								<h:outputText value="#{matriz.quantidadeperiodos}" /> -->
+							<!-- 							</p:column> -->
 
 
 							<p:column style="width:90px">
@@ -108,7 +108,7 @@
 								<p:commandLink process="@this" action="openComponenteCurricular">
 									<p:graphicImage value="/img/grade.png" id="imagemComponente" />
 									<p:tooltip id="toolTipComponente" for="imagemComponente"
-										value="Componente Curricular" />
+										value="Cadastrar Componente Curricular" />
 									<f:setPropertyActionListener
 										target="#{cadastroDisciplinasMatriz.matriz}" value="#{matriz}" />
 								</p:commandLink>
@@ -131,7 +131,7 @@
 
 
 
-						<p:outputLabel for="modalidade" value="Modalidade: " />
+						<p:outputLabel for="modalidade" value="* Modalidade: " />
 						<p:selectOneMenu id="modalidade"
 							value="#{cadastroMatriz.modalidade}"
 							converter="conversorModalidadeCurso" style="width:150px">
@@ -141,7 +141,7 @@
 							<f:selectItems value="#{cadastroMatriz.listaModalidadeCurso}" />
 						</p:selectOneMenu>
 
-						<p:outputLabel for="curso" value="Curso: " />
+						<p:outputLabel for="curso" value="* Curso: " />
 						<p:selectOneMenu id="curso" style="width:150px"
 							value="#{cadastroMatriz.matriz.idcurso}"
 							converter="conversorCurso">
@@ -149,14 +149,14 @@
 							<f:selectItems value="#{cadastroMatriz.listaCursos}" />
 						</p:selectOneMenu>
 
-						<p:outputLabel for="data" value="Data da Matriz:" />
+						<p:outputLabel for="data" value="* Data da Matriz:" />
 						<p:calendar id="data" value="#{cadastroMatriz.matriz.data}"
 							pattern="dd-MM-yyyy" mask="true" />
 
-						<h:outputText value="Ativa: " />
+						<h:outputText value="  Ativa: "  style="margin-left: 12px;"/>
 						<p:selectBooleanCheckbox value="#{cadastroMatriz.matriz.ativa}" />
 
-						<p:outputLabel for="periodo" value="Quantidade de Períodos" />
+						<p:outputLabel for="periodo" value="* Quantidade de Períodos" />
 						<p:selectOneMenu id="periodo"
 							value="#{cadastroMatriz.matriz.quantidadeperiodos}">
 							<f:selectItem itemLabel="1" itemValue="1" />
@@ -174,15 +174,17 @@
 						<h:outputText value=" " style="margin-left: 100px;" />
 						<h:outputText value=" " style="margin-left: 100px;" />
 
-						<p:commandButton value="Salvar" process=":mainForm:modalNovo"
-							action="#{cadastroMatriz.gravarMatriz()}"
-							update=":mainForm:list-container"
-							onclick="PF('novaMatriz').hide()" icon="ui-icon-disk"
-							style="margin-left: 150px;" />
-						<p:commandButton value="Cancelar" process="@this"
-							icon="ui-icon-cancel" action="#{cadastroMatriz.cancelarEdicao()}"
-							onclick="PF('novaMatriz').hide()" />
 					</h:panelGrid>
+
+					<p:commandButton value="Salvar" process=":mainForm:modalNovo"
+						action="#{cadastroMatriz.gravarMatriz()}"
+						update=":mainForm:list-container"
+						onclick="PF('novaMatriz').hide()" icon="ui-icon-disk"
+						style="margin-left: 210px;" />
+					<p:commandButton value="Cancelar" process="@this"
+						icon="ui-icon-cancel" action="#{cadastroMatriz.cancelarEdicao()}"
+						onclick="PF('novaMatriz').hide()" />
+
 				</p:dialog>
 
 				<p:dialog id="modalExclusao" header="Exclusão de Matriz"
@@ -192,11 +194,10 @@
 						value="Tem certeza de que deseja excluir esta matriz?" />
 					<br></br>
 					<br></br>
-					<br></br>
 					<p:commandButton value="Sim"
 						action="#{cadastroMatriz.excluirMatriz()}"
 						onclick="PF('confirmDeleteDialog').hide();" process="@this"
-						update=":mainForm:list-container" style="margin-left: 275px;" />
+						update=":mainForm:list-container" style="margin-left: 220px;" />
 					<p:commandButton value="Não" process="@this"
 						action="#{cadastroMatriz.cancelarEdicao()}"
 						onclick="PF('confirmDeleteDialog').hide();" />

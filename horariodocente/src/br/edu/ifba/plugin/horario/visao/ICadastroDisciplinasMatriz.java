@@ -21,8 +21,8 @@ public interface ICadastroDisciplinasMatriz {
 
 	public void setListaDisciplinasMatrizes(List<DisciplinasMatriz> disciplinasMatrizes);
 
-	//public void notificarSucesso();
+	public void notificarSucesso();
 
-	//public void notificarFalha();
+	public void notificarFalha();
 
 }

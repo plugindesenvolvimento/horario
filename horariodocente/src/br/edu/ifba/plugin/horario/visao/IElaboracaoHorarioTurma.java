@@ -11,7 +11,6 @@ import br.edu.ifba.plugin.horario.modelo.bd.beans.DisciplinasHorario;
 import br.edu.ifba.plugin.horario.modelo.bd.beans.HorarioDetalhe;
 import br.edu.ifba.plugin.horario.modelo.bd.beans.HorarioTurma;
 import br.edu.ifba.plugin.horario.modelo.bd.beans.PeriodoLetivo;
-import br.edu.ifba.plugin.horario.modelo.bd.beans.Pessoa;
 import br.edu.ifba.plugin.horario.modelo.bd.beans.Sala;
 import br.edu.ifba.plugin.horario.modelo.bd.beans.Servidor;
 
@@ -37,8 +36,6 @@ public interface IElaboracaoHorarioTurma {
 
 	public Servidor getServidor();
 	
-	public Pessoa getPessoa();
-
 	public Sala getSala();
 
 	public void setListaDisciplinasHorarios(

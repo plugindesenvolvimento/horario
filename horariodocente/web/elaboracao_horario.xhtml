@@ -16,157 +16,152 @@
 		<h:body onload="#{elaboracaoHorarioTurma.listarDisciplinasHorarios()}">
 			<h:form id="mainForm">
 
-				<p:panel id="horarioTurmaPanel" style="margin-bottom:20px">
+				<p:panel id="horarioTurmaPanel">
 
+					<h:panelGrid columns="2">
 
-					<p:outputLabel for="periodoLetivo" value="Período Letivo: " />
-					<p:selectOneMenu id="periodoLetivo"
-						value="#{elaboracaoHorarioTurma.periodoLetivo}"
-						converter="conversorPeriodoLetivo">
-						<f:selectItems
-							value="#{elaboracaoHorarioTurma.listaPeriodoLetivo}" />
-					</p:selectOneMenu>
+						<p:outputLabel for="periodoLetivo" value="Período Letivo: " />
+						<p:selectOneMenu id="periodoLetivo"
+							value="#{elaboracaoHorarioTurma.periodoLetivo}"
+							converter="conversorPeriodoLetivo">
+							<f:selectItems
+								value="#{elaboracaoHorarioTurma.listaPeriodoLetivo}" />
+						</p:selectOneMenu>
 
-					<br></br>
-					<br></br>
+						<br></br>
 
-					<p:outputLabel for="curso" value="Curso: " />
-					<p:selectOneMenu id="curso" value="#{elaboracaoHorarioTurma.curso}"
-						converter="conversorCurso">
-						<f:selectItems value="#{elaboracaoHorarioTurma.listaCurso}" />
-					</p:selectOneMenu>
+					</h:panelGrid>
 
-					<h:outputText value="&#160;&#160;&#160;&#160;" escape="false" />
+					<h:panelGrid columns="6" style="margin-left: 0px;">
 
-					<p:outputLabel for="turno" value=" Turno: " />
-					<p:selectOneMenu id="turno" value="#{elaboracaoHorarioTurma.turno}">
-						<f:selectItems value="#{elaboracaoHorarioTurma.listaTurno}" />
-					</p:selectOneMenu>
+						<p:outputLabel for="curso" value="Curso: " />
+						<p:selectOneMenu id="curso"
+							value="#{elaboracaoHorarioTurma.curso}"
+							converter="conversorCurso">
+							<f:selectItems value="#{elaboracaoHorarioTurma.listaCurso}" />
+						</p:selectOneMenu>
 
-					<h:outputText value="&#160;&#160;&#160;&#160;" escape="false" />
+						<p:outputLabel for="turno" value=" Turno: " />
+						<p:selectOneMenu id="turno"
+							value="#{elaboracaoHorarioTurma.turno}">
+							<f:selectItems value="#{elaboracaoHorarioTurma.listaTurno}" />
+						</p:selectOneMenu>
 
-					<p:outputLabel for="periodo" value="Período: " />
-					<p:selectOneMenu id="periodo"
-						value="#{elaboracaoHorarioTurma.periodo}">
-						<f:selectItem itemLabel="1" itemValue="1" />
-						<f:selectItem itemLabel="2" itemValue="2" />
-						<f:selectItem itemLabel="3" itemValue="3" />
-						<f:selectItem itemLabel="4" itemValue="4" />
-						<f:selectItem itemLabel="5" itemValue="5" />
-						<f:selectItem itemLabel="6" itemValue="6" />
-						<f:selectItem itemLabel="7" itemValue="7" />
-						<f:selectItem itemLabel="8" itemValue="8" />
-						<f:selectItem itemLabel="9" itemValue="9" />
-						<f:selectItem itemLabel="10" itemValue="10" />
-					</p:selectOneMenu>
+						<p:outputLabel for="periodo" value="Período: " />
+						<p:selectOneMenu id="periodo"
+							value="#{elaboracaoHorarioTurma.periodo}">
+							<f:selectItem itemLabel="1" itemValue="1" />
+							<f:selectItem itemLabel="2" itemValue="2" />
+							<f:selectItem itemLabel="3" itemValue="3" />
+							<f:selectItem itemLabel="4" itemValue="4" />
+							<f:selectItem itemLabel="5" itemValue="5" />
+							<f:selectItem itemLabel="6" itemValue="6" />
+							<f:selectItem itemLabel="7" itemValue="7" />
+							<f:selectItem itemLabel="8" itemValue="8" />
+							<f:selectItem itemLabel="9" itemValue="9" />
+							<f:selectItem itemLabel="10" itemValue="10" />
+						</p:selectOneMenu>
 
-					<br></br>
+					</h:panelGrid>
+
 					<br></br>
 
 					<p:commandButton id="saveButton" value="Salvar"
 						action="#{elaboracaoHorarioTurma.gravarHorarioTurma()}"
-						update="@(:input:disabled)" style="margin-left:1215px"
+						update="@(:input:disabled)" style="margin-left:1212px"
 						disabled="#{elaboracaoHorarioTurma.desabilitado}">
 						<f:setPropertyActionListener value="#{true}"
 							target="#{elaboracaoHorarioTurma.desabilitado}" />
 					</p:commandButton>
-
 				</p:panel>
+				
+				<br></br>
 
+				<p:fieldset legend="Elaboração de Horário"
+					style="margin-bottom:0px">
 
-				<p:tabView>
-					<p:tab title="Disciplinas" id="list-container" layout="block">
+					<p:commandButton id="includeButton" value="Incluir" process="@this"
+						action="#{elaboracaoHorarioTurma.prepararAdicaoDisciplinasHorario()}"
+						onclick="PF('novaDisciplinasHorario').show()"
+						style="margin-left:1212px"
+						disabled="#{!(elaboracaoHorarioTurma.desabilitado)}">
+					</p:commandButton>
 
-						<p:commandButton id="includeButton" value="Incluir"
-							process="@this"
-							action="#{elaboracaoHorarioTurma.prepararAdicaoDisciplinasHorario()}"
-							onclick="PF('novaDisciplinasHorario').show()"
-							style="margin-left:1200px"
-							disabled="#{!(elaboracaoHorarioTurma.desabilitado)}">
-						</p:commandButton>
+					<br></br>
+					<br></br>
 
-						<br></br>
-						<br></br>
+					<p:dataTable id="disciplinasHorarioTable" rows="10"
+						var="disciplinasHorario"
+						value="#{elaboracaoHorarioTurma.disciplinasHorarios}"
+						paginator="true" paginatorPosition="bottom"
+						emptyMessage="Nenhuma disciplina incluída." process="@this">
 
-						<p:dataTable id="disciplinasHorarioTable" rows="10"
-							var="disciplinasHorario"
-							value="#{elaboracaoHorarioTurma.disciplinasHorarios}"
-							paginator="true" paginatorPosition="bottom"
-							emptyMessage="Nenhuma disciplina incluída." process="@this">
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="Disciplina" />
+							</f:facet>
+							<h:outputText value="#{disciplinasHorario.iddisciplina.nome}" />
+						</p:column>
 
-							<p:column>
-								<f:facet name="header">
-									<h:outputText value="Disciplina" />
-								</f:facet>
-								<h:outputText value="#{disciplinasHorario.iddisciplina.nome}" />
-							</p:column>
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="Professor" />
+							</f:facet>
+							<h:outputText
+								value="#{disciplinasHorario.idservidor.idpessoa.nome}" />
+						</p:column>
 
-							<p:column>
-								<f:facet name="header">
-									<h:outputText value="Professor" />
-								</f:facet>
-								<h:outputText
-									value="#{disciplinasHorario.idservidor.idpessoa.nome}" />
-							</p:column>
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="Sala" />
+							</f:facet>
+							<h:outputText value="#{disciplinasHorario.idsala.nome}" />
+						</p:column>
 
-							<p:column>
-								<f:facet name="header">
-									<h:outputText value="Sala" />
-								</f:facet>
-								<h:outputText value="#{disciplinasHorario.idsala.nome}" />
-							</p:column>
+						<p:column style="width:100px">
+							<f:facet name="header">
+								<h:outputText value="Ações" />
+							</f:facet>
 
-							<p:column style="width:100px">
-								<f:facet name="header">
-									<h:outputText value="Ações" />
-								</f:facet>
+							<p:commandLink process="@this" update=":mainForm:modalNovo"
+								action="#{elaboracaoHorarioTurma.prepararEdicaoDisciplinasHorario(disciplinasHorario)}">
+								<p:graphicImage value="/img/editar.png" id="imagemAlterar" />
+								<p:tooltip id="toolTipAlterar" for="imagemAlterar"
+									value="Editar" />
+								<f:setPropertyActionListener
+									target="#{elaboracaoHorarioTurma.disciplinasHorario}"
+									value="#{disciplinasHorario}" />
+							</p:commandLink>
 
-								<p:commandLink process="@this" update=":mainForm:modalNovo"
-									action="#{elaboracaoHorarioTurma.prepararEdicaoDisciplinasHorario(disciplinasHorario)}">
-									<p:graphicImage value="/img/editar.png" id="imagemAlterar" />
-									<p:tooltip id="toolTipAlterar" for="imagemAlterar"
-										value="Editar" />
-									<f:setPropertyActionListener
-										target="#{elaboracaoHorarioTurma.disciplinasHorario}"
-										value="#{disciplinasHorario}" />
-								</p:commandLink>
+							<h:outputText value="&#160;&#160;&#160;&#160;" escape="false" />
 
-								<h:outputText value="&#160;&#160;&#160;&#160;" escape="false" />
+							<p:commandLink process="@this"
+								onclick="PF('confirmDeleteDialog').show();">
+								<p:graphicImage value="/img/apagar.png" id="imagemExcluir" />
+								<p:tooltip id="toolTipExcluir" for="imagemExcluir"
+									value="Excluir" />
+								<f:setPropertyActionListener
+									target="#{elaboracaoHorarioTurma.disciplinasHorario}"
+									value="#{disciplinasHorario}" />
+							</p:commandLink>
 
-								<p:commandLink process="@this"
-									onclick="PF('confirmDeleteDialog').show();">
-									<p:graphicImage value="/img/apagar.png" id="imagemExcluir" />
-									<p:tooltip id="toolTipExcluir" for="imagemExcluir"
-										value="Excluir" />
-									<f:setPropertyActionListener
-										target="#{elaboracaoHorarioTurma.disciplinasHorario}"
-										value="#{disciplinasHorario}" />
-								</p:commandLink>
+							<h:outputText value="&#160;&#160;&#160;&#160;" escape="false" />
 
+							<p:commandLink process="@this" update=":mainForm:modalHorario"
+								action="#{elaboracaoHorarioTurma.prepararEdicaoDisciplinasHorario(disciplinasHorario)}">
+								<p:graphicImage value="/img/horario1.png" id="imagemHorario" />
+								<p:tooltip id="toolTipHorario" for="imagemHorario"
+									value="Definir Horário" />
+								<f:setPropertyActionListener
+									target="#{elaboracaoHorarioTurma.disciplinasHorario}"
+									value="#{disciplinasHorario}" />
+							</p:commandLink>
 
-								<h:outputText value="&#160;&#160;&#160;&#160;" escape="false" />
+						</p:column>
 
-								<p:commandLink process="@this" update=":mainForm:modalHorario"
-									action="#{elaboracaoHorarioTurma.prepararEdicaoDisciplinasHorario(disciplinasHorario)}">
-									<p:graphicImage value="/img/horario1.png" id="imagemHorario" />
-									<p:tooltip id="toolTipHorario" for="imagemHorario"
-										value="Definir Horário" />
-									<f:setPropertyActionListener
-										target="#{elaboracaoHorarioTurma.disciplinasHorario}"
-										value="#{disciplinasHorario}" />
-								</p:commandLink>
+					</p:dataTable>
 
-							</p:column>
-
-						</p:dataTable>
-
-					</p:tab>
-					<p:tab title="Horários">
-
-					</p:tab>
-
-				</p:tabView>
-
+				</p:fieldset>
 
 				<p:dialog id="modalExclusao" header="Exclusão de Disciplina"
 					widgetVar="confirmDeleteDialog" modal="true">
@@ -175,12 +170,11 @@
 						value="Tem certeza de que deseja excluir esta disciplina?" />
 					<br></br>
 					<br></br>
-					<br></br>
 					<p:commandButton value="Sim"
 						action="#{elaboracaoHorarioTurma.excluirDisciplinasHorario()}"
 						update="@(.ui-datatable)"
 						onclick="PF('confirmDeleteDialog').hide();" process="@this"
-						style="margin-left: 275px;" />
+						style="margin-left: 245px;" />
 					<p:commandButton value="Não" process="@this"
 						action="#{elaboracaoHorarioTurma.cancelarEdicao()}"
 						onclick="PF('confirmDeleteDialog').hide();" />
@@ -191,41 +185,36 @@
 					closeOnEscape="true" draggable="false"
 					visible="#{elaboracaoHorarioTurma.exibirEditorDisciplinasHorario()}"
 					modal="true">
+					<h:panelGrid columns="2">
 
-					<p:outputLabel for="disciplinas" value="Disciplina:  " />
-					<p:selectOneMenu id="disciplinas"
-						value="#{elaboracaoHorarioTurma.disciplina}"
-						converter="conversorDisciplina">
-						<f:selectItems value="#{elaboracaoHorarioTurma.listaDisciplina}" />
-					</p:selectOneMenu>
+						<p:outputLabel for="disciplinas" value="Disciplina:  " />
+						<p:selectOneMenu id="disciplinas"
+							value="#{elaboracaoHorarioTurma.disciplina}"
+							converter="conversorDisciplina">
+							<f:selectItems value="#{elaboracaoHorarioTurma.listaDisciplina}" />
+						</p:selectOneMenu>
 
-					<br></br>
-					<br></br>
+						<p:outputLabel for="servidor" value="Servidor:  " />
+						<p:selectOneMenu id="servidor"
+							value="#{elaboracaoHorarioTurma.servidor}"
+							converter="conversorServidor">
+							<f:selectItems value="#{elaboracaoHorarioTurma.listaServidor}" />
+						</p:selectOneMenu>
 
-					<p:outputLabel for="servidor" value="Servidor:  " />
-					<p:selectOneMenu id="servidor"
-						value="#{elaboracaoHorarioTurma.servidor}"
-						converter="conversorServidor">
-						<f:selectItems value="#{elaboracaoHorarioTurma.listaServidor}" />
-					</p:selectOneMenu>
+						<p:outputLabel for="sala" value="Sala:  " />
+						<p:selectOneMenu id="sala" value="#{elaboracaoHorarioTurma.sala}"
+							converter="conversorSala">
+							<f:selectItems value="#{elaboracaoHorarioTurma.listaSala}" />
+						</p:selectOneMenu>
 
-					<br></br>
-					<br></br>
-
-					<p:outputLabel for="sala" value="Sala:  " />
-					<p:selectOneMenu id="sala" value="#{elaboracaoHorarioTurma.sala}"
-						converter="conversorSala">
-						<f:selectItems value="#{elaboracaoHorarioTurma.listaSala}" />
-					</p:selectOneMenu>
-
-					<br></br>
+					</h:panelGrid>
 					<br></br>
 
 					<p:commandButton value="Salvar" process=":mainForm:modalNovo"
 						action="#{elaboracaoHorarioTurma.gravarDisciplinasHorario()}"
 						update="@(.ui-datatable)"
 						onclick="PF('novaDisciplinasHorario').hide()" icon="ui-icon-disk"
-						style="margin-left: 150px;" />
+						style="margin-left: 230px;" />
 					<p:commandButton value="Cancelar" process="@this"
 						icon="ui-icon-cancel"
 						action="#{elaboracaoHorarioTurma.cancelarEdicao()}"
@@ -238,14 +227,14 @@
 					visible="#{elaboracaoHorarioTurma.exibirEditorDisciplinasHorario()}"
 					modal="true">
 
-					<h:outputText value="Disciplina: " for="nomeDisciplina" />
-					<h:outputText id="nomeDisciplina"
-						value="#{elaboracaoHorarioTurma.disciplinasHorario.iddisciplina.nome}" />
-
-					<br></br>
-					<br></br>
-
 					<h:panelGrid columns="2">
+
+						<h:outputText value="Disciplina: " for="nomeDisciplina" />
+						<h:outputText id="nomeDisciplina"
+							value="#{elaboracaoHorarioTurma.disciplinasHorario.iddisciplina.nome}" />
+
+						<h:outputText value="&#160;&#160;&#160;&#160;" escape="false" />
+						<h:outputText value="&#160;&#160;&#160;&#160;" escape="false" />
 
 						<p:outputLabel for="dia" value=" Dia da Semana: " />
 						<p:selectOneMenu id="dia"
@@ -263,14 +252,19 @@
 					</h:panelGrid>
 
 					<br></br>
-					<br></br>
 
-					<p:commandButton value="Salvar" process=":mainForm:modalHorario"
-						action="#{elaboracaoHorarioTurma.gravarHorarioDetalhe()}"
-						update="@(.ui-datatable)" onclick="PF('novoHorario').hide()"
-						icon="ui-icon-disk" style="margin-left: 150px;" />
-					<p:commandButton value="Cancelar" process="@this"
-						icon="ui-icon-cancel" onclick="PF('novoHorario').hide()" />
+					<h:panelGrid columns="2" width="100%" style="text-align:right">
+
+						<h:panelGroup>
+							<p:commandButton value="Salvar" process=":mainForm:modalHorario"
+								action="#{elaboracaoHorarioTurma.gravarHorarioDetalhe()}"
+								update="@(.ui-datatable)" onclick="PF('novoHorario').hide()"
+								icon="ui-icon-disk" width="100%" style="text-align:right" />
+							<p:commandButton value="Cancelar" process="@this"
+								icon="ui-icon-cancel" onclick="PF('novoHorario').hide()"
+								width="100%" style="text-align:right" />
+						</h:panelGroup>
+					</h:panelGrid>
 
 				</p:dialog>
 

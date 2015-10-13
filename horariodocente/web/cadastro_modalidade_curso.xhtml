@@ -1,4 +1,4 @@
-<ui:composition template="/template_base.xhtml" 
+<ui:composition template="/template_base.xhtml"
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -6,120 +6,134 @@
 	xmlns:p="http://primefaces.org/ui">
 
 
-<ui:define name="body.content.center">
+	<ui:define name="body.content.center">
 
-<br></br>
+		<br></br>
 
-<h:head>
-	<title>Cadastro de Modalidade de Curso</title>
-</h:head>
+		<h:head>
+			<title>Cadastro de Modalidade de Curso</title>
+		</h:head>
 
-<h:body onload="#{cadastroModalidadeCurso.listarModalidadesCurso()}">
-	<h:form id="mainForm">
+		<h:body onload="#{cadastroModalidadeCurso.listarModalidadesCurso()}">
+			<h:form id="mainForm">
 
-		<p:panel id="custom" header="Modalidades de Curso" style="margin-bottom:20px">
-			<h:panelGrid columns="2">
-				<p:commandButton id="novoButton" value="Novo"
-					update=":mainForm:modalNovo" process="@this" icon="ui-icon-plus"
-					action="#{cadastroModalidadeCurso.prepararAdicao()}" />
-			</h:panelGrid>
+				<p:panel id="custom" header="Modalidades de Curso"
+					style="margin-bottom:20px">
+					<h:panelGrid columns="2">
+						<p:commandButton id="novoButton" value="Novo"
+							update=":mainForm:modalNovo" process="@this" icon="ui-icon-plus"
+							action="#{cadastroModalidadeCurso.prepararAdicao()}" />
+					</h:panelGrid>
 
-			<br></br>
-			<p:outputPanel id="list-container" layout="block" process="@this">
-				<p:dataTable id="modalidadeCursoTable" rows="10" var="modalidadeCurso"
-					value="#{cadastroModalidadeCurso.modalidadesCurso}" paginator="true"
-					paginatorPosition="bottom"
-					emptyMessage="Nenhuma modalidade de curso cadastrada." process="@this">
+					<br></br>
+					<p:outputPanel id="list-container" layout="block" process="@this">
+						<p:dataTable id="modalidadeCursoTable" rows="10"
+							var="modalidadeCurso"
+							value="#{cadastroModalidadeCurso.modalidadesCurso}"
+							paginator="true" paginatorPosition="bottom"
+							emptyMessage="Nenhuma modalidade de curso cadastrada."
+							process="@this">
 
-					<p:column>
-						<f:facet name="header">
-							<h:outputText value="Nome da Modalidade de Curso" />
-						</f:facet>
-						<h:outputText value="#{modalidadeCurso.nome}" />
-					</p:column>
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="Nome da Modalidade de Curso" />
+								</f:facet>
+								<h:outputText value="#{modalidadeCurso.nome}" />
+							</p:column>
 
-					<p:column>
-						<f:facet name="header">
-							<h:outputText value="Regime Letivo" />
-						</f:facet>
-						<h:outputText value="#{modalidadeCurso.idregimeletivo}" />
-					</p:column>
-					
-					<p:column style="width:60px">
-						<f:facet name="header">
-							<h:outputText value="Ações" />
-						</f:facet>
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="Regime Letivo" />
+								</f:facet>
+								<h:outputText value="#{modalidadeCurso.idregimeletivo}" />
+							</p:column>
 
-
-						<p:commandLink process="@this" update=":mainForm:modalNovo"
-							action="#{cadastroModalidadeCurso.prepararEdicao(modalidadeCurso)}">
-							<p:graphicImage value="/img/editar.png" id="imagemAlterar" />
-							<p:tooltip id="toolTipAlterar" for="imagemAlterar" value="Editar" />
-							<f:setPropertyActionListener
-								target="#{cadastroModalidadeCurso.modalidadeCurso}" value="#{modalidadeCurso}" />
-						</p:commandLink>
-
-						<h:outputText value="&#160;&#160;&#160;&#160;" escape="false" />
-
-						<p:commandLink process="@this"
-							onclick="PF('confirmDeleteDialog').show();">
-							<p:graphicImage value="/img/apagar.png" id="imagemExcluir" />
-							<p:tooltip id="toolTipExcluir" for="imagemExcluir"
-								value="Excluir" />
-							<f:setPropertyActionListener
-								target="#{cadastroModalidadeCurso.modalidadeCurso}" value="#{modalidadeCurso}" />
-						</p:commandLink>
-
-					</p:column>
-
-				</p:dataTable>
-			</p:outputPanel>
-		</p:panel>
+							<p:column style="width:60px">
+								<f:facet name="header">
+									<h:outputText value="Ações" />
+								</f:facet>
 
 
-		<p:dialog id="modalNovo" header="Cadastro de Modalidade de Curso"
-			widgetVar="novaModalidadeCurso" resizable="false" closeOnEscape="true"
-			draggable="false" visible="#{cadastroModalidadeCurso.exibirEditor()}"
-			modal="true">
-			<h:panelGrid columns="2">
-			<p:outputLabel value="* Nome da Modalidade de Curso: " for="descricao" />
-			<p:inputText id="descricao"
-				value="#{cadastroModalidadeCurso.modalidadeCurso.nome}" />
-			
-			<p:outputLabel for="regime" value="* Regime Letivo: " />
-				<p:selectOneMenu id="regime" value="#{cadastroModalidadeCurso.regimeLetivo}">
-					<f:selectItems value="#{cadastroModalidadeCurso.listaRegimeLetivo}" />
-				</p:selectOneMenu>
+								<p:commandLink process="@this" update=":mainForm:modalNovo"
+									action="#{cadastroModalidadeCurso.prepararEdicao(modalidadeCurso)}">
+									<p:graphicImage value="/img/editar.png" id="imagemAlterar" />
+									<p:tooltip id="toolTipAlterar" for="imagemAlterar"
+										value="Editar" />
+									<f:setPropertyActionListener
+										target="#{cadastroModalidadeCurso.modalidadeCurso}"
+										value="#{modalidadeCurso}" />
+								</p:commandLink>
 
-			<p:commandButton value="Salvar" process=":mainForm:modalNovo"
-				action="#{cadastroModalidadeCurso.gravarModalidadeCurso()}"
-				update=":mainForm:list-container"
-				onclick="PF('novaModalidadeCurso').hide()" icon="ui-icon-disk"
-				style="margin-left: 150px;" />
-			<p:commandButton value="Cancelar" process="@this"
-				icon="ui-icon-cancel" action="#{cadastroModalidadeCurso.cancelarEdicao()}"
-				onclick="PF('novaModalidadeCurso').hide()" />
-		</h:panelGrid>
-		</p:dialog>
+								<h:outputText value="&#160;&#160;&#160;&#160;" escape="false" />
 
-		<p:dialog id="modalExclusao" header="Exclusão de Modalidade de Curso"
-			widgetVar="confirmDeleteDialog" modal="true">
-			<p:hotkey bind="esc" handler="confirmDeleteDialog.hide();" />
-			<p:outputLabel
-				value="Tem certeza de que deseja excluir esta modalidade de curso?" />
-			<br></br>
-			<br></br>
-			<br></br>
-			<p:commandButton value="Sim"
-				action="#{cadastroModalidadeCurso.excluirModalidadeCurso()}"
-				onclick="PF('confirmDeleteDialog').hide();" process="@this"
-				update=":mainForm:list-container" style="margin-left: 275px;" />
-			<p:commandButton value="Não" process="@this"
-				action="#{cadastroModalidadeCurso.cancelarEdicao()}"
-				onclick="PF('confirmDeleteDialog').hide();" />
-		</p:dialog>
+								<p:commandLink process="@this"
+									onclick="PF('confirmDeleteDialog').show();">
+									<p:graphicImage value="/img/apagar.png" id="imagemExcluir" />
+									<p:tooltip id="toolTipExcluir" for="imagemExcluir"
+										value="Excluir" />
+									<f:setPropertyActionListener
+										target="#{cadastroModalidadeCurso.modalidadeCurso}"
+										value="#{modalidadeCurso}" />
+								</p:commandLink>
 
-	</h:form>
-</h:body>
-</ui:define>
+							</p:column>
+
+						</p:dataTable>
+					</p:outputPanel>
+				</p:panel>
+
+
+				<p:dialog id="modalNovo" header="Cadastro de Modalidade de Curso"
+					widgetVar="novaModalidadeCurso" resizable="false"
+					closeOnEscape="true" draggable="false"
+					visible="#{cadastroModalidadeCurso.exibirEditor()}" modal="true">
+					<h:panelGrid columns="2">
+						<p:outputLabel value="* Nome da Modalidade de Curso: "
+							for="descricao" />
+						<p:inputText id="descricao"
+							value="#{cadastroModalidadeCurso.modalidadeCurso.nome}" />
+
+						<p:outputLabel for="regime" value="* Regime Letivo: " />
+						<p:selectOneMenu id="regime"
+							value="#{cadastroModalidadeCurso.regimeLetivo}">
+							<f:selectItems
+								value="#{cadastroModalidadeCurso.listaRegimeLetivo}" />
+						</p:selectOneMenu>
+
+						<br></br>
+
+					</h:panelGrid>
+
+					<p:commandButton value="Salvar" process=":mainForm:modalNovo"
+						action="#{cadastroModalidadeCurso.gravarModalidadeCurso()}"
+						update=":mainForm:list-container"
+						onclick="PF('novaModalidadeCurso').hide()" icon="ui-icon-disk"
+						style="margin-left: 270px;" />
+					<p:commandButton value="Cancelar" process="@this"
+						icon="ui-icon-cancel"
+						action="#{cadastroModalidadeCurso.cancelarEdicao()}"
+						onclick="PF('novaModalidadeCurso').hide()" />
+
+				</p:dialog>
+
+				<p:dialog id="modalExclusao"
+					header="Exclusão de Modalidade de Curso"
+					widgetVar="confirmDeleteDialog" modal="true">
+					<p:hotkey bind="esc" handler="confirmDeleteDialog.hide();" />
+					<p:outputLabel
+						value="Tem certeza de que deseja excluir esta modalidade de curso?" />
+					<br></br>
+					<br></br>
+					<p:commandButton value="Sim"
+						action="#{cadastroModalidadeCurso.excluirModalidadeCurso()}"
+						onclick="PF('confirmDeleteDialog').hide();" process="@this"
+						update=":mainForm:list-container" style="margin-left: 335px;" />
+					<p:commandButton value="Não" process="@this"
+						action="#{cadastroModalidadeCurso.cancelarEdicao()}"
+						onclick="PF('confirmDeleteDialog').hide();" />
+				</p:dialog>
+
+			</h:form>
+		</h:body>
+	</ui:define>
 </ui:composition>

@@ -24,7 +24,6 @@ import br.edu.ifba.plugin.horario.modelo.bd.beans.Servidor;
 import br.edu.ifba.plugin.horario.modelo.bd.dao.CursoDAO;
 import br.edu.ifba.plugin.horario.modelo.bd.dao.DisciplinaDAO;
 import br.edu.ifba.plugin.horario.modelo.bd.dao.PeriodoLetivoDAO;
-import br.edu.ifba.plugin.horario.modelo.bd.dao.PessoaDAO;
 import br.edu.ifba.plugin.horario.modelo.bd.dao.SalaDAO;
 import br.edu.ifba.plugin.horario.modelo.bd.dao.ServidorDAO;
 import br.edu.ifba.plugin.horario.visao.IElaboracaoHorarioTurma;
@@ -57,21 +56,17 @@ public class ElaboracaoHorarioTurma implements IElaboracaoHorarioTurma {
 	boolean desabilitado;
 
 	private HorarioDetalhe horarioDetalhe;
-	// private List<Horarios> horarios;
 	private List<HorarioDetalhe> horariosDetalhes;
 	private DiaSemana diaSemana;
 	private Horario horario;
 	private ControleHorarioDetalhe controleHorarioDetalhe;
 	private List<Pessoa> listaPessoas = new ArrayList<Pessoa>();
-	private Pessoa pessoa;
-	private PessoaDAO listaPessoa = new PessoaDAO(null);
 	
 	public ElaboracaoHorarioTurma() {
 		controle = new ControleElaboracaoHorarioTurma(this);
 		controleDisciplinasHorario = new ControleDisciplinasHorario(this);
 		controleHorarioDetalhe = new ControleHorarioDetalhe(this);
 		this.desabilitado = false;
-		// this.horarios = controle.getQuadroHorarios(horarioTurma);
 	}
 
 	@Override
@@ -395,22 +390,4 @@ public class ElaboracaoHorarioTurma implements IElaboracaoHorarioTurma {
 	public void setListaPessoas(List<Pessoa> listaPessoas) {
 		this.listaPessoas = listaPessoas;
 	}
-
-	@Override
-	public Pessoa getPessoa() {
-		return pessoa;
-	}
-
-	public void setPessoa(Pessoa pessoa) {
-		this.pessoa = pessoa;
-	}
-
-	public void setListaPessoa(PessoaDAO listaPessoa) {
-		this.listaPessoa = listaPessoa;
-	}
-	
-	public List<Pessoa> getListaPessoa() {
-		return listaPessoa.getPessoas();
-	}
-	
 }

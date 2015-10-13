@@ -1,147 +1,149 @@
-<ui:composition template="/template_base.xhtml" 
+<ui:composition template="/template_base.xhtml"
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
 
-<ui:define name="body.content.center">
+	<ui:define name="body.content.center">
 
-<br></br>
+		<br></br>
 
-<h:head>
-	<title>Cadastro de Período Letivo</title>
-</h:head>
+		<h:head>
+			<title>Cadastro de Período Letivo</title>
+		</h:head>
 
-<h:body onload="#{cadastroPeriodoLetivo.listarPeriodosLetivos()}">
-	<h:form id="mainForm">
+		<h:body onload="#{cadastroPeriodoLetivo.listarPeriodosLetivos()}">
+			<h:form id="mainForm">
 
-		<p:panel id="custom" header="Períodos Letivos"
-			style="margin-bottom:20px">
-			<h:panelGrid columns="2">
-				<p:commandButton id="novoButton" value="Novo"
-					update=":mainForm:modalNovo" process="@this" icon="ui-icon-plus"
-					action="#{cadastroPeriodoLetivo.prepararAdicao()}" />
-			</h:panelGrid>
+				<p:panel id="custom" header="Períodos Letivos"
+					style="margin-bottom:20px">
+					<h:panelGrid columns="2">
+						<p:commandButton id="novoButton" value="Novo"
+							update=":mainForm:modalNovo" process="@this" icon="ui-icon-plus"
+							action="#{cadastroPeriodoLetivo.prepararAdicao()}" />
+					</h:panelGrid>
 
-			<br></br>
-			<p:outputPanel id="list-container" layout="block" process="@this">
-				<p:dataTable id="periodoLetivoTable" rows="10" var="periodoletivo"
-					value="#{cadastroPeriodoLetivo.periodosletivos}" paginator="true"
-					paginatorPosition="bottom"
-					emptyMessage="Nenhum período letivo cadastrado." process="@this">
+					<br></br>
+					<p:outputPanel id="list-container" layout="block" process="@this">
+						<p:dataTable id="periodoLetivoTable" rows="10" var="periodoletivo"
+							value="#{cadastroPeriodoLetivo.periodosletivos}" paginator="true"
+							paginatorPosition="bottom"
+							emptyMessage="Nenhum período letivo cadastrado." process="@this">
 
-					<p:column>
-						<f:facet name="header">
-							<h:outputText value="Nome do Período Letivo" />
-						</f:facet>
-						<h:outputText value="#{periodoletivo.nome}" />
-					</p:column>
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="Nome do Período Letivo" />
+								</f:facet>
+								<h:outputText value="#{periodoletivo.nome}" />
+							</p:column>
 
-					<p:column>
-						<f:facet name="header">
-							<h:outputText value="Data Início" />
-						</f:facet>
-						<h:outputText value="#{periodoletivo.datainicio}">
-							<f:convertDateTime pattern="dd/MM/yyyy" />
-						</h:outputText>
-					</p:column>
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="Data Início" />
+								</f:facet>
+								<h:outputText value="#{periodoletivo.datainicio}">
+									<f:convertDateTime pattern="dd/MM/yyyy" />
+								</h:outputText>
+							</p:column>
 
-					<p:column>
-						<f:facet name="header">
-							<h:outputText value="Data Fim" />
-						</f:facet>
-						<h:outputText value="#{periodoletivo.datafim}">
-							<f:convertDateTime pattern="dd/MM/yyyy"/>
-						</h:outputText>
-					</p:column>
-
-
-					<p:column style="width:60px">
-						<f:facet name="header">
-							<h:outputText value="Ações" />
-						</f:facet>
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="Data Fim" />
+								</f:facet>
+								<h:outputText value="#{periodoletivo.datafim}">
+									<f:convertDateTime pattern="dd/MM/yyyy" />
+								</h:outputText>
+							</p:column>
 
 
-						<p:commandLink process="@this" update=":mainForm:modalNovo"
-							action="#{cadastroPeriodoLetivo.prepararEdicao(periodoletivo)}">
-							<p:graphicImage value="/img/editar.png" id="imagemAlterar" />
-							<p:tooltip id="toolTipAlterar" for="imagemAlterar" value="Editar" />
-							<f:setPropertyActionListener
-								target="#{cadastroPeriodoLetivo.periodoletivo}"
-								value="#{periodoletivo}" />
-						</p:commandLink>
-
-						<h:outputText value="&#160;&#160;&#160;&#160;" escape="false" />
-
-						<p:commandLink process="@this"
-							onclick="PF('confirmDeleteDialog').show();">
-							<p:graphicImage value="/img/apagar.png" id="imagemExcluir" />
-							<p:tooltip id="toolTipExcluir" for="imagemExcluir"
-								value="Excluir" />
-							<f:setPropertyActionListener
-								target="#{cadastroPeriodoLetivo.periodoletivo}"
-								value="#{periodoletivo}" />
-						</p:commandLink>
-
-					</p:column>
-
-				</p:dataTable>
-			</p:outputPanel>
-		</p:panel>
+							<p:column style="width:60px">
+								<f:facet name="header">
+									<h:outputText value="Ações" />
+								</f:facet>
 
 
-		<p:dialog id="modalNovo" header="Cadastro de Período Letivo"
-			widgetVar="novoPeriodo" resizable="false" closeOnEscape="true"
-			draggable="false" visible="#{cadastroPeriodoLetivo.exibirEditor()}"
-			modal="true">
-			<h:panelGrid columns="2">
-				<p:outputLabel value="* Nome do Período Letivo: " for="descricao" />
-				<p:inputText id="descricao"
-					value="#{cadastroPeriodoLetivo.periodoletivo.nome}" />
+								<p:commandLink process="@this" update=":mainForm:modalNovo"
+									action="#{cadastroPeriodoLetivo.prepararEdicao(periodoletivo)}">
+									<p:graphicImage value="/img/editar.png" id="imagemAlterar" />
+									<p:tooltip id="toolTipAlterar" for="imagemAlterar"
+										value="Editar" />
+									<f:setPropertyActionListener
+										target="#{cadastroPeriodoLetivo.periodoletivo}"
+										value="#{periodoletivo}" />
+								</p:commandLink>
 
-				<p:outputLabel for="dataInicio" value="Data Início:" />
-				<p:calendar id="dataInicio"
-					value="#{cadastroPeriodoLetivo.periodoletivo.datainicio}"
-					pattern="dd-MM-yyyy" mask="true" />
+								<h:outputText value="&#160;&#160;&#160;&#160;" escape="false" />
 
-				<p:outputLabel for="dataFim" value="Data Fim:" />
-				<p:calendar id="dataFim"
-					value="#{cadastroPeriodoLetivo.periodoletivo.datafim}"
-					pattern="dd-MM-yyyy" mask="true" />
+								<p:commandLink process="@this"
+									onclick="PF('confirmDeleteDialog').show();">
+									<p:graphicImage value="/img/apagar.png" id="imagemExcluir" />
+									<p:tooltip id="toolTipExcluir" for="imagemExcluir"
+										value="Excluir" />
+									<f:setPropertyActionListener
+										target="#{cadastroPeriodoLetivo.periodoletivo}"
+										value="#{periodoletivo}" />
+								</p:commandLink>
 
-				<h:outputText value="" style="margin-left: 100px;" />
-				<br></br>
-				<p:commandButton value="Salvar" process=":mainForm:modalNovo"
-					action="#{cadastroPeriodoLetivo.gravarPeriodoLetivo()}"
-					update=":mainForm:list-container"
-					onclick="PF('novoPeriodo').hide()" icon="ui-icon-disk"
-					style="margin-left: 150px;" />
-				<p:commandButton value="Cancelar" process="@this"
-					icon="ui-icon-cancel"
-					action="#{cadastroPeriodoLetivo.cancelarEdicao()}"
-					onclick="PF('novoPeriodo').hide()" />
-			</h:panelGrid>
-		</p:dialog>
+							</p:column>
 
-		<p:dialog id="modalExclusao" header="Exclusão de Período Letivo"
-			widgetVar="confirmDeleteDialog" modal="true">
-			<p:hotkey bind="esc" handler="confirmDeleteDialog.hide();" />
-			<p:outputLabel
-				value="Tem certeza de que deseja excluir este período letivo?" />
-			<br></br>
-			<br></br>
-			<br></br>
-			<p:commandButton value="Sim"
-				action="#{cadastroPeriodoLetivo.excluirPeriodoLetivo()}"
-				onclick="PF('confirmDeleteDialog').hide();" process="@this"
-				update=":mainForm:list-container" style="margin-left: 275px;" />
-			<p:commandButton value="Não" process="@this"
-				action="#{cadastroPeriodoLetivo.cancelarEdicao()}"
-				onclick="PF('confirmDeleteDialog').hide();" />
-		</p:dialog>
+						</p:dataTable>
+					</p:outputPanel>
+				</p:panel>
 
-	</h:form>
-</h:body>
-</ui:define>
+
+				<p:dialog id="modalNovo" header="Cadastro de Período Letivo"
+					widgetVar="novoPeriodo" resizable="false" closeOnEscape="true"
+					draggable="false" visible="#{cadastroPeriodoLetivo.exibirEditor()}"
+					modal="true">
+					<h:panelGrid columns="2">
+						<p:outputLabel value="* Nome do Período Letivo: " for="descricao" />
+						<p:inputText id="descricao"
+							value="#{cadastroPeriodoLetivo.periodoletivo.nome}" />
+
+						<p:outputLabel for="dataInicio" value="* Data Início: " />
+						<p:calendar id="dataInicio"
+							value="#{cadastroPeriodoLetivo.periodoletivo.datainicio}"
+							pattern="dd-MM-yyyy" mask="true" />
+
+						<p:outputLabel for="dataFim" value="* Data Fim: " />
+						<p:calendar id="dataFim"
+							value="#{cadastroPeriodoLetivo.periodoletivo.datafim}"
+							pattern="dd-MM-yyyy" mask="true" />
+						
+					</h:panelGrid>
+
+					<h:outputText value="" style="margin-left: 100px;" />
+					<br></br>
+					<p:commandButton value="Salvar" process=":mainForm:modalNovo"
+						action="#{cadastroPeriodoLetivo.gravarPeriodoLetivo()}"
+						update=":mainForm:list-container"
+						onclick="PF('novoPeriodo').hide()" icon="ui-icon-disk"
+						style="margin-left: 215px;" />
+					<p:commandButton value="Cancelar" process="@this"
+						icon="ui-icon-cancel"
+						action="#{cadastroPeriodoLetivo.cancelarEdicao()}"
+						onclick="PF('novoPeriodo').hide()" />
+
+				</p:dialog>
+
+				<p:dialog id="modalExclusao" header="Exclusão de Período Letivo"
+					widgetVar="confirmDeleteDialog" modal="true">
+					<p:hotkey bind="esc" handler="confirmDeleteDialog.hide();" />
+					<p:outputLabel
+						value="Tem certeza de que deseja excluir este período letivo?" />
+					<br></br>
+					<br></br>
+					<p:commandButton value="Sim"
+						action="#{cadastroPeriodoLetivo.excluirPeriodoLetivo()}"
+						onclick="PF('confirmDeleteDialog').hide();" process="@this"
+						update=":mainForm:list-container" style="margin-left: 280px;" />
+					<p:commandButton value="Não" process="@this"
+						action="#{cadastroPeriodoLetivo.cancelarEdicao()}"
+						onclick="PF('confirmDeleteDialog').hide();" />
+				</p:dialog>
+
+			</h:form>
+		</h:body>
+	</ui:define>
 </ui:composition>

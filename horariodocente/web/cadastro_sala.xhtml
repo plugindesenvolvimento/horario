@@ -83,24 +83,26 @@
 					draggable="false" visible="#{cadastroSala.exibirEditor()}"
 					modal="true">
 					<h:panelGrid columns="2">
-					<p:outputLabel value="* Nome da Sala: " for="descricao" />
-					<p:inputText id="descricao" value="#{cadastroSala.sala.nome}" />
-					
-					<p:outputLabel value="* Bloco: " for="bloco" />
-					<p:inputText id="bloco" value="#{cadastroSala.sala.bloco}" />
-					
-					<h:outputText value="* Campo Obrigatório"
-						style="margin-left: 100px;" />
-					<br></br>
-					<br></br>
+						<p:outputLabel value="* Nome da Sala: " for="descricao" />
+						<p:inputText id="descricao" value="#{cadastroSala.sala.nome}" />
+
+						<p:outputLabel value="* Bloco: " for="bloco" />
+						<p:inputText id="bloco" value="#{cadastroSala.sala.bloco}" />
+
+						<!-- 						<h:outputText value="* Campo Obrigatório" -->
+						<!-- 							style="margin-left: 100px;" /> -->
+						<br></br>
+
+					</h:panelGrid>
+
 					<p:commandButton value="Salvar" process=":mainForm:modalNovo"
 						action="#{cadastroSala.gravarSala()}"
 						update=":mainForm:list-container" onclick="PF('novaSala').hide()"
-						icon="ui-icon-disk" style="margin-left: 150px;" />
+						icon="ui-icon-disk" style="margin-left: 135px;" />
 					<p:commandButton value="Cancelar" process="@this"
 						icon="ui-icon-cancel" action="#{cadastroSala.cancelarEdicao()}"
 						onclick="PF('novaSala').hide()" />
-				</h:panelGrid>
+
 				</p:dialog>
 
 				<p:dialog id="modalExclusao" header="Exclusão de Sala"
@@ -109,10 +111,9 @@
 					<p:outputLabel value="Tem certeza de que deseja excluir esta sala?" />
 					<br></br>
 					<br></br>
-					<br></br>
 					<p:commandButton value="Sim" action="#{cadastroSala.excluirSala()}"
 						onclick="PF('confirmDeleteDialog').hide();" process="@this"
-						update=":mainForm:list-container" style="margin-left: 275px;" />
+						update=":mainForm:list-container" style="margin-left: 200px;" />
 					<p:commandButton value="Não" process="@this"
 						action="#{cadastroSala.cancelarEdicao()}"
 						onclick="PF('confirmDeleteDialog').hide();" />

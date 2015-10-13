@@ -103,51 +103,56 @@
 					draggable="false"
 					visible="#{elaboracaoHorarioTurma.exibirEditor()}" modal="true">
 					<h:panelGrid columns="2">
-					
-					<p:outputLabel for="periodoLetivo" value="Período Letivo: " />
-					<p:selectOneMenu id="periodoLetivo"
-						value="#{elaboracaoHorarioTurma.periodoLetivo}"
-						converter="conversorPeriodoLetivo">
-						<f:selectItems
-							value="#{elaboracaoHorarioTurma.listaPeriodoLetivo}" />
-					</p:selectOneMenu>
-					
-					<p:outputLabel for="curso" value="Curso: " />
-					<p:selectOneMenu id="curso" value="#{elaboracaoHorarioTurma.curso}"
-						converter="conversorCurso">
-						<f:selectItems value="#{elaboracaoHorarioTurma.listaCurso}" />
-					</p:selectOneMenu>
-					
-					<p:outputLabel for="turno" value=" Turno: " />
-					<p:selectOneMenu id="turno" value="#{elaboracaoHorarioTurma.turno}">
-						<f:selectItems value="#{elaboracaoHorarioTurma.listaTurno}" />
-					</p:selectOneMenu>
-					
-					<p:outputLabel for="periodo" value="Período: " />
-					<p:selectOneMenu id="periodo"
-						value="#{elaboracaoHorarioTurma.periodo}">
-						<f:selectItem itemLabel="1" itemValue="1" />
-						<f:selectItem itemLabel="2" itemValue="2" />
-						<f:selectItem itemLabel="3" itemValue="3" />
-						<f:selectItem itemLabel="4" itemValue="4" />
-						<f:selectItem itemLabel="5" itemValue="5" />
-						<f:selectItem itemLabel="6" itemValue="6" />
-						<f:selectItem itemLabel="7" itemValue="7" />
-						<f:selectItem itemLabel="8" itemValue="8" />
-						<f:selectItem itemLabel="9" itemValue="9" />
-						<f:selectItem itemLabel="10" itemValue="10" />
-					</p:selectOneMenu>
+
+						<p:outputLabel for="periodoLetivo" value="Período Letivo: " />
+						<p:selectOneMenu id="periodoLetivo"
+							value="#{elaboracaoHorarioTurma.periodoLetivo}"
+							converter="conversorPeriodoLetivo">
+							<f:selectItems
+								value="#{elaboracaoHorarioTurma.listaPeriodoLetivo}" />
+						</p:selectOneMenu>
+
+						<p:outputLabel for="curso" value="Curso: " />
+						<p:selectOneMenu id="curso"
+							value="#{elaboracaoHorarioTurma.curso}"
+							converter="conversorCurso">
+							<f:selectItems value="#{elaboracaoHorarioTurma.listaCurso}" />
+						</p:selectOneMenu>
+
+						<p:outputLabel for="turno" value=" Turno: " />
+						<p:selectOneMenu id="turno"
+							value="#{elaboracaoHorarioTurma.turno}">
+							<f:selectItems value="#{elaboracaoHorarioTurma.listaTurno}" />
+						</p:selectOneMenu>
+
+						<p:outputLabel for="periodo" value="Período: " />
+						<p:selectOneMenu id="periodo"
+							value="#{elaboracaoHorarioTurma.periodo}">
+							<f:selectItem itemLabel="1" itemValue="1" />
+							<f:selectItem itemLabel="2" itemValue="2" />
+							<f:selectItem itemLabel="3" itemValue="3" />
+							<f:selectItem itemLabel="4" itemValue="4" />
+							<f:selectItem itemLabel="5" itemValue="5" />
+							<f:selectItem itemLabel="6" itemValue="6" />
+							<f:selectItem itemLabel="7" itemValue="7" />
+							<f:selectItem itemLabel="8" itemValue="8" />
+							<f:selectItem itemLabel="9" itemValue="9" />
+							<f:selectItem itemLabel="10" itemValue="10" />
+						</p:selectOneMenu>
+
+					</h:panelGrid>
+					<br></br>
 
 					<p:commandButton value="Salvar" process=":mainForm:modalNovo"
 						action="#{elaboracaoHorarioTurma.editarHorarioTurma()}"
 						update=":mainForm:list-container"
 						onclick="PF('novoHorarioTurma').hide()" icon="ui-icon-disk"
-						style="margin-left: 150px;" />
+						style="margin-left: 300px;" />
 					<p:commandButton value="Cancelar" process="@this"
 						icon="ui-icon-cancel"
 						action="#{elaboracaoHorarioTurma.cancelarEdicao()}"
 						onclick="PF('novoHorarioTurma').hide()" />
-				</h:panelGrid>
+
 				</p:dialog>
 
 				<p:dialog id="modalExclusao" header="Exclusão de Turmas"
@@ -157,11 +162,10 @@
 						value="Tem certeza de que deseja excluir esta turma?" />
 					<br></br>
 					<br></br>
-					<br></br>
 					<p:commandButton value="Sim"
 						action="#{elaboracaoHorarioTurma.excluirHorarioTurma()}"
 						onclick="PF('confirmDeleteDialog').hide();" process="@this"
-						update=":mainForm:list-container" style="margin-left: 275px;" />
+						update=":mainForm:list-container" style="margin-left: 215px;" />
 					<p:commandButton value="Não" process="@this"
 						action="#{elaboracaoHorarioTurma.cancelarEdicao()}"
 						onclick="PF('confirmDeleteDialog').hide();" />
